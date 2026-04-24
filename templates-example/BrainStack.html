@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrainStack — Knowledge Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body, #root { height: 100%; }
+    body { font-family: var(--font-sans); background: var(--bg-1); color: var(--tx-1); line-height: 1.5; }
+
+    /* ── Dark theme (default) ───────────────────────────────── */
+    [data-theme="dark"] {
+      --bg-0: #090d12;
+      --bg-1: #0d1117;
+      --bg-2: #161b22;
+      --bg-3: #1e2530;
+      --bg-4: #252d3a;
+
+      --bd-subtle: #141a22;
+      --bd-default: #21262d;
+      --bd-strong: #30363d;
+
+      --tx-1: #e6edf3;
+      --tx-2: #8b949e;
+      --tx-3: #484f58;
+
+      --amber: #f0a520;
+      --amber-bg: rgba(240,165,32,.09);
+      --amber-bd: rgba(240,165,32,.22);
+
+      --teal: #2dd4bf;
+      --teal-bg: rgba(45,212,191,.07);
+      --teal-bd: rgba(45,212,191,.2);
+
+      --green: #3fb950;
+      --red:   #f85149;
+      --blue:  #58a6ff;
+
+      --syn-keyword:  #ff7b72;
+      --syn-string:   #a5d6ff;
+      --syn-comment:  #484f58;
+      --syn-number:   #f2cc60;
+      --syn-function: #d2a8ff;
+      --syn-type:     #ffa657;
+      --syn-flag:     #79c0ff;
+
+      --tag-docker-bg:   rgba(9,117,241,.12);
+      --tag-docker-text: #58a6ff;
+      --tag-linux-bg:    rgba(63,185,80,.1);
+      --tag-linux-text:  #3fb950;
+      --tag-git-bg:      rgba(248,81,73,.1);
+      --tag-git-text:    #ff7b72;
+      --tag-k8s-bg:      rgba(188,140,255,.1);
+      --tag-k8s-text:    #bc8cff;
+      --tag-nginx-bg:    rgba(240,165,32,.1);
+      --tag-nginx-text:  #f0a520;
+      --tag-postgres-bg: rgba(45,212,191,.1);
+      --tag-postgres-text: #2dd4bf;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.4);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.6);
+    }
+
+    /* ── Light theme ────────────────────────────────────────── */
+    [data-theme="light"] {
+      --bg-0: #f3f4f6;
+      --bg-1: #ffffff;
+      --bg-2: #f6f8fa;
+      --bg-3: #eaecef;
+      --bg-4: #dde0e4;
+
+      --bd-subtle: #eaecef;
+      --bd-default: #d0d7de;
+      --bd-strong: #bbc0c7;
+
+      --tx-1: #1f2328;
+      --tx-2: #656d76;
+      --tx-3: #8c959f;
+
+      --amber: #9a6700;
+      --amber-bg: rgba(154,103,0,.06);
+      --amber-bd: rgba(154,103,0,.2);
+
+      --teal: #0d7377;
+      --teal-bg: rgba(13,115,119,.06);
+      --teal-bd: rgba(13,115,119,.2);
+
+      --green: #1a7f37;
+      --red:   #cf222e;
+      --blue:  #0969da;
+
+      --syn-keyword:  #cf222e;
+      --syn-string:   #0a3069;
+      --syn-comment:  #8c959f;
+      --syn-number:   #0550ae;
+      --syn-function: #8250df;
+      --syn-type:     #953800;
+      --syn-flag:     #0550ae;
+
+      --tag-docker-bg:   rgba(9,117,241,.08);
+      --tag-docker-text: #0969da;
+      --tag-linux-bg:    rgba(26,127,55,.08);
+      --tag-linux-text:  #1a7f37;
+      --tag-git-bg:      rgba(207,34,46,.08);
+      --tag-git-text:    #cf222e;
+      --tag-k8s-bg:      rgba(130,80,223,.08);
+      --tag-k8s-text:    #8250df;
+      --tag-nginx-bg:    rgba(154,103,0,.08);
+      --tag-nginx-text:  #9a6700;
+      --tag-postgres-bg: rgba(13,115,119,.08);
+      --tag-postgres-text: #0d7377;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.1);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.15);
+    }
+
+    /* ── Typography ─────────────────────────────────────────── */
+    --font-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+    /* ── Scrollbars ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bd-strong); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--tx-3); }
+
+    /* ── Syntax ─────────────────────────────────────────────── */
+    .syn-keyword  { color: var(--syn-keyword); }
+    .syn-string   { color: var(--syn-string); }
+    .syn-comment  { color: var(--syn-comment); font-style: italic; }
+    .syn-number   { color: var(--syn-number); }
+    .syn-function { color: var(--syn-function); }
+    .syn-type     { color: var(--syn-type); }
+    .syn-flag     { color: var(--syn-flag); }
+
+    /* ── Animations ─────────────────────────────────────────── */
+    @keyframes pulse {
+      0%, 100% { opacity: .2; transform: scale(.8); }
+      50%       { opacity: 1;  transform: scale(1); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── App layout ─────────────────────────────────────────── */
+    #root { display: flex; flex-direction: column; }
+    .app-body { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 52px); }
+    .main-content { flex: 1; overflow: hidden; display: flex; }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .toc-sidebar { display: none !important; }
+      .nav-link-desktop { display: none !important; }
+      .mobile-only { display: flex !important; }
+      .nav-label { display: none; }
+    }
+    @media (max-width: 960px) {
+      .nav-label { display: none; }
+    }
+    @media (max-width: 640px) {
+      .mobile-overlay { display: block !important; }
+    }
+
+    /* ── Tweaks panel ─────────────────────────────────────────*/
+    .tweaks-panel {
+      position: fixed; bottom: 20px; right: 20px; z-index: 500;
+      background: var(--bg-2); border: 1px solid var(--bd-strong);
+      border-radius: 12px; padding: 18px;
+      width: 240px;
+      box-shadow: var(--shadow-lg);
+      animation: fadeIn .2s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="components/Shared.jsx"></script>
+  <script type="text/babel" src="components/HomeScreen.jsx"></script>
+  <script type="text/babel" src="components/ArticleScreen.jsx"></script>
+  <script type="text/babel" src="components/UtilScreens.jsx"></script>
+  <script type="text/babel" src="components/EditorScreen.jsx"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accentColor": "amber",
+      "fontScale": 1,
+      "sidebarVisible": true,
+      "compactMode": false
+    }/*EDITMODE-END*/;
+
+    const App = () => {
+      const [screen, setScreen] = useState(() => localStorage.getItem('bs-screen') || 'home');
+      const [theme, setTheme] = useState(() => localStorage.getItem('bs-theme') || 'dark');
+      const [sidebarOpen, setSidebarOpen] = useState(false);
+      const [paletteOpen, setPaletteOpen] = useState(false);
+      const [tweaksOpen, setTweaksOpen] = useState(false);
+      const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+
+      // Persist screen + theme
+      useEffect(() => { localStorage.setItem('bs-screen', screen); }, [screen]);
+      useEffect(() => {
+        localStorage.setItem('bs-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      // Apply saved appearance on mount
+      useEffect(() => {
+        try {
+          const saved = JSON.parse(localStorage.getItem('bs-appearance') || '{}');
+          if (Object.keys(saved).length) applyAppearanceCss(saved);
+        } catch {}
+      }, []);
+
+      // Keyboard shortcut: Cmd+K
+      useEffect(() => {
+        const h = e => {
+          if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setPaletteOpen(o => !o); }
+        };
+        window.addEventListener('keydown', h);
+        return () => window.removeEventListener('keydown', h);
+      }, []);
+
+      // Tweaks toggle
+      useEffect(() => {
+        const listener = e => {
+          if (e.data?.type === '__activate_edit_mode') setTweaksOpen(true);
+          if (e.data?.type === '__deactivate_edit_mode') setTweaksOpen(false);
+        };
+        window.addEventListener('message', listener);
+        window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+        return () => window.removeEventListener('message', listener);
+      }, []);
+
+      const applyTweak = (key, val) => {
+        const next = { ...tweaks, [key]: val };
+        setTweaks(next);
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+      };
+
+      // Font scale CSS var
+      useEffect(() => {
+        document.documentElement.style.fontSize = `${tweaks.fontScale * 16}px`;
+      }, [tweaks.fontScale]);
+
+      // Accent color
+      const accentMap = {
+        amber: { main: '#f0a520', bg: 'rgba(240,165,32,.09)', bd: 'rgba(240,165,32,.22)' },
+        teal:  { main: '#2dd4bf', bg: 'rgba(45,212,191,.09)',  bd: 'rgba(45,212,191,.22)' },
+        violet:{ main: '#a78bfa', bg: 'rgba(167,139,250,.09)', bd: 'rgba(167,139,250,.22)' },
+      };
+      useEffect(() => {
+        const a = accentMap[tweaks.accentColor] || accentMap.amber;
+        document.documentElement.style.setProperty('--amber', a.main);
+        document.documentElement.style.setProperty('--amber-bg', a.bg);
+        document.documentElement.style.setProperty('--amber-bd', a.bd);
+      }, [tweaks.accentColor]);
+
+      const screens = {
+        home:       <HomeScreen setScreen={setScreen} />,
+        article:    <ArticleScreen setScreen={setScreen} />,
+        cheatsheet: <CheatsheetScreen setScreen={setScreen} />,
+        'ai-chat':  <AIChatScreen />,
+        settings:   <SettingsScreen theme={theme} setTheme={setTheme} />,
+        editor:     <EditorScreen setScreen={setScreen} />,
+        discover:   <DiscoverScreen setScreen={setScreen} />,
+      };
+
+      // Screens that self-manage scroll (flex columns with inner scroll areas)
+      const selfScrolling = ['article', 'ai-chat', 'editor', 'discover'];
+      const currentScreen = screens[screen] || screens.home;
+
+      return (
+        <>
+          <TopNav
+            screen={screen} setScreen={setScreen}
+            theme={theme} setTheme={setTheme}
+            onSearch={() => setPaletteOpen(true)}
+            onNewPost={() => setScreen('ai-chat')}
+            sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
+          />
+
+          <div className="app-body">
+            {(tweaks.sidebarVisible !== false) && (
+              <Sidebar screen={screen} setScreen={setScreen} open={sidebarOpen} setOpen={setSidebarOpen}
+                onToggle={() => applyTweak('sidebarVisible', false)} />
+            )}
+            {tweaks.sidebarVisible === false && (
+              <button onClick={() => applyTweak('sidebarVisible', true)} title="Show sidebar" style={{
+                width: 24, flexShrink: 0,
+                background: 'var(--bg-1)', border: 'none',
+                borderRight: '1px solid var(--bd-default)',
+                cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'var(--tx-3)', transition: 'color .15s',
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--amber)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--tx-3)'}
+              >
+                <Icon name="chevronRight" size={13} />
+              </button>
+            )}
+            <main className="main-content" style={{ fontSize: tweaks.compactMode ? '0.93em' : '1em' }}>
+              {selfScrolling.includes(screen)
+                ? currentScreen
+                : <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>{currentScreen}</div>
+              }
+            </main>
+          </div>
+
+          <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} setScreen={setScreen} />
+
+          {/* Tweaks panel */}
+          {tweaksOpen && (
+            <div className="tweaks-panel">
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--tx-1)', marginBottom: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                Tweaks
+                <button onClick={() => setTweaksOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--tx-3)' }}>
+                  <Icon name="close" size={14} />
+                </button>
+              </div>
+
+              <TweakRow label="Accent color">
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {Object.entries(accentMap).map(([k, v]) => (
+                    <div key={k} onClick={() => applyTweak('accentColor', k)} style={{
+                      width: 22, height: 22, borderRadius: '50%', background: v.main,
+                      cursor: 'pointer', border: tweaks.accentColor === k ? `2px solid var(--tx-1)` : '2px solid transparent',
+                      transition: 'border .15s',
+                    }} title={k} />
+                  ))}
+                </div>
+              </TweakRow>
+
+              <TweakRow label="Font scale">
+                <input type="range" min="0.85" max="1.2" step="0.05"
+                  value={tweaks.fontScale}
+                  onChange={e => applyTweak('fontScale', parseFloat(e.target.value))}
+                  style={{ width: '100%', accentColor: 'var(--amber)' }}
+                />
+                <span style={{ fontSize: 11, color: 'var(--tx-3)', fontFamily: 'var(--font-mono)' }}>{Math.round(tweaks.fontScale * 100)}%</span>
+              </TweakRow>
+
+              <TweakRow label="Left sidebar">
+                <Toggle on={tweaks.sidebarVisible !== false} onChange={v => applyTweak('sidebarVisible', v)} />
+              </TweakRow>
+
+              <TweakRow label="Compact mode">
+                <Toggle on={tweaks.compactMode === true} onChange={v => applyTweak('compactMode', v)} />
+              </TweakRow>
+
+              <TweakRow label="Theme">
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {['dark','light'].map(t => (
+                    <button key={t} onClick={() => setTheme(t)} style={{
+                      padding: '3px 10px', borderRadius: 5, cursor: 'pointer',
+                      background: theme === t ? 'var(--bg-4)' : 'var(--bg-3)',
+                      border: `1px solid ${theme === t ? 'var(--bd-strong)' : 'var(--bd-default)'}`,
+                      color: theme === t ? 'var(--tx-1)' : 'var(--tx-2)',
+                      fontSize: 12,
+                    }}>{t}</button>
+                  ))}
+                </div>
+              </TweakRow>
+            </div>
+          )}
+        </>
+      );
+    };
+
+    const TweakRow = ({ label, children }) => (
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11.5, color: 'var(--tx-3)', marginBottom: 6, fontFamily: 'var(--font-mono)' }}>{label}</div>
+        {children}
+      </div>
+    );
+
+    const Toggle = ({ on, onChange }) => (
+      <div onClick={() => onChange(!on)} style={{
+        width: 36, height: 20, borderRadius: 10,
+        background: on ? 'var(--amber)' : 'var(--bg-4)',
+        cursor: 'pointer', position: 'relative',
+        transition: 'background .2s',
+        border: '1px solid var(--bd-strong)',
+      }}>
+        <div style={{
+          position: 'absolute', top: 2, left: on ? 17 : 2,
+          width: 14, height: 14, borderRadius: '50%',
+          background: on ? '#000' : 'var(--tx-3)',
+          transition: 'left .2s',
+        }} />
+      </div>
+    );
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

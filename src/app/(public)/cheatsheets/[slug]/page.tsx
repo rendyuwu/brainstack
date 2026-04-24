@@ -6,6 +6,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { Icon } from '@/components/icons';
 import { getPageWithCollection, getPublishedPages } from '@/lib/pages';
 import { renderMDX } from '@/lib/mdx';
+import { RelatedPages } from '@/components/related-pages';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -163,6 +164,8 @@ export default async function CheatsheetPage({ params }: PageProps) {
             </div>
           )}
         </div>
+
+        <RelatedPages pageId={page.id} />
       </div>
     </div>
   );

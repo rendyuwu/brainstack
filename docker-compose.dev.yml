@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      target: deps
+    command: pnpm dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      DATABASE_URL: postgresql://noa:noa@postgres:5432/brainstack
+      NEXTAUTH_SECRET: dev-secret-change-in-production
+      NEXTAUTH_URL: http://localhost:3000

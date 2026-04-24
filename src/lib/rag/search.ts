@@ -1,6 +1,7 @@
 import { db } from '@/db';
 import { sql } from 'drizzle-orm';
 import { embedQuery } from './embedder';
+import { rerankBM25 } from './reranker';
 
 export interface SearchResult {
   chunkId: string;
@@ -39,11 +40,11 @@ interface PageMeta {
 
 const RRF_K = 60;
 
-function rrf(ranks: number[]): number {
+export function rrf(ranks: number[]): number {
   return ranks.reduce((sum, rank) => sum + 1 / (RRF_K + rank), 0);
 }
 
-function extractRows<T>(result: unknown): T[] {
+export function extractRows<T>(result: unknown): T[] {
   if (Array.isArray(result)) return result as T[];
   const obj = result as { rows?: T[] };
   return obj?.rows ?? [];
@@ -55,6 +56,7 @@ export async function hybridSearch(
     scopeType?: 'page' | 'collection' | 'site';
     scopeId?: string;
     limit?: number;
+    rerank?: boolean | 'bm25';
   }
 ): Promise<SearchResult[]> {
   const limit = options?.limit ?? 10;
@@ -156,7 +158,23 @@ export async function hybridSearch(
   }));
 
   scored.sort((a, b) => b.score - a.score);
-  const topResults = scored.slice(0, limit);
+
+  let topResults: typeof scored;
+
+  if (options?.rerank !== false) {
+    const reranked = rerankBM25(
+      query,
+      scored.slice(0, 20).map((s) => ({ id: s.chunkId, content: s.content, score: s.score })),
+      limit
+    );
+    const rerankedMap = new Map(reranked.map((r, i) => [r.id, { score: r.score, idx: i }]));
+    topResults = scored
+      .filter((s) => rerankedMap.has(s.chunkId))
+      .map((s) => ({ ...s, score: rerankedMap.get(s.chunkId)!.score }))
+      .sort((a, b) => b.score - a.score);
+  } else {
+    topResults = scored.slice(0, limit);
+  }
 
   if (topResults.length === 0) return [];
 

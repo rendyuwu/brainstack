@@ -143,7 +143,7 @@ export async function testConnection(provider: ProviderConfig) {
   }
 }
 
-function detectCapabilities(modelId: string) {
+export function detectCapabilities(modelId: string) {
   const id = modelId.toLowerCase();
   return {
     supportsChat: true,

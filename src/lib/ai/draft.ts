@@ -2,6 +2,7 @@ import { db } from '@/db';
 import { aiProviders, aiModels } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { createAIClient } from './client';
+import { logAIUsage } from './usage-logger';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from './types';
 
 const SYSTEM_PROMPT = `You are Noa, an AI writing assistant for BrainStack — an IT knowledge platform for DevOps, cloud, and infrastructure topics.
@@ -90,17 +91,35 @@ export async function generateDraft(
   });
 
   const encoder = new TextEncoder();
+  const startTime = Date.now();
 
   return new ReadableStream<Uint8Array>({
     async start(controller) {
       try {
+        let inputTokens: number | undefined;
+        let outputTokens: number | undefined;
+
         for await (const chunk of stream) {
           const delta = chunk.choices[0]?.delta?.content;
           if (delta) {
             controller.enqueue(encoder.encode(delta));
           }
+          if (chunk.usage) {
+            inputTokens = chunk.usage.prompt_tokens;
+            outputTokens = chunk.usage.completion_tokens;
+          }
         }
+
         controller.close();
+
+        logAIUsage({
+          providerId: provider.id,
+          modelId,
+          endpoint: 'draft',
+          inputTokens,
+          outputTokens,
+          durationMs: Date.now() - startTime,
+        }).catch(() => {});
       } catch (err) {
         controller.error(err);
       }

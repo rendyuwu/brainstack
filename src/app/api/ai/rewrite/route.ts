@@ -1,10 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { rewriteContent, type RewriteStyle } from '@/lib/ai/rewrite';
+import { checkRateLimit } from '@/lib/rate-limiter';
 
 const VALID_STYLES: RewriteStyle[] = ['cheatsheet', 'beginner', 'advanced'];
 
 export async function POST(request: NextRequest) {
+  const rateCheck = checkRateLimit(request, 10, 60_000);
+  if (!rateCheck.allowed) {
+    return new NextResponse('Too Many Requests', {
+      status: 429,
+      headers: { 'Retry-After': String(rateCheck.retryAfter) },
+    });
+  }
+
   try {
     const session = await auth();
     if (!session) {

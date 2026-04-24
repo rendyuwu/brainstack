@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { generateDraft } from '@/lib/ai/draft';
+import { checkRateLimit } from '@/lib/rate-limiter';
 
 export async function POST(request: NextRequest) {
+  const rateCheck = checkRateLimit(request, 10, 60_000);
+  if (!rateCheck.allowed) {
+    return new NextResponse('Too Many Requests', {
+      status: 429,
+      headers: { 'Retry-After': String(rateCheck.retryAfter) },
+    });
+  }
+
   try {
     const session = await auth();
     if (!session) {

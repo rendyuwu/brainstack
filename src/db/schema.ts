@@ -211,3 +211,19 @@ export const pages = pgTable("pages", {
 		}),
 	unique("pages_slug_unique").on(table.slug),
 ]);
+
+export const aiUsageLogs = pgTable("ai_usage_logs", {
+	id: uuid().defaultRandom().primaryKey().notNull(),
+	providerId: uuid("provider_id"),
+	modelId: text("model_id"),
+	endpoint: text().notNull(),
+	inputTokens: integer("input_tokens"),
+	outputTokens: integer("output_tokens"),
+	durationMs: integer("duration_ms"),
+	userId: uuid("user_id"),
+	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+}, (table) => [
+	index("ai_usage_logs_created_idx").using("btree", table.createdAt.asc().nullsLast()),
+	foreignKey({ columns: [table.providerId], foreignColumns: [aiProviders.id], name: "ai_usage_logs_provider_id_fk" }),
+	foreignKey({ columns: [table.userId], foreignColumns: [users.id], name: "ai_usage_logs_user_id_fk" }),
+]);

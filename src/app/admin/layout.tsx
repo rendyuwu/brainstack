@@ -52,6 +52,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         >
           AI Providers
         </Link>
+        <Link
+          href="/admin/ai/usage"
+          style={{
+            fontSize: 13.5,
+            color: 'var(--tx-2)',
+            padding: '6px 12px',
+            borderRadius: 6,
+            transition: 'color .15s',
+          }}
+        >
+          AI Usage
+        </Link>
       </nav>
       <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
     </div>

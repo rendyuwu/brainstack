@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { pages, pageRevisions } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { runPublishPipeline } from '@/lib/rag/pipeline';
+import { detectDuplicates } from '@/lib/rag/duplicate-detector';
 
 export async function POST(
   _request: NextRequest,
@@ -53,7 +54,14 @@ export async function POST(
       console.error('Publish pipeline error:', err);
     });
 
-    return NextResponse.json(published);
+    const duplicates = await detectDuplicates(id, page.title, page.mdxSource ?? '');
+
+    return NextResponse.json({
+      ...published,
+      warnings: duplicates.length > 0
+        ? [{ type: 'potential_duplicates', matches: duplicates }]
+        : [],
+    });
   } catch (error) {
     console.error('POST /api/pages/[id]/publish error:', error);
     return NextResponse.json(

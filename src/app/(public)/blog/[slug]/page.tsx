@@ -8,6 +8,7 @@ import { getPageWithCollection, getPublishedPages } from '@/lib/pages';
 import { renderMDX, extractHeadings, estimateReadTime } from '@/lib/mdx';
 import { ArticleTOC } from '@/components/article-toc';
 import { ArticleChatToggle } from '@/components/chat/article-chat-toggle';
+import { RelatedPages } from '@/components/related-pages';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -210,6 +211,8 @@ export default async function BlogPage({ params }: PageProps) {
             </div>
           )}
         </div>
+
+        <RelatedPages pageId={page.id} />
       </div>
     </div>
   );

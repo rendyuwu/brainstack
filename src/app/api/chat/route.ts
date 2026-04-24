@@ -4,6 +4,8 @@ import { conversations, messages, aiProviders, aiModels } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { createAIClient } from '@/lib/ai/client';
 import { hybridSearch } from '@/lib/rag/search';
+import { checkRateLimit } from '@/lib/rate-limiter';
+import { logAIUsage } from '@/lib/ai/usage-logger';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from '@/lib/ai/types';
 
 interface ChatRequestBody {
@@ -71,6 +73,14 @@ Answer the user's question based ONLY on the provided context chunks. Follow the
 6. Never make up information not present in the context`;
 
 export async function POST(request: NextRequest) {
+  const rateCheck = checkRateLimit(request, 20, 60_000);
+  if (!rateCheck.allowed) {
+    return new NextResponse('Too Many Requests', {
+      status: 429,
+      headers: { 'Retry-After': String(rateCheck.retryAfter) },
+    });
+  }
+
   try {
     const body = (await request.json()) as ChatRequestBody;
     const { message, conversationId, scopeType, scopeId } = body;
@@ -167,6 +177,7 @@ export async function POST(request: NextRequest) {
     // 6. Stream response and collect full text
     const encoder = new TextEncoder();
     let fullResponse = '';
+    const startTime = Date.now();
 
     const responseStream = new ReadableStream<Uint8Array>({
       async start(controller) {
@@ -184,11 +195,18 @@ export async function POST(request: NextRequest) {
           });
           controller.enqueue(encoder.encode(meta + '\n'));
 
+          let inputTokens: number | undefined;
+          let outputTokens: number | undefined;
+
           for await (const chunk of stream) {
             const delta = chunk.choices[0]?.delta?.content;
             if (delta) {
               fullResponse += delta;
               controller.enqueue(encoder.encode(delta));
+            }
+            if (chunk.usage) {
+              inputTokens = chunk.usage.prompt_tokens;
+              outputTokens = chunk.usage.completion_tokens;
             }
           }
 
@@ -204,6 +222,15 @@ export async function POST(request: NextRequest) {
               anchorId: c.anchorId,
             })),
           });
+
+          logAIUsage({
+            providerId: provider.id,
+            modelId,
+            endpoint: 'chat',
+            inputTokens,
+            outputTokens,
+            durationMs: Date.now() - startTime,
+          }).catch(() => {});
 
           controller.close();
         } catch (err) {

@@ -5,6 +5,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { getPageWithCollection, getCollectionBySlug, getPagesByCollection } from '@/lib/pages';
 import { renderMDX, extractHeadings, estimateReadTime } from '@/lib/mdx';
 import { ArticleTOC } from '@/components/article-toc';
+import { RelatedPages } from '@/components/related-pages';
 
 interface PageProps {
   params: Promise<{ collection: string; slug: string }>;
@@ -165,6 +166,8 @@ export default async function StackPage({ params }: PageProps) {
             </div>
           )}
         </div>
+
+        <RelatedPages pageId={page.id} />
       </div>
     </div>
   );

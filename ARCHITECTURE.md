@@ -26,6 +26,7 @@ src/
 │   ├── api/               # API routes (see below)
 │   ├── editor/            # MDX content editor (new + edit)
 │   ├── login/             # Auth page
+│   ├── settings/          # User settings (AI model selection, appearance)
 │   └── setup/             # First-run admin setup
 ├── components/
 │   ├── chat/              # Conversational Q&A (chat panel, citations, messages)
@@ -64,6 +65,7 @@ src/
 /api/admin/providers/[id]         # Single provider management
 /api/admin/providers/[id]/test    # Connection test
 /api/admin/providers/[id]/discover # Model discovery
+/api/admin/providers/[id]/models   # Manual model entry + test
 ```
 
 ## Data Model

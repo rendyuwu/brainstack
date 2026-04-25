@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Icon } from './icons';
@@ -19,6 +20,16 @@ const NAV_LINKS = [
 export function TopNav({ onSearchOpen }: TopNavProps) {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/auth/session')
+      .then(res => res.json())
+      .then(data => {
+        if (data?.user?.role === 'admin') setIsAdmin(true);
+      })
+      .catch(() => {});
+  }, []);
 
   const isActive = (href: string) => pathname.startsWith(href);
 
@@ -163,6 +174,23 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
       >
         <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={16} />
       </button>
+
+      {/* Admin */}
+      {isAdmin && (
+        <Link
+          href="/admin/ai/providers"
+          style={{
+            color: 'var(--tx-2)',
+            padding: 6,
+            borderRadius: 6,
+            display: 'flex',
+            alignItems: 'center',
+            textDecoration: 'none',
+          }}
+        >
+          <Icon name="shield" size={16} />
+        </Link>
+      )}
 
       {/* Settings */}
       <Link

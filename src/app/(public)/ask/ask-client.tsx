@@ -159,6 +159,7 @@ export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
           minHeight: 0,
         }}
       >
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
         {messages.length === 0 && (
           <div
             style={{
@@ -246,6 +247,7 @@ export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
             )}
           </div>
         ))}
+        </div>
       </div>
 
       {/* Input */}
@@ -256,7 +258,7 @@ export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
           background: 'var(--bg-2)',
         }}
       >
-        <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', maxWidth: 700 }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', maxWidth: 700, margin: '0 auto' }}>
           <textarea
             ref={inputRef}
             value={input}

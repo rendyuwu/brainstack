@@ -38,8 +38,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  }, [theme, setTheme]);
+    setThemeState(prev => {
+      const next = prev === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('bs-theme', next);
+      document.documentElement.setAttribute('data-theme', next);
+      return next;
+    });
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>

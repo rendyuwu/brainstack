@@ -120,7 +120,63 @@ export async function deleteProvider(id: string) {
   return !!row;
 }
 
-// ---------- test / discover ----------
+// ---------- manual model management ----------
+
+export async function addManualModel(
+  providerId: string,
+  data: {
+    modelId: string;
+    supportsChat?: boolean;
+    supportsEmbeddings?: boolean;
+    supportsVision?: boolean;
+    supportsResponses?: boolean;
+    contextLength?: number | null;
+  },
+) {
+  const [row] = await db
+    .insert(aiModels)
+    .values({
+      providerId,
+      modelId: data.modelId,
+      displayName: data.modelId,
+      supportsChat: data.supportsChat ?? true,
+      supportsResponses: data.supportsResponses ?? false,
+      supportsEmbeddings: data.supportsEmbeddings ?? false,
+      supportsVision: data.supportsVision ?? false,
+      contextLength: data.contextLength ?? null,
+    })
+    .onConflictDoUpdate({
+      target: [aiModels.providerId, aiModels.modelId],
+      set: {
+        displayName: sql`excluded.display_name`,
+        supportsChat: sql`excluded.supports_chat`,
+        supportsResponses: sql`excluded.supports_responses`,
+        supportsEmbeddings: sql`excluded.supports_embeddings`,
+        supportsVision: sql`excluded.supports_vision`,
+        contextLength: sql`excluded.context_length`,
+      },
+    })
+    .returning();
+
+  return row;
+}
+
+export async function testModel(provider: ProviderConfig, modelId: string) {
+  try {
+    const client = createAIClient(provider);
+    await client.chat.completions.create({
+      model: modelId,
+      messages: [{ role: 'user', content: 'hi' }],
+      max_tokens: 1,
+    });
+    return { success: true as const };
+  } catch (err) {
+    return {
+      success: false as const,
+      error: err instanceof Error ? err.message : 'Unknown error',
+    };
+  }
+}
 
 export async function testConnection(provider: ProviderConfig) {
   try {

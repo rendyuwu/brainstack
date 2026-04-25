@@ -183,6 +183,19 @@ export default function ProvidersPage() {
     Record<string, { status: 'idle' | 'discovering' | 'done' | 'fail'; message?: string; count?: number }>
   >({});
 
+  // Add model form state
+  const [addModelOpen, setAddModelOpen] = useState<Record<string, boolean>>({});
+  const [addModelForm, setAddModelForm] = useState<Record<string, {
+    modelId: string;
+    supportsChat: boolean;
+    supportsEmbeddings: boolean;
+    supportsVision: boolean;
+    supportsResponses: boolean;
+  }>>({});
+  const [addModelStates, setAddModelStates] = useState<
+    Record<string, { status: 'idle' | 'saving' | 'testing' | 'ok' | 'fail'; message?: string }>
+  >({});
+
   // ---------- Fetch ----------
 
   const fetchProviders = useCallback(async () => {
@@ -302,6 +315,59 @@ export default function ProvidersPage() {
   }
 
   // ---------- Test / Discover ----------
+
+  function openAddModel(providerId: string) {
+    setAddModelOpen(s => ({ ...s, [providerId]: true }));
+    setAddModelForm(s => ({
+      ...s,
+      [providerId]: { modelId: '', supportsChat: true, supportsEmbeddings: false, supportsVision: false, supportsResponses: false },
+    }));
+    setAddModelStates(s => ({ ...s, [providerId]: { status: 'idle' } }));
+  }
+
+  function closeAddModel(providerId: string) {
+    setAddModelOpen(s => ({ ...s, [providerId]: false }));
+    setAddModelStates(s => ({ ...s, [providerId]: { status: 'idle' } }));
+  }
+
+  function updateAddModelForm(providerId: string, field: string, value: string | boolean) {
+    setAddModelForm(s => ({
+      ...s,
+      [providerId]: { ...s[providerId], [field]: value },
+    }));
+  }
+
+  async function handleAddModel(providerId: string, test: boolean) {
+    const formData = addModelForm[providerId];
+    if (!formData?.modelId.trim()) return;
+
+    setAddModelStates(s => ({ ...s, [providerId]: { status: test ? 'testing' : 'saving' } }));
+
+    try {
+      const res = await fetch(`/api/admin/providers/${providerId}/models`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, test }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setAddModelStates(s => ({ ...s, [providerId]: { status: 'ok', message: `Model "${formData.modelId}" added` } }));
+        setAddModelForm(s => ({
+          ...s,
+          [providerId]: { modelId: '', supportsChat: true, supportsEmbeddings: false, supportsVision: false, supportsResponses: false },
+        }));
+        fetchProviders();
+      } else {
+        setAddModelStates(s => ({ ...s, [providerId]: { status: 'fail', message: data.error } }));
+      }
+    } catch (err) {
+      setAddModelStates(s => ({
+        ...s,
+        [providerId]: { status: 'fail', message: err instanceof Error ? err.message : 'Network error' },
+      }));
+    }
+  }
 
   async function handleTest(id: string) {
     setTestStates((s) => ({ ...s, [id]: { status: 'testing' } }));
@@ -957,6 +1023,12 @@ export default function ProvidersPage() {
                         )}
                       </button>
                       <button
+                        onClick={() => addModelOpen[provider.id] ? closeAddModel(provider.id) : openAddModel(provider.id)}
+                        style={btnSecondary}
+                      >
+                        + Add Model
+                      </button>
+                      <button
                         onClick={() => openEditForm(provider)}
                         style={btnSecondary}
                       >
@@ -1034,6 +1106,113 @@ export default function ProvidersPage() {
                       Discovery failed: {ds.message}
                     </div>
                   )}
+
+                  {/* Add Model inline form */}
+                  {addModelOpen[provider.id] && (() => {
+                    const mf = addModelForm[provider.id];
+                    const ms = addModelStates[provider.id] ?? { status: 'idle' };
+                    if (!mf) return null;
+                    return (
+                      <div
+                        ref={el => el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })}
+                        style={{
+                          padding: '14px 18px',
+                          borderBottom: '1px solid var(--bd-default)',
+                          background: 'var(--bg-1)',
+                        }}
+                      >
+                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--tx-2)', marginBottom: 10 }}>
+                          Add Model Manually
+                        </div>
+
+                        {ms.status === 'ok' && (
+                          <div style={{
+                            padding: '6px 12px', marginBottom: 10, borderRadius: 6,
+                            background: 'rgba(63,185,80,.08)', border: '1px solid rgba(63,185,80,.2)',
+                            fontSize: 12.5, color: 'var(--green)',
+                          }}>
+                            {ms.message}
+                          </div>
+                        )}
+                        {ms.status === 'fail' && (
+                          <div style={{
+                            padding: '6px 12px', marginBottom: 10, borderRadius: 6,
+                            background: 'rgba(248,81,73,.08)', border: '1px solid rgba(248,81,73,.2)',
+                            fontSize: 12.5, color: 'var(--red)',
+                          }}>
+                            {ms.message}
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
+                          <input
+                            value={mf.modelId}
+                            onChange={e => updateAddModelForm(provider.id, 'modelId', e.target.value)}
+                            placeholder="e.g. gpt-4o-mini, claude-3-5-sonnet"
+                            spellCheck={false}
+                            style={{ ...inputStyle, flex: 1 }}
+                          />
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+                          {([
+                            { key: 'supportsChat', label: 'Chat' },
+                            { key: 'supportsEmbeddings', label: 'Embeddings' },
+                            { key: 'supportsVision', label: 'Vision' },
+                            { key: 'supportsResponses', label: 'Responses' },
+                          ] as const).map(cap => (
+                            <label key={cap.key} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5, color: 'var(--tx-2)', cursor: 'pointer' }}>
+                              <input
+                                type="checkbox"
+                                checked={mf[cap.key]}
+                                onChange={e => updateAddModelForm(provider.id, cap.key, e.target.checked)}
+                                style={{ accentColor: 'var(--teal)' }}
+                              />
+                              {cap.label}
+                            </label>
+                          ))}
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          <button
+                            onClick={() => handleAddModel(provider.id, true)}
+                            disabled={!mf.modelId.trim() || ms.status === 'testing' || ms.status === 'saving'}
+                            style={{
+                              ...btnPrimary,
+                              fontSize: 13,
+                              padding: '7px 14px',
+                              opacity: !mf.modelId.trim() || ms.status === 'testing' || ms.status === 'saving' ? 0.6 : 1,
+                              cursor: !mf.modelId.trim() || ms.status === 'testing' || ms.status === 'saving' ? 'not-allowed' : 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 6,
+                            }}
+                          >
+                            {ms.status === 'testing' && <Spinner size={12} />}
+                            Test &amp; Add
+                          </button>
+                          <button
+                            onClick={() => handleAddModel(provider.id, false)}
+                            disabled={!mf.modelId.trim() || ms.status === 'testing' || ms.status === 'saving'}
+                            style={{
+                              ...btnSecondary,
+                              opacity: !mf.modelId.trim() || ms.status === 'testing' || ms.status === 'saving' ? 0.6 : 1,
+                              cursor: !mf.modelId.trim() || ms.status === 'testing' || ms.status === 'saving' ? 'not-allowed' : 'pointer',
+                            }}
+                          >
+                            {ms.status === 'saving' && <Spinner size={12} />}
+                            Add Without Test
+                          </button>
+                          <button
+                            onClick={() => closeAddModel(provider.id)}
+                            style={{ ...btnSecondary, marginLeft: 'auto' }}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                   {/* Models list */}
                   {provider.models.length > 0 ? (
@@ -1133,7 +1312,7 @@ export default function ProvidersPage() {
                       }}
                     >
                       No models discovered yet. Click &quot;Discover Models&quot;
-                      to fetch available models.
+                      to fetch available models, or &quot;Add Model&quot; to enter one manually.
                     </div>
                   )}
                 </div>

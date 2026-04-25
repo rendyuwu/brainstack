@@ -1,13 +1,38 @@
 services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: noa
+      POSTGRES_PASSWORD: noa
+      POSTGRES_DB: brainstack
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U noa -d brainstack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   app:
     build:
       context: .
       target: deps
-    command: pnpm dev
+    command: sh -c "pnpm drizzle-kit push && pnpm dev"
+    ports:
+      - "3100:3100"
     volumes:
       - .:/app
       - /app/node_modules
     environment:
       DATABASE_URL: postgresql://noa:noa@postgres:5432/brainstack
-      NEXTAUTH_SECRET: dev-secret-change-in-production
-      NEXTAUTH_URL: http://localhost:3000
+      AUTH_SECRET: dev-secret-change-in-production
+      AUTH_TRUST_HOST: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata-dev:

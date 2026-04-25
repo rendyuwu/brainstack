@@ -19,11 +19,11 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "3100:3100"
     environment:
       DATABASE_URL: postgresql://noa:noa@postgres:5432/brainstack
       NEXTAUTH_SECRET: dev-secret-change-in-production
-      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_URL: http://localhost:3100
     depends_on:
       postgres:
         condition: service_healthy

@@ -1,42 +1,57 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function SetupPage() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     fetch('/api/setup')
       .then((r) => r.json())
       .then((data) => {
-        if (data.needsSetup) router.replace('/setup');
+        if (!data.needsSetup) router.replace('/login');
+        else setChecking(false);
       })
-      .catch(() => {});
+      .catch(() => setChecking(false));
   }, [router]);
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setError('');
+
+    if (password !== confirm) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
+      const res = await fetch('/api/setup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
       });
 
-      if (result?.error) {
-        setError('Invalid email or password');
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Setup failed');
       } else {
-        router.push('/');
-        router.refresh();
+        router.push('/login');
       }
     } catch {
       setError('Something went wrong');
@@ -44,6 +59,29 @@ export default function LoginPage() {
       setLoading(false);
     }
   }
+
+  if (checking) return null;
+
+  const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontSize: 13,
+    color: 'var(--tx-2)',
+    marginBottom: 6,
+    fontFamily: 'var(--font-mono)',
+  };
+
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '10px 12px',
+    marginBottom: 16,
+    background: 'var(--bg-3)',
+    border: '1px solid var(--bd-default)',
+    borderRadius: 8,
+    color: 'var(--tx-1)',
+    fontSize: 14,
+    fontFamily: 'var(--font-sans)',
+    outline: 'none',
+  };
 
   return (
     <div
@@ -76,7 +114,7 @@ export default function LoginPage() {
             fontFamily: 'var(--font-sans)',
           }}
         >
-          BrainStack
+          BrainStack Setup
         </h1>
         <p
           style={{
@@ -86,7 +124,7 @@ export default function LoginPage() {
             fontFamily: 'var(--font-sans)',
           }}
         >
-          Sign in to continue
+          Create your admin account
         </p>
 
         {error && (
@@ -106,66 +144,45 @@ export default function LoginPage() {
           </div>
         )}
 
-        <label
-          style={{
-            display: 'block',
-            fontSize: 13,
-            color: 'var(--tx-2)',
-            marginBottom: 6,
-            fontFamily: 'var(--font-mono)',
-          }}
-        >
-          Email
-        </label>
+        <label style={labelStyle}>Name</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          style={inputStyle}
+          placeholder="Your name"
+        />
+
+        <label style={labelStyle}>Email</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={{
-            width: '100%',
-            padding: '10px 12px',
-            marginBottom: 16,
-            background: 'var(--bg-3)',
-            border: '1px solid var(--bd-default)',
-            borderRadius: 8,
-            color: 'var(--tx-1)',
-            fontSize: 14,
-            fontFamily: 'var(--font-sans)',
-            outline: 'none',
-          }}
-          placeholder="admin@brainstack.dev"
+          style={inputStyle}
+          placeholder="admin@example.com"
         />
 
-        <label
-          style={{
-            display: 'block',
-            fontSize: 13,
-            color: 'var(--tx-2)',
-            marginBottom: 6,
-            fontFamily: 'var(--font-mono)',
-          }}
-        >
-          Password
-        </label>
+        <label style={labelStyle}>Password</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={{
-            width: '100%',
-            padding: '10px 12px',
-            marginBottom: 24,
-            background: 'var(--bg-3)',
-            border: '1px solid var(--bd-default)',
-            borderRadius: 8,
-            color: 'var(--tx-1)',
-            fontSize: 14,
-            fontFamily: 'var(--font-sans)',
-            outline: 'none',
-          }}
-          placeholder="Enter your password"
+          minLength={8}
+          style={inputStyle}
+          placeholder="Min 8 characters"
+        />
+
+        <label style={labelStyle}>Confirm Password</label>
+        <input
+          type="password"
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          required
+          style={{ ...inputStyle, marginBottom: 24 }}
+          placeholder="Repeat password"
         />
 
         <button
@@ -186,7 +203,7 @@ export default function LoginPage() {
             transition: 'opacity .15s',
           }}
         >
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? 'Creating account...' : 'Create Admin Account'}
         </button>
       </form>
     </div>

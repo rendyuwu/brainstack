@@ -25,7 +25,8 @@ src/
 │   ├── admin/             # Admin panel (AI providers, usage dashboard)
 │   ├── api/               # API routes (see below)
 │   ├── editor/            # MDX content editor (new + edit)
-│   └── login/             # Auth page
+│   ├── login/             # Auth page
+│   └── setup/             # First-run admin setup
 ├── components/
 │   ├── chat/              # Conversational Q&A (chat panel, citations, messages)
 │   └── editor/            # Editor UI (markdown editor, AI assist, preview, metadata)
@@ -47,6 +48,7 @@ src/
 
 ```
 /api/auth/[...nextauth]           # NextAuth handlers
+/api/setup                        # First-run admin setup (GET check, POST create)
 /api/pages                        # CRUD pages (list, create)
 /api/pages/[id]                   # CRUD single page (get, update, delete)
 /api/pages/[id]/publish           # Publish/unpublish
@@ -90,10 +92,11 @@ ai_providers ──< ai_models
 
 ## Auth Flow
 
-1. Credentials provider (email + bcrypt password hash)
-2. JWT session strategy
-3. Middleware protects `/editor/*` and `/admin/*` routes
-4. Cookie-based token check (`authjs.session-token` or `__Secure-` prefix)
+1. **First-run setup**: If no admin user exists, `/login` redirects to `/setup` to create the first admin account
+2. Credentials provider (email + bcrypt password hash)
+3. JWT session strategy
+4. Middleware protects `/editor/*` and `/admin/*` routes
+5. Cookie-based token check (`authjs.session-token` or `__Secure-` prefix)
 
 ## AI Architecture
 
@@ -128,6 +131,8 @@ docker compose -f docker-compose.dev.yml up
 cp .env.example .env.local
 pnpm install
 pnpm dev
+
+# First run: open http://localhost:3100 → redirects to /setup → create admin account
 
 # Production
 docker compose up --build

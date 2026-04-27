@@ -56,7 +56,7 @@ export async function PATCH(request: Request) {
     const isSamePassword = await compare(newPassword, user.passwordHash);
     if (isSamePassword) {
       return NextResponse.json(
-        { error: 'New password must be different from current password' },
+        { error: 'Password change failed' },
         { status: 400 },
       );
     }

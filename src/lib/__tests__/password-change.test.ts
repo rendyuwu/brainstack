@@ -110,7 +110,7 @@ describe('PATCH /api/account/password', () => {
     const res = await callPATCH({ currentPassword: 'same', newPassword: 'samepass1' });
     expect(res.status).toBe(400);
     const data = await res.json();
-    expect(data.error).toBe('New password must be different from current password');
+    expect(data.error).toBe('Password change failed');
   });
 
   // Happy path

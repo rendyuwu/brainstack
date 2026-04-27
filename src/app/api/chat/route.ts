@@ -7,6 +7,8 @@ import { hybridSearch } from '@/lib/rag/search';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { logAIUsage } from '@/lib/ai/usage-logger';
 import { chatSchema, validateBody } from '@/lib/validation';
+import { auth } from '@/lib/auth';
+import { contentSnippet } from '@/lib/content-snippet';
 
 interface Citation {
   num: number;
@@ -15,12 +17,6 @@ interface Citation {
   anchorId: string | null;
   content: string;
   contentSnippet: string;
-}
-
-export function contentSnippet(content: string, maxLength = 240): string {
-  const compact = content.replace(/```[\s\S]*?```/g, ' ').replace(/\s+/g, ' ').trim();
-  if (compact.length <= maxLength) return compact;
-  return `${compact.slice(0, maxLength - 1).trimEnd()}…`;
 }
 
 const CHAT_SYSTEM_PROMPT = `You are Noa, an AI assistant for BrainStack — an IT knowledge base covering DevOps, cloud, and infrastructure.
@@ -35,7 +31,10 @@ Answer the user's question based ONLY on the provided context chunks. Follow the
 6. Never make up information not present in the context`;
 
 export async function POST(request: NextRequest) {
-  const rateCheck = checkRateLimit(request, 20, 60_000);
+  // Tighter rate limit for unauthenticated users (cost protection)
+  const session = await auth();
+  const limit = session ? 30 : 5;
+  const rateCheck = checkRateLimit(request, limit, 60_000);
   if (!rateCheck.allowed) {
     return new NextResponse('Too Many Requests', {
       status: 429,
@@ -56,7 +55,7 @@ export async function POST(request: NextRequest) {
         .insert(conversations)
         .values({
           scopeType: scopeType || 'site',
-          scopeId: scopeId || null,
+          scopeId: scopeId ?? null,
         })
         .returning({ id: conversations.id });
       convId = conv.id;
@@ -72,7 +71,7 @@ export async function POST(request: NextRequest) {
     // 3. Run hybrid search
     const searchResults = await hybridSearch(message, {
       scopeType,
-      scopeId,
+      scopeId: scopeId ?? undefined,
       limit: 6,
     });
 

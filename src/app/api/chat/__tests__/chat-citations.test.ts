@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { contentSnippet } from '../route';
+import { contentSnippet } from '@/lib/content-snippet';
 
 describe('contentSnippet', () => {
   it('collapses whitespace and caps citation snippets', () => {

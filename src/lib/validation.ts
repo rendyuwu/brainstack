@@ -114,7 +114,7 @@ export const aiDraftSchema = z.object({
 const rewriteStyleEnum = z.enum(['cheatsheet', 'beginner', 'advanced']);
 
 export const aiRewriteSchema = z.object({
-  content: z.string().min(1, 'content is required'),
+  content: z.string().min(1, 'content is required').max(50000, 'content too long (max 50,000 chars)'),
   style: rewriteStyleEnum,
 });
 

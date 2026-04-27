@@ -3,6 +3,7 @@ import { db } from '@/db';
 import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { hash } from 'bcryptjs';
+import { setupSchema, validateBody } from '@/lib/validation';
 
 async function adminExists(): Promise<boolean> {
   const [row] = await db
@@ -27,25 +28,9 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json();
-  const { email, password, name } = body as {
-    email?: string;
-    password?: string;
-    name?: string;
-  };
-
-  if (!email || !password || !name) {
-    return NextResponse.json(
-      { error: 'Name, email, and password are required' },
-      { status: 400 },
-    );
-  }
-
-  if (password.length < 8) {
-    return NextResponse.json(
-      { error: 'Password must be at least 8 characters' },
-      { status: 400 },
-    );
-  }
+  const v = validateBody(setupSchema, body);
+  if (!v.success) return v.response;
+  const { email, password, name } = v.data;
 
   const passwordHash = await hash(password, 12);
 

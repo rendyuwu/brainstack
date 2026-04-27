@@ -99,6 +99,7 @@ const TABS = [
   { id: 'ai', label: 'AI Provider', icon: 'sparkles' },
   { id: 'editor', label: 'Editor', icon: 'file' },
   { id: 'appearance', label: 'Appearance', icon: 'sun' },
+  { id: 'account', label: 'Account', icon: 'key' },
 ];
 
 export default function SettingsPage() {
@@ -119,6 +120,51 @@ export default function SettingsPage() {
       return DEFAULT_APPEARANCE;
     }
   });
+
+  // Account / password change state
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [pwLoading, setPwLoading] = useState(false);
+  const [pwError, setPwError] = useState('');
+  const [pwSuccess, setPwSuccess] = useState(false);
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPwError('');
+    setPwSuccess(false);
+
+    if (newPassword.length < 8) {
+      setPwError('Password must be at least 8 characters');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPwError('New passwords do not match');
+      return;
+    }
+
+    setPwLoading(true);
+    try {
+      const res = await fetch('/api/account/password', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setPwError(data.error || 'Password change failed');
+      } else {
+        setPwSuccess(true);
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      }
+    } catch {
+      setPwError('Password change failed');
+    } finally {
+      setPwLoading(false);
+    }
+  };
 
   useEffect(() => {
     applyAppearanceCss(appearance);
@@ -393,6 +439,88 @@ export default function SettingsPage() {
                   </div>
                 ))}
               </div>
+            </FormSection>
+          </div>
+        )}
+
+        {activeTab === 'account' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+            <FormSection title="Change Password" desc="Update your account password. You must verify your current password first.">
+              <form onSubmit={handlePasswordChange} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <Field label="Current Password">
+                  <input
+                    type="password"
+                    value={currentPassword}
+                    onChange={e => { setCurrentPassword(e.target.value); setPwError(''); setPwSuccess(false); }}
+                    placeholder="Enter current password"
+                    required
+                    style={inputStyle}
+                    autoComplete="current-password"
+                  />
+                </Field>
+                <Field label="New Password">
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={e => { setNewPassword(e.target.value); setPwError(''); setPwSuccess(false); }}
+                    placeholder="At least 8 characters"
+                    required
+                    minLength={8}
+                    maxLength={200}
+                    style={inputStyle}
+                    autoComplete="new-password"
+                  />
+                </Field>
+                <Field label="Confirm New Password">
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={e => { setConfirmPassword(e.target.value); setPwError(''); setPwSuccess(false); }}
+                    placeholder="Re-enter new password"
+                    required
+                    style={inputStyle}
+                    autoComplete="new-password"
+                  />
+                </Field>
+
+                {pwError && (
+                  <div style={{
+                    padding: '10px 14px', borderRadius: 8,
+                    background: 'rgba(248, 81, 73, 0.1)', border: '1px solid rgba(248, 81, 73, 0.3)',
+                    color: '#f85149', fontSize: 13,
+                  }}>
+                    {pwError}
+                  </div>
+                )}
+
+                {pwSuccess && (
+                  <div style={{
+                    padding: '10px 14px', borderRadius: 8,
+                    background: 'rgba(63, 185, 80, 0.1)', border: '1px solid rgba(63, 185, 80, 0.3)',
+                    color: '#3fb950', fontSize: 13, display: 'flex', alignItems: 'center', gap: 8,
+                  }}>
+                    <Icon name="check" size={14} />
+                    Password changed successfully
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={pwLoading || !currentPassword || !newPassword || !confirmPassword}
+                  style={{
+                    padding: '10px 20px', borderRadius: 8, border: 'none',
+                    background: pwLoading ? 'var(--bg-3)' : 'var(--amber)',
+                    color: '#000', fontSize: 14, fontWeight: 600,
+                    cursor: pwLoading ? 'not-allowed' : 'pointer',
+                    fontFamily: 'var(--font-sans)',
+                    alignSelf: 'flex-start',
+                    opacity: (!currentPassword || !newPassword || !confirmPassword) ? 0.5 : 1,
+                    transition: 'opacity .15s',
+                  }}
+                >
+                  {pwLoading ? 'Changing...' : 'Change Password'}
+                </button>
+              </form>
             </FormSection>
           </div>
         )}

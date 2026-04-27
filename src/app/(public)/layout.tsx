@@ -4,6 +4,9 @@ import { Sidebar } from '@/components/sidebar';
 import { SidebarToggle } from '@/components/sidebar-toggle';
 import { SiteFooter } from '@/components/site-footer';
 
+// All public pages query DB for fresh content — skip static prerendering
+export const dynamic = 'force-dynamic';
+
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>

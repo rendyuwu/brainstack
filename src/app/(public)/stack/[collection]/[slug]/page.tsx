@@ -32,15 +32,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-  const collectionSlugs = ['docker', 'linux', 'git', 'kubernetes', 'nginx', 'postgresql'];
-  const params = [];
-  for (const colSlug of collectionSlugs) {
-    const pages = await getPagesByCollection(colSlug);
-    for (const page of pages) {
-      params.push({ collection: colSlug, slug: page.slug });
+  try {
+    const collectionSlugs = ['docker', 'linux', 'git', 'kubernetes', 'nginx', 'postgresql'];
+    const params = [];
+    for (const colSlug of collectionSlugs) {
+      const pages = await getPagesByCollection(colSlug);
+      for (const page of pages) {
+        params.push({ collection: colSlug, slug: page.slug });
+      }
     }
+    return params;
+  } catch {
+    // DB may not have data at build time (CI, fresh deploy)
+    return [];
   }
-  return params;
 }
 
 export default async function StackPage({ params }: PageProps) {

@@ -169,6 +169,13 @@ export const setupSchema = z.object({
   name: z.string().min(1, 'Name is required').max(200),
 });
 
+// ── Password Change ─────────────────────────────────────────────────
+
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: z.string().min(8, 'Password must be at least 8 characters').max(200),
+});
+
 // ── Type exports ─────────────────────────────────────────────────────
 
 export type CreatePageInput = z.infer<typeof createPageSchema>;
@@ -182,3 +189,4 @@ export type CreateProviderInput = z.infer<typeof createProviderSchema>;
 export type UpdateProviderInput = z.infer<typeof updateProviderSchema>;
 export type AddModelInput = z.infer<typeof addModelSchema>;
 export type SetupInput = z.infer<typeof setupSchema>;
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;

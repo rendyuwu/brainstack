@@ -45,7 +45,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 
 | path | method | purpose |
 |------|--------|---------|
-| `/settings` | GET | user settings — AI provider/model, editor, appearance |
+| `/settings` | GET | user settings — AI provider/model, editor, appearance, account (password change) |
 
 ### Admin routes (admin role required)
 
@@ -87,6 +87,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/api/admin/embeddings/stats` | GET | admin | chunk + embedding counts for admin UI |
 | `/api/admin/embeddings/sync` | POST | admin | backfill missing embeddings for chunks w/o vectors |
 | `/api/admin/embeddings/reset` | POST | admin | delete all embeddings + re-embed all chunks |
+| `/api/account/password` | PATCH | yes | change own password (current + new) |
 | `/api/auth/[...nextauth]` | GET,POST | — | NextAuth handlers |
 
 ### Setup routes (bootstrap, one-time)
@@ -132,6 +133,10 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V25: admin can trigger bulk embedding sync — backfill chunks w/o embeddings
 - V26: admin can reset all embeddings + re-embed (model change scenario)
 - V27: embedding sync ! report progress (chunks processed / total)
+- V28: ∀ password change → verify current password before update
+- V29: new password ! ≠ current password
+- V30: password change API ! require authenticated session
+- V31: password change error msgs ! generic — ⊥ leak specifics
 
 ## §T — Tasks
 
@@ -159,6 +164,10 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T20 | ✓ | fix chat validation error — diagnose & harden `/api/chat` 400 path | V18,I.api |
 | T21 | ✓ | verify content pipeline — confirm seed data indexed (FTS) + embedded (vectors); document gaps | V10,V13,V15 |
 | T22 | ✓ | embedding sync — `POST /api/admin/embeddings/sync` backfill missing; `POST /api/admin/embeddings/reset` clear+re-embed; admin UI button w/ progress | V25,V26,V27,I.api,I.admin |
+| T23 | ✓ | add `PATCH /api/account/password` route — verify session, check current pw, hash new pw, update DB | V28,V29,V30,V31,V22,I.api |
+| T24 | ✓ | add "Account" tab to `/settings` page w/ password change form (current + new + confirm) | V28,V6,I.settings |
+| T25 | ✓ | wire form submit → `PATCH /api/account/password`, show success/error feedback | V28,V29,V31,I.api |
+| T26 | ✓ | add tests for password change API route | V28,V29,V30,V31 |
 
 ## §B — Bugs
 

@@ -66,6 +66,7 @@ src/
 /api/admin/providers/[id]/test    # Connection test
 /api/admin/providers/[id]/discover # Model discovery
 /api/admin/providers/[id]/models   # Manual model entry + test
+/api/account/password              # Change own password (PATCH)
 ```
 
 ## Data Model

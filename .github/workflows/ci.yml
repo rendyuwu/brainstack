@@ -50,6 +50,11 @@ jobs:
         env:
           DATABASE_URL: postgresql://noa:noa@localhost:5432/brainstack
 
+      - name: Push database schema
+        run: pnpm drizzle-kit push
+        env:
+          DATABASE_URL: postgresql://noa:noa@localhost:5432/brainstack
+
       - name: Build
         run: pnpm build
         env:

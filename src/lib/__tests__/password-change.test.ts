@@ -73,6 +73,31 @@ describe('PATCH /api/account/password', () => {
     expect(res.status).toBe(401);
   });
 
+  // Invalid JSON body
+  it('returns 400 for invalid JSON body', async () => {
+    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    const { PATCH } = await import('@/app/api/account/password/route');
+    const request = new Request('http://localhost/api/account/password', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: 'not-json',
+    });
+    const res = await PATCH(request);
+    expect(res.status).toBe(400);
+    const data = await res.json();
+    expect(data.error).toBe('Invalid JSON body');
+  });
+
+  // Missing passwordHash guard
+  it('returns 400 when user has no passwordHash', async () => {
+    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockSelectResult.mockResolvedValue([{ passwordHash: null }]);
+    const res = await callPATCH({ currentPassword: 'old', newPassword: 'newpass123' });
+    expect(res.status).toBe(400);
+    const data = await res.json();
+    expect(data.error).toBe('Password change failed');
+  });
+
   // Validation: missing fields
   it('returns 400 when currentPassword missing', async () => {
     mockAuth.mockResolvedValue({ user: { id: 'u1' } });

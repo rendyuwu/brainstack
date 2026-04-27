@@ -22,7 +22,15 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Invalid JSON body' },
+        { status: 400 },
+      );
+    }
     const validation = validateBody(changePasswordSchema, body);
     if (!validation.success) return validation.response;
 
@@ -36,7 +44,7 @@ export async function PATCH(request: Request) {
       .where(eq(users.id, userId))
       .limit(1);
 
-    if (!user) {
+    if (!user?.passwordHash) {
       return NextResponse.json(
         { error: 'Password change failed' },
         { status: 400 },

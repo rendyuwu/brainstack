@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth';
 import { db } from '@/db';
 import { pageTags } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { updateTagsSchema, validateBody } from '@/lib/validation';
 
 export async function PUT(
   request: NextRequest,
@@ -16,14 +17,9 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { tags } = body;
-
-    if (!Array.isArray(tags)) {
-      return NextResponse.json(
-        { error: 'tags must be an array of strings' },
-        { status: 400 }
-      );
-    }
+    const v = validateBody(updateTagsSchema, body);
+    if (!v.success) return v.response;
+    const { tags } = v.data;
 
     // Delete existing tags
     await db.delete(pageTags).where(eq(pageTags.pageId, id));

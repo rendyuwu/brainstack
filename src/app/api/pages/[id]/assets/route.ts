@@ -6,6 +6,7 @@ import { eq, and } from 'drizzle-orm';
 import { writeFile, unlink, mkdir } from 'fs/promises';
 import { join } from 'path';
 import crypto from 'crypto';
+import { deleteAssetSchema, validateBody } from '@/lib/validation';
 
 const ALLOWED_TYPES = new Set([
   'image/jpeg',
@@ -123,11 +124,10 @@ export async function DELETE(
     }
 
     const { id } = await params;
-    const { assetId } = await request.json();
-
-    if (!assetId) {
-      return NextResponse.json({ error: 'assetId required' }, { status: 400 });
-    }
+    const body = await request.json();
+    const v = validateBody(deleteAssetSchema, body);
+    if (!v.success) return v.response;
+    const { assetId } = v.data;
 
     const [asset] = await db
       .select()

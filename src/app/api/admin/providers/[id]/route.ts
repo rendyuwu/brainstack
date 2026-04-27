@@ -5,7 +5,7 @@ import {
   updateProvider,
   deleteProvider,
 } from '@/lib/ai/provider-registry';
-import { isDiscoveryMode, isProviderKind } from '@/lib/ai/types';
+import { updateProviderSchema, validateBody } from '@/lib/validation';
 
 async function requireAdmin() {
   const session = await auth();
@@ -53,14 +53,10 @@ export async function PUT(
 
   try {
     const body = await request.json();
-    if (body.kind !== undefined && !isProviderKind(body.kind)) {
-      return NextResponse.json({ error: 'Invalid kind' }, { status: 400 });
-    }
-    if (body.discoveryMode !== undefined && !isDiscoveryMode(body.discoveryMode)) {
-      return NextResponse.json({ error: 'Invalid discoveryMode' }, { status: 400 });
-    }
+    const v = validateBody(updateProviderSchema, body);
+    if (!v.success) return v.response;
 
-    const updated = await updateProvider(id, body);
+    const updated = await updateProvider(id, v.data);
     if (!updated) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }

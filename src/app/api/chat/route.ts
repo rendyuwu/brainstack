@@ -6,13 +6,7 @@ import { chatWithFallback } from '@/lib/ai/find-chat-model';
 import { hybridSearch } from '@/lib/rag/search';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { logAIUsage } from '@/lib/ai/usage-logger';
-
-interface ChatRequestBody {
-  message: string;
-  conversationId?: string;
-  scopeType: 'page' | 'collection' | 'site';
-  scopeId?: string;
-}
+import { chatSchema, validateBody } from '@/lib/validation';
 
 interface Citation {
   num: number;
@@ -50,15 +44,10 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = (await request.json()) as ChatRequestBody;
-    const { message, conversationId, scopeType, scopeId } = body;
-
-    if (!message || typeof message !== 'string' || !message.trim()) {
-      return NextResponse.json(
-        { error: 'message is required' },
-        { status: 400 }
-      );
-    }
+    const body = await request.json();
+    const v = validateBody(chatSchema, body);
+    if (!v.success) return v.response;
+    const { message, conversationId, scopeType, scopeId } = v.data;
 
     // 1. Create or get conversation
     let convId = conversationId;

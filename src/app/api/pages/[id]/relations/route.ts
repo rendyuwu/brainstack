@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth';
 import { db } from '@/db';
 import { pageRelations, pages } from '@/db/schema';
 import { eq, or, and } from 'drizzle-orm';
+import { createRelationSchema, deleteRelationSchema, validateBody } from '@/lib/validation';
 
 export async function GET(
   _request: NextRequest,
@@ -66,22 +67,9 @@ export async function POST(
 
     const { id } = await params;
     const body = await request.json();
-    const { targetPageId, relationType } = body;
-
-    if (!targetPageId || !relationType) {
-      return NextResponse.json(
-        { error: 'targetPageId and relationType are required' },
-        { status: 400 }
-      );
-    }
-
-    const validTypes = ['related', 'prerequisite', 'see-also'];
-    if (!validTypes.includes(relationType)) {
-      return NextResponse.json(
-        { error: `relationType must be one of: ${validTypes.join(', ')}` },
-        { status: 400 }
-      );
-    }
+    const v = validateBody(createRelationSchema, body);
+    if (!v.success) return v.response;
+    const { targetPageId, relationType } = v.data;
 
     if (id === targetPageId) {
       return NextResponse.json(
@@ -121,14 +109,9 @@ export async function DELETE(
 
     await params;
     const body = await request.json();
-    const { relationId } = body;
-
-    if (!relationId) {
-      return NextResponse.json(
-        { error: 'relationId is required' },
-        { status: 400 }
-      );
-    }
+    const v = validateBody(deleteRelationSchema, body);
+    if (!v.success) return v.response;
+    const { relationId } = v.data;
 
     const [deleted] = await db
       .delete(pageRelations)

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { getProviders, createProvider } from '@/lib/ai/provider-registry';
-import { isDiscoveryMode, isProviderKind } from '@/lib/ai/types';
+import { createProviderSchema, validateBody } from '@/lib/validation';
 
 async function requireAdmin() {
   const session = await auth();
@@ -36,30 +36,18 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-
-    const { label, kind, baseUrl } = body;
-    if (!label || !kind || !baseUrl) {
-      return NextResponse.json(
-        { error: 'Missing required fields: label, kind, baseUrl' },
-        { status: 400 },
-      );
-    }
-
-    if (!isProviderKind(kind)) {
-      return NextResponse.json({ error: 'Invalid kind' }, { status: 400 });
-    }
-    if (body.discoveryMode !== undefined && !isDiscoveryMode(body.discoveryMode)) {
-      return NextResponse.json({ error: 'Invalid discoveryMode' }, { status: 400 });
-    }
+    const v = validateBody(createProviderSchema, body);
+    if (!v.success) return v.response;
+    const { label, kind, baseUrl, apiKeySecretRef, defaultHeaders, discoveryMode, enabled } = v.data;
 
     const provider = await createProvider({
       label,
       kind,
       baseUrl,
-      apiKeySecretRef: body.apiKeySecretRef ?? null,
-      defaultHeaders: body.defaultHeaders ?? null,
-      discoveryMode: body.discoveryMode ?? 'v1-models',
-      enabled: body.enabled ?? true,
+      apiKeySecretRef: apiKeySecretRef ?? null,
+      defaultHeaders: defaultHeaders ?? null,
+      discoveryMode,
+      enabled,
     });
 
     return NextResponse.json(provider, { status: 201 });

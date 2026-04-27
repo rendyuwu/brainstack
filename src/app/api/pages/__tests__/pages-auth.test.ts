@@ -125,6 +125,6 @@ describe('pages auth guard', () => {
     const res = await POST(req);
     expect(res.status).toBe(400);
     const body = await res.json();
-    expect(body.error).toContain('Title');
+    expect(body.error).toBe('Validation failed');
   });
 });

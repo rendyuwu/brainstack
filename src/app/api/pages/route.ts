@@ -5,6 +5,7 @@ import { pages, pageTags } from '@/db/schema';
 import { eq, desc, and, SQL } from 'drizzle-orm';
 import { uniqueSlug } from '@/lib/slugify';
 import { isPageStatus, isPageType } from '@/lib/pages';
+import { createPageSchema, validateBody } from '@/lib/validation';
 
 export async function GET(request: NextRequest) {
   try {
@@ -76,18 +77,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, mdx_source, summary, type, collection_id, tags } = body;
-
-    if (!title) {
-      return NextResponse.json(
-        { error: 'Title is required' },
-        { status: 400 }
-      );
-    }
-
-    if (type !== undefined && !isPageType(type)) {
-      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-    }
+    const v = validateBody(createPageSchema, body);
+    if (!v.success) return v.response;
+    const { title, mdx_source, summary, type, collection_id, tags } = v.data;
 
     const slug = await uniqueSlug(title);
 
@@ -96,16 +88,16 @@ export async function POST(request: NextRequest) {
       .values({
         title,
         slug,
-        mdxSource: mdx_source || '',
+        mdxSource: mdx_source,
         summary: summary || null,
-        type: type || 'tutorial',
+        type,
         collectionId: collection_id || null,
         status: 'draft',
       })
       .returning();
 
     // Insert tags if provided
-    if (tags && Array.isArray(tags) && tags.length > 0) {
+    if (tags && tags.length > 0) {
       await db.insert(pageTags).values(
         tags.map((tag: string) => ({ pageId: created.id, tag }))
       );

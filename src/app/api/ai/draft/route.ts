@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { generateDraft } from '@/lib/ai/draft';
 import { checkRateLimit } from '@/lib/rate-limiter';
+import { aiDraftSchema, validateBody } from '@/lib/validation';
 
 export async function POST(request: NextRequest) {
   const rateCheck = checkRateLimit(request, 10, 60_000);
@@ -19,17 +20,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { idea, imageUrl } = body as {
-      idea?: string;
-      imageUrl?: string;
-    };
-
-    if (!idea || typeof idea !== 'string' || !idea.trim()) {
-      return NextResponse.json(
-        { error: 'idea is required' },
-        { status: 400 }
-      );
-    }
+    const v = validateBody(aiDraftSchema, body);
+    if (!v.success) return v.response;
+    const { idea, imageUrl } = v.data;
 
     const stream = await generateDraft(idea, { imageUrl });
 

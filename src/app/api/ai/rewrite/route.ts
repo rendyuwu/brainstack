@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { rewriteContent, type RewriteStyle } from '@/lib/ai/rewrite';
 import { checkRateLimit } from '@/lib/rate-limiter';
-
-const VALID_STYLES: RewriteStyle[] = ['cheatsheet', 'beginner', 'advanced'];
+import { aiRewriteSchema, validateBody } from '@/lib/validation';
 
 export async function POST(request: NextRequest) {
   const rateCheck = checkRateLimit(request, 10, 60_000);
@@ -21,24 +20,9 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { content, style } = body as {
-      content?: string;
-      style?: string;
-    };
-
-    if (!content || typeof content !== 'string' || !content.trim()) {
-      return NextResponse.json(
-        { error: 'content is required' },
-        { status: 400 }
-      );
-    }
-
-    if (!style || !VALID_STYLES.includes(style as RewriteStyle)) {
-      return NextResponse.json(
-        { error: `style must be one of: ${VALID_STYLES.join(', ')}` },
-        { status: 400 }
-      );
-    }
+    const v = validateBody(aiRewriteSchema, body);
+    if (!v.success) return v.response;
+    const { content, style } = v.data;
 
     const stream = await rewriteContent(content, style as RewriteStyle);
 

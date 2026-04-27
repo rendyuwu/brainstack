@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { getProvider, addManualModel, testModel } from '@/lib/ai/provider-registry';
 import type { ProviderConfig } from '@/lib/ai/types';
+import { addModelSchema, validateBody } from '@/lib/validation';
 
 async function requireAdmin() {
   const session = await auth();
@@ -29,11 +30,9 @@ export async function POST(
     }
 
     const body = await request.json();
-    const { modelId, supportsChat, supportsEmbeddings, supportsVision, supportsResponses, contextLength, test } = body;
-
-    if (!modelId || typeof modelId !== 'string' || !modelId.trim()) {
-      return NextResponse.json({ error: 'modelId is required' }, { status: 400 });
-    }
+    const v = validateBody(addModelSchema, body);
+    if (!v.success) return v.response;
+    const { modelId, supportsChat, supportsEmbeddings, supportsVision, supportsResponses, contextLength, test } = v.data;
 
     if (test) {
       const testResult = await testModel(provider as ProviderConfig, modelId.trim());

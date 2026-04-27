@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth';
 import { db } from '@/db';
 import { pages, pageTags } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import { isPageType } from '@/lib/pages';
+import { updatePageSchema, validateBody } from '@/lib/validation';
 
 export async function GET(
   _request: NextRequest,
@@ -53,11 +53,9 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { title, mdx_source, summary, type, collection_id } = body;
-
-    if (type !== undefined && !isPageType(type)) {
-      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-    }
+    const v = validateBody(updatePageSchema, body);
+    if (!v.success) return v.response;
+    const { title, mdx_source, summary, type, collection_id } = v.data;
 
     const updates: Record<string, unknown> = {
       updatedAt: new Date().toISOString(),

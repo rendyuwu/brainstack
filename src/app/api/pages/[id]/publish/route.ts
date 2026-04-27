@@ -50,9 +50,17 @@ export async function POST(
     }).returning({ id: pageRevisions.id });
 
     // Run publish pipeline (chunk + embed for RAG) — fire and forget
-    runPublishPipeline(id, revision.id, page.mdxSource || '').catch((err) => {
-      console.error('Publish pipeline error:', err);
-    });
+    // Log failures so they're visible; update page timestamp on success
+    runPublishPipeline(id, revision.id, page.mdxSource || '')
+      .then(() => {
+        console.info(`[publish-pipeline] Completed for page ${id}`);
+      })
+      .catch((err) => {
+        console.error(
+          `[publish-pipeline] Failed for page ${id}, revision ${revision.id}:`,
+          err instanceof Error ? err.message : err
+        );
+      });
 
     const duplicates = await detectDuplicates(id, page.title, page.mdxSource ?? '');
 

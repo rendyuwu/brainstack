@@ -15,15 +15,32 @@ vi.mock('@/db', () => {
   }]);
   const insertValues = vi.fn().mockReturnValue({ returning: insertReturning });
   const insertFn = vi.fn().mockReturnValue({ values: insertValues });
+
+  // Count query mock (for pagination metadata)
+  const countResult = [{ total: 0 }];
+
+  const selectFn = vi.fn().mockImplementation(() => {
+    const chain: Record<string, unknown> = {};
+    chain.from = vi.fn().mockReturnValue({
+      where: vi.fn().mockImplementation(() => {
+        // Could be the count query or the main query
+        return {
+          orderBy: vi.fn().mockReturnValue({
+            limit: vi.fn().mockReturnValue({
+              offset: vi.fn().mockResolvedValue([]),
+            }),
+          }),
+          // count query resolves directly (no orderBy)
+          then: (resolve: (v: unknown) => void) => resolve(countResult),
+        };
+      }),
+    });
+    return chain;
+  });
+
   return {
     db: {
-      select: vi.fn().mockReturnValue({
-        from: vi.fn().mockReturnValue({
-          where: vi.fn().mockReturnValue({
-            orderBy: vi.fn().mockResolvedValue([]),
-          }),
-        }),
-      }),
+      select: selectFn,
       insert: insertFn,
     },
   };
@@ -38,6 +55,8 @@ vi.mock('drizzle-orm', () => ({
   eq: vi.fn(),
   desc: vi.fn(),
   and: vi.fn(),
+  inArray: vi.fn(),
+  count: vi.fn(),
   SQL: class {},
 }));
 

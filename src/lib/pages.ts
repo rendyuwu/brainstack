@@ -1,6 +1,6 @@
 import { db } from '@/db';
 import { pages, collections, pageTags } from '@/db/schema';
-import { eq, desc, and, ilike, or } from 'drizzle-orm';
+import { eq, desc, and, ilike, or, inArray } from 'drizzle-orm';
 
 export const PAGE_STATUSES = ['draft', 'published', 'archived'] as const;
 export const PAGE_TYPES = ['tutorial', 'tip', 'cheatsheet', 'note'] as const;
@@ -49,20 +49,45 @@ export async function getCollections() {
     .from(collections)
     .orderBy(collections.sortOrder);
 
-  const result = [];
-  for (const col of allCollections) {
-    const colPages = await db
-      .select({ id: pages.id, title: pages.title, slug: pages.slug })
-      .from(pages)
-      .where(and(eq(pages.collectionId, col.id), eq(pages.status, 'published')))
-      .orderBy(desc(pages.publishedAt));
+  if (allCollections.length === 0) return [];
 
-    result.push({
-      ...col,
-      pages: colPages,
-    });
+  const collectionIds = allCollections.map((c) => c.id);
+
+  // Single query for all published pages across all collections
+  const allPages = await db
+    .select({
+      id: pages.id,
+      title: pages.title,
+      slug: pages.slug,
+      collectionId: pages.collectionId,
+      publishedAt: pages.publishedAt,
+    })
+    .from(pages)
+    .where(
+      and(
+        inArray(pages.collectionId, collectionIds),
+        eq(pages.status, 'published')
+      )
+    )
+    .orderBy(desc(pages.publishedAt));
+
+  // Group pages by collection in JS
+  const pagesByCollection = new Map<string, typeof allPages>();
+  for (const page of allPages) {
+    if (!page.collectionId) continue;
+    const arr = pagesByCollection.get(page.collectionId) || [];
+    arr.push(page);
+    pagesByCollection.set(page.collectionId, arr);
   }
-  return result;
+
+  return allCollections.map((col) => ({
+    ...col,
+    pages: (pagesByCollection.get(col.id) || []).map(({ id, title, slug }) => ({
+      id,
+      title,
+      slug,
+    })),
+  }));
 }
 
 export async function getCollectionBySlug(slug: string) {

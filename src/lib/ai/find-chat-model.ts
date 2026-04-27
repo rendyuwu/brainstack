@@ -18,37 +18,45 @@ const SKIP_PATTERNS = ['embed', 'tts', 'dall-e', 'image', 'FLUX'];
  * embedding/TTS/image models.
  */
 export async function findChatCandidates(): Promise<ChatCandidate[]> {
-  const providers = await db
-    .select()
+  // Single JOIN query: providers + chat-capable models
+  const rows = await db
+    .select({
+      providerId: aiProviders.id,
+      label: aiProviders.label,
+      kind: aiProviders.kind,
+      baseUrl: aiProviders.baseUrl,
+      apiKeySecretRef: aiProviders.apiKeySecretRef,
+      defaultHeaders: aiProviders.defaultHeaders,
+      discoveryMode: aiProviders.discoveryMode,
+      enabled: aiProviders.enabled,
+      modelId: aiModels.modelId,
+    })
     .from(aiProviders)
+    .innerJoin(
+      aiModels,
+      and(eq(aiModels.providerId, aiProviders.id), eq(aiModels.supportsChat, true))
+    )
     .where(eq(aiProviders.enabled, true));
 
   const candidates: ChatCandidate[] = [];
 
-  for (const row of providers) {
-    const models = await db
-      .select()
-      .from(aiModels)
-      .where(
-        and(eq(aiModels.providerId, row.id), eq(aiModels.supportsChat, true))
-      );
+  for (const row of rows) {
+    if (SKIP_PATTERNS.some((p) => row.modelId.includes(p))) continue;
 
-    const providerConfig: ProviderConfig = {
-      id: row.id,
-      label: row.label,
-      kind: row.kind as ProviderKind,
-      baseUrl: row.baseUrl,
-      apiKeySecretRef: row.apiKeySecretRef,
-      defaultHeaders:
-        (row.defaultHeaders as Record<string, string>) ?? null,
-      discoveryMode: row.discoveryMode as DiscoveryMode,
-      enabled: row.enabled,
-    };
-
-    for (const model of models) {
-      if (SKIP_PATTERNS.some((p) => model.modelId.includes(p))) continue;
-      candidates.push({ provider: providerConfig, modelId: model.modelId });
-    }
+    candidates.push({
+      provider: {
+        id: row.providerId,
+        label: row.label,
+        kind: row.kind as ProviderKind,
+        baseUrl: row.baseUrl,
+        apiKeySecretRef: row.apiKeySecretRef,
+        defaultHeaders:
+          (row.defaultHeaders as Record<string, string>) ?? null,
+        discoveryMode: row.discoveryMode as DiscoveryMode,
+        enabled: row.enabled,
+      },
+      modelId: row.modelId,
+    });
   }
 
   if (candidates.length === 0) {

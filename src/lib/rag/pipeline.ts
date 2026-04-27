@@ -29,16 +29,12 @@ export async function runPublishPipeline(
 
   if (mdxChunks.length === 0) return;
 
-  // 3. Insert chunks with FTS
-  const insertedChunks: { id: string; content: string }[] = [];
-
-  for (const chunk of mdxChunks) {
-    const plainText = stripMarkdown(chunk.content);
-    if (!plainText.trim()) continue;
-
-    const [inserted] = await db
-      .insert(chunks)
-      .values({
+  // 3. Filter and prepare chunk values
+  const chunkValues = mdxChunks
+    .map((chunk) => {
+      const plainText = stripMarkdown(chunk.content);
+      if (!plainText.trim()) return null;
+      return {
         pageId,
         revisionId,
         anchorId: chunk.anchorId,
@@ -46,25 +42,29 @@ export async function runPublishPipeline(
         content: chunk.content,
         contentType: chunk.contentType,
         fts: sql`to_tsvector('english', ${plainText})`,
-      })
-      .returning({ id: chunks.id });
+      };
+    })
+    .filter((v): v is NonNullable<typeof v> => v !== null);
 
-    insertedChunks.push({ id: inserted.id, content: chunk.content });
-  }
+  if (chunkValues.length === 0) return;
 
-  // 4. Try to generate embeddings (optional)
+  // 4. Batch insert all chunks
+  const insertedChunks = await db
+    .insert(chunks)
+    .values(chunkValues)
+    .returning({ id: chunks.id, content: chunks.content });
+
+  // 5. Try to generate embeddings (optional)
   try {
     const embeddings = await embedChunks(insertedChunks);
     if (embeddings) {
-      for (let i = 0; i < insertedChunks.length; i++) {
-        const vec = embeddings[i];
-        const vectorStr = `[${vec.join(',')}]`;
-        await db.insert(chunkEmbeddings).values({
-          chunkId: insertedChunks[i].id,
-          embeddingModel: 'default',
-          embedding: sql`${vectorStr}::vector`,
-        });
-      }
+      const embeddingValues = insertedChunks.map((chunk, i) => ({
+        chunkId: chunk.id,
+        embeddingModel: 'default',
+        embedding: sql`${`[${embeddings[i].join(',')}]`}::vector`,
+      }));
+
+      await db.insert(chunkEmbeddings).values(embeddingValues);
     }
   } catch (err) {
     // Embeddings are optional — log but don't block publish

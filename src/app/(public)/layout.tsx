@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { PublicShell } from '@/components/public-shell';
 import { Sidebar } from '@/components/sidebar';
+import { SidebarToggle } from '@/components/sidebar-toggle';
 import { SiteFooter } from '@/components/site-footer';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
@@ -15,7 +16,9 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             height: 'calc(100vh - 52px)',
           }}
         >
-          <Sidebar />
+          <SidebarToggle>
+            <Sidebar />
+          </SidebarToggle>
           <main
             style={{
               flex: 1,

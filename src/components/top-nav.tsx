@@ -21,11 +21,13 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     fetch('/api/auth/session')
       .then(res => res.json())
       .then(data => {
+        if (data?.user) setIsAuthenticated(true);
         if (data?.user?.role === 'admin') setIsAdmin(true);
       })
       .catch(() => {});
@@ -206,6 +208,30 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
       >
         <Icon name="settings" size={16} />
       </Link>
+
+      {/* Logout */}
+      {isAuthenticated && (
+        <button
+          onClick={() => {
+            fetch('/api/auth/signout', { method: 'POST' })
+              .finally(() => { window.location.href = '/login'; });
+          }}
+          title="Sign out"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--tx-2)',
+            padding: 6,
+            borderRadius: 6,
+            display: 'flex',
+            alignItems: 'center',
+            transition: 'color .15s',
+          }}
+        >
+          <Icon name="logOut" size={16} />
+        </button>
+      )}
 
       {/* New Post */}
       <Link

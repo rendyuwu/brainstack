@@ -60,15 +60,18 @@ export function useChat({ scopeType, scopeId }: UseChatOptions) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             message: trimmed,
-            conversationId,
+            ...(conversationId ? { conversationId } : {}),
             scopeType,
-            scopeId,
+            ...(scopeId ? { scopeId } : {}),
           }),
         });
 
         if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.error || 'Chat request failed');
+          const err = await res.json().catch(() => ({ error: `Request failed (${res.status})` }));
+          const detail = err.details
+            ? `: ${err.details.map((d: { path?: string[]; message?: string }) => `${d.path?.join('.') || '?'} — ${d.message}`).join('; ')}`
+            : '';
+          throw new Error((err.error || 'Chat request failed') + detail);
         }
 
         const reader = res.body?.getReader();

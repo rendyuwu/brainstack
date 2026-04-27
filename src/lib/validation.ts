@@ -97,7 +97,7 @@ const scopeTypeEnum = z.enum(['page', 'collection', 'site']);
 
 export const chatSchema = z.object({
   message: z.string().min(1, 'message is required').max(10000),
-  conversationId: z.string().uuid().optional(),
+  conversationId: z.string().uuid().nullable().optional(),
   scopeType: scopeTypeEnum.optional().default('site'),
   scopeId: z.string().uuid().nullable().optional(),
 });

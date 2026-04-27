@@ -25,8 +25,10 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | path | method | purpose |
 |------|--------|---------|
 | `/` | GET | homepage — recent posts, collections, tags |
+| `/blog` | GET | article index — published tutorials/tips listing |
 | `/blog/[slug]` | GET | article view (full tutorial + TOC + chat toggle) |
 | `/stack/[collection]/[slug]` | GET | stack/docs view (collection context) |
+| `/cheatsheets` | GET | cheatsheet index — published cheatsheets listing |
 | `/cheatsheets/[slug]` | GET | cheatsheet view (compact reference) |
 | `/ask` | GET | site-wide chat interface |
 | `/discover` | GET | browse published pages by topic |
@@ -38,6 +40,12 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 |------|--------|---------|
 | `/editor/new` | GET | create new page |
 | `/editor/[id]` | GET | edit existing page |
+
+### Settings routes (auth required)
+
+| path | method | purpose |
+|------|--------|---------|
+| `/settings` | GET | user settings — AI provider/model, editor, appearance |
 
 ### Admin routes (admin role required)
 
@@ -77,6 +85,13 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/api/admin/providers/[id]/discover` | POST | admin | discover + store models |
 | `/api/admin/providers/[id]/models` | POST | admin | add model manually (optional test) |
 | `/api/auth/[...nextauth]` | GET,POST | — | NextAuth handlers |
+
+### Setup routes (bootstrap, one-time)
+
+| path | method | auth | purpose |
+|------|--------|------|---------|
+| `/setup` | GET | no | first-run setup page — create initial admin user |
+| `/api/setup` | POST | no | create admin user (bootstrap only) |
 
 ### Config files
 

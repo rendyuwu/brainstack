@@ -1,4 +1,5 @@
-import { pgTable, foreignKey, uuid, text, timestamp, index, vector, jsonb, unique, integer, boolean, uniqueIndex, customType } from "drizzle-orm/pg-core"
+import { pgTable, foreignKey, uuid, text, timestamp, index, vector, jsonb, unique, integer, boolean, uniqueIndex, customType, check } from "drizzle-orm/pg-core"
+import { sql } from "drizzle-orm"
 
 const tsvector = customType<{ data: string }>({
   dataType() { return 'tsvector'; },
@@ -143,7 +144,10 @@ export const aiProviders = pgTable("ai_providers", {
 	discoveryMode: text("discovery_mode").default('v1-models').notNull(),
 	enabled: boolean().default(true).notNull(),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
-});
+}, (table) => [
+	check("ai_providers_kind_check", sql`${table.kind} IN ('openai_compatible', 'openrouter', 'litellm_proxy')`),
+	check("ai_providers_discovery_mode_check", sql`${table.discoveryMode} IN ('v1-models', 'openrouter-models', 'litellm-model-info', 'static')`),
+]);
 
 export const users = pgTable("users", {
 	id: uuid().defaultRandom().primaryKey().notNull(),
@@ -210,6 +214,8 @@ export const pages = pgTable("pages", {
 			name: "pages_collection_id_collections_id_fk"
 		}),
 	unique("pages_slug_unique").on(table.slug),
+	check("pages_status_check", sql`${table.status} IN ('draft', 'published', 'archived')`),
+	check("pages_type_check", sql`${table.type} IN ('tutorial', 'tip', 'cheatsheet', 'note')`),
 ]);
 
 export const aiUsageLogs = pgTable("ai_usage_logs", {

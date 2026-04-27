@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-export function middleware(request: NextRequest) {
-  const token =
-    request.cookies.get('authjs.session-token')?.value ??
-    request.cookies.get('__Secure-authjs.session-token')?.value;
+export async function middleware(request: NextRequest) {
+  const token = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,
+  });
 
   if (!token) {
     const loginUrl = new URL('/login', request.url);

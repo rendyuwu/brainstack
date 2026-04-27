@@ -3,6 +3,7 @@ import { aiProviders, aiModels } from '@/db/schema';
 import { eq, sql } from 'drizzle-orm';
 import { createAIClient } from './client';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from './types';
+import { isDiscoveryMode, isProviderKind } from './types';
 
 // ---------- helpers ----------
 
@@ -61,6 +62,13 @@ export async function createProvider(data: {
   discoveryMode?: DiscoveryMode;
   enabled?: boolean;
 }) {
+  if (!isProviderKind(data.kind)) {
+    throw new Error('Invalid provider kind');
+  }
+  if (data.discoveryMode !== undefined && !isDiscoveryMode(data.discoveryMode)) {
+    throw new Error('Invalid discovery mode');
+  }
+
   const [row] = await db
     .insert(aiProviders)
     .values({
@@ -89,6 +97,13 @@ export async function updateProvider(
     enabled: boolean;
   }>,
 ) {
+  if (data.kind !== undefined && !isProviderKind(data.kind)) {
+    throw new Error('Invalid provider kind');
+  }
+  if (data.discoveryMode !== undefined && !isDiscoveryMode(data.discoveryMode)) {
+    throw new Error('Invalid discovery mode');
+  }
+
   const updates: Record<string, unknown> = {};
   if (data.label !== undefined) updates.label = data.label;
   if (data.kind !== undefined) updates.kind = data.kind;
@@ -218,9 +233,11 @@ export async function discoverModels(provider: ProviderConfig) {
   const client = createAIClient(provider);
 
   let modelsEndpoint: string;
-  if (provider.kind === 'openrouter') {
+  if (provider.discoveryMode === 'static') {
+    return [];
+  } else if (provider.discoveryMode === 'openrouter-models') {
     modelsEndpoint = '/api/v1/models';
-  } else if (provider.kind === 'litellm_proxy') {
+  } else if (provider.discoveryMode === 'litellm-model-info') {
     modelsEndpoint = '/model/info';
   } else {
     modelsEndpoint = '/v1/models';

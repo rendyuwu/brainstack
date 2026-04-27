@@ -61,9 +61,9 @@ x = 1
 \`\`\``;
 
     const result = chunkMDX(md);
-    expect(result).toHaveLength(1);
-    expect(result[0].anchorId).toBe('real-heading');
-    expect(result[0].content).toContain('# this is a comment');
+    expect(result).toHaveLength(2);
+    expect(result.every((chunk) => chunk.anchorId === 'real-heading')).toBe(true);
+    expect(result[1].content).toContain('# this is a comment');
   });
 
   it('splits long content with code blocks into separate chunks', () => {
@@ -79,6 +79,44 @@ x = 1
 
     const proseChunk = result.find((c) => c.contentType === 'prose');
     expect(proseChunk).toBeDefined();
+  });
+
+  it('separates short code blocks from prose', () => {
+    const md = `# Section
+
+Before code.
+
+\`\`\`bash
+echo hi
+\`\`\`
+
+After code.`;
+
+    const result = chunkMDX(md);
+    expect(result).toHaveLength(3);
+    expect(result.map((c) => c.contentType)).toEqual(['prose', 'code', 'prose']);
+  });
+
+  it('separates tilde fenced code blocks from prose', () => {
+    const md = `Before
+
+~~~bash
+echo hi
+~~~
+
+After`;
+
+    const result = chunkMDX(md);
+    expect(result).toHaveLength(3);
+    expect(result[1].contentType).toBe('code');
+  });
+
+  it('splits long prose by token window', () => {
+    const md = Array.from({ length: 900 }, (_, i) => `word${i}`).join(' ');
+
+    const result = chunkMDX(md);
+    expect(result.length).toBeGreaterThan(1);
+    expect(result.every((chunk) => chunk.content.split(/\s+/).length <= 400)).toBe(true);
   });
 
   it('handles nested headings resetting the stack correctly', () => {

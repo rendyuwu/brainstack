@@ -1,50 +1,58 @@
-import { describe, it, expect } from 'vitest';
-import { middleware, config } from '../middleware';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextRequest } from 'next/server';
+import { middleware, config } from '../middleware';
 
-function makeRequest(path: string, hasToken = false): NextRequest {
-  const url = new URL(path, 'http://localhost:3100');
-  const req = new NextRequest(url);
-  if (hasToken) {
-    req.cookies.set('authjs.session-token', 'fake-token');
-  }
-  return req;
+const mockGetToken = vi.fn();
+
+vi.mock('next-auth/jwt', () => ({
+  getToken: (args: unknown) => mockGetToken(args),
+}));
+
+function makeRequest(path: string): NextRequest {
+  return new NextRequest(new URL(path, 'http://localhost:3100'));
 }
 
 describe('middleware', () => {
-  it('redirects to /login when no session token on /editor path', () => {
-    const req = makeRequest('/editor/new');
-    const res = middleware(req);
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.NEXTAUTH_SECRET = 'test-secret';
+    delete process.env.AUTH_SECRET;
+  });
+
+  it('redirects to /login when no valid session on /editor path', async () => {
+    mockGetToken.mockResolvedValue(null);
+    const res = await middleware(makeRequest('/editor/new'));
     expect(res.status).toBe(307);
     expect(new URL(res.headers.get('location')!).pathname).toBe('/login');
   });
 
-  it('redirects to /login when no session token on /admin path', () => {
-    const req = makeRequest('/admin/ai/providers');
-    const res = middleware(req);
+  it('redirects to /login when no valid session on /admin path', async () => {
+    mockGetToken.mockResolvedValue(null);
+    const res = await middleware(makeRequest('/admin/ai/providers'));
     expect(res.status).toBe(307);
     expect(new URL(res.headers.get('location')!).pathname).toBe('/login');
   });
 
-  it('preserves callbackUrl in redirect', () => {
-    const req = makeRequest('/editor/abc-123');
-    const res = middleware(req);
+  it('preserves callbackUrl in redirect', async () => {
+    mockGetToken.mockResolvedValue(null);
+    const res = await middleware(makeRequest('/editor/abc-123'));
     const location = new URL(res.headers.get('location')!);
     expect(location.searchParams.get('callbackUrl')).toBe('/editor/abc-123');
   });
 
-  it('passes through when session token present', () => {
-    const req = makeRequest('/editor/new', true);
-    const res = middleware(req);
+  it('passes through when session token is valid', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1' });
+    const res = await middleware(makeRequest('/editor/new'));
     expect(res.headers.get('location')).toBeNull();
   });
 
-  it('accepts __Secure- prefixed token', () => {
-    const url = new URL('/admin/ai/usage', 'http://localhost:3100');
-    const req = new NextRequest(url);
-    req.cookies.set('__Secure-authjs.session-token', 'secure-token');
-    const res = middleware(req);
-    expect(res.headers.get('location')).toBeNull();
+  it('uses AUTH_SECRET before NEXTAUTH_SECRET', async () => {
+    process.env.AUTH_SECRET = 'auth-secret';
+    mockGetToken.mockResolvedValue({ sub: 'user-1' });
+    await middleware(makeRequest('/admin/ai/usage'));
+    expect(mockGetToken).toHaveBeenCalledWith(
+      expect.objectContaining({ secret: 'auth-secret' })
+    );
   });
 });
 

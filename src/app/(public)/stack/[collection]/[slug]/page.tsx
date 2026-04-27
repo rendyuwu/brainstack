@@ -48,7 +48,7 @@ export default async function StackPage({ params }: PageProps) {
   const page = await getPageWithCollection(slug);
   const collection = await getCollectionBySlug(collectionSlug);
 
-  if (!page || !collection) notFound();
+  if (!page || !collection || page.collectionId !== collection.id) notFound();
 
   const mdxSource = page.mdxSource ?? '';
   const headings = extractHeadings(mdxSource);

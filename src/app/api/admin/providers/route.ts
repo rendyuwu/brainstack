@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { getProviders, createProvider } from '@/lib/ai/provider-registry';
+import { isDiscoveryMode, isProviderKind } from '@/lib/ai/types';
 
 async function requireAdmin() {
   const session = await auth();
@@ -44,12 +45,11 @@ export async function POST(request: Request) {
       );
     }
 
-    const validKinds = ['openai_compatible', 'openrouter', 'litellm_proxy'];
-    if (!validKinds.includes(kind)) {
-      return NextResponse.json(
-        { error: `Invalid kind. Must be one of: ${validKinds.join(', ')}` },
-        { status: 400 },
-      );
+    if (!isProviderKind(kind)) {
+      return NextResponse.json({ error: 'Invalid kind' }, { status: 400 });
+    }
+    if (body.discoveryMode !== undefined && !isDiscoveryMode(body.discoveryMode)) {
+      return NextResponse.json({ error: 'Invalid discoveryMode' }, { status: 400 });
     }
 
     const provider = await createProvider({

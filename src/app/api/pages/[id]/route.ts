@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth';
 import { db } from '@/db';
 import { pages, pageTags } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { isPageType } from '@/lib/pages';
 
 export async function GET(
   _request: NextRequest,
@@ -17,7 +18,8 @@ export async function GET(
       .where(eq(pages.id, id))
       .limit(1);
 
-    if (!page) {
+    const session = await auth();
+    if (!page || (!session && page.status !== 'published')) {
       return NextResponse.json({ error: 'Page not found' }, { status: 404 });
     }
 
@@ -52,6 +54,10 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
     const { title, mdx_source, summary, type, collection_id } = body;
+
+    if (type !== undefined && !isPageType(type)) {
+      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+    }
 
     const updates: Record<string, unknown> = {
       updatedAt: new Date().toISOString(),

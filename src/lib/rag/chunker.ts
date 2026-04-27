@@ -5,6 +5,8 @@ export interface Chunk {
   contentType: 'prose' | 'code' | 'list' | 'callout';
 }
 
+const MAX_CHUNK_TOKENS = 400;
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -21,18 +23,106 @@ function detectContentType(
   if (trimmed.startsWith('```') || trimmed.startsWith('~~~')) return 'code';
   if (trimmed.startsWith('<Callout') || trimmed.startsWith('<callout'))
     return 'callout';
-  // Check if majority of lines are list items
   const lines = trimmed.split('\n').filter((l) => l.trim());
   const listLines = lines.filter((l) => /^\s*[-*+]\s|^\s*\d+\.\s/.test(l));
   if (listLines.length > lines.length / 2) return 'list';
   return 'prose';
 }
 
+function tokenCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function splitWords(text: string, maxTokens: number): string[] {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const chunks: string[] = [];
+  for (let i = 0; i < words.length; i += maxTokens) {
+    chunks.push(words.slice(i, i + maxTokens).join(' '));
+  }
+  return chunks;
+}
+
+function splitProse(content: string): string[] {
+  const paragraphs = content
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const chunks: string[] = [];
+  let current: string[] = [];
+  let currentTokens = 0;
+
+  function flush() {
+    if (current.length === 0) return;
+    chunks.push(current.join('\n\n'));
+    current = [];
+    currentTokens = 0;
+  }
+
+  for (const paragraph of paragraphs) {
+    const count = tokenCount(paragraph);
+    if (count > MAX_CHUNK_TOKENS) {
+      flush();
+      chunks.push(...splitWords(paragraph, MAX_CHUNK_TOKENS));
+      continue;
+    }
+
+    if (currentTokens > 0 && currentTokens + count > MAX_CHUNK_TOKENS) {
+      flush();
+    }
+
+    current.push(paragraph);
+    currentTokens += count;
+  }
+
+  flush();
+  return chunks;
+}
+
+function splitCodeAndProse(content: string): Array<{ content: string; code: boolean }> {
+  const lines = content.split('\n');
+  const blocks: Array<{ content: string; code: boolean }> = [];
+  let proseLines: string[] = [];
+  let codeLines: string[] | null = null;
+  let fence = '';
+
+  function flushProse() {
+    const prose = proseLines.join('\n').trim();
+    if (prose) blocks.push({ content: prose, code: false });
+    proseLines = [];
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    const fenceMatch = trimmed.match(/^(```|~~~)/);
+
+    if (codeLines) {
+      codeLines.push(line);
+      if (trimmed.startsWith(fence)) {
+        blocks.push({ content: codeLines.join('\n').trim(), code: true });
+        codeLines = null;
+        fence = '';
+      }
+      continue;
+    }
+
+    if (fenceMatch) {
+      flushProse();
+      fence = fenceMatch[1];
+      codeLines = [line];
+      continue;
+    }
+
+    proseLines.push(line);
+  }
+
+  if (codeLines) blocks.push({ content: codeLines.join('\n').trim(), code: true });
+  flushProse();
+  return blocks;
+}
+
 export function chunkMDX(mdxSource: string): Chunk[] {
   const lines = mdxSource.split('\n');
   const chunks: Chunk[] = [];
-
-  // Track heading hierarchy
   const headingStack: { level: number; text: string }[] = [];
   let currentContent: string[] = [];
   let inCodeBlock = false;
@@ -46,41 +136,34 @@ export function chunkMDX(mdxSource: string): Chunk[] {
     return slugify(headingStack[headingStack.length - 1].text);
   }
 
+  function emit(content: string, contentType: Chunk['contentType']) {
+    chunks.push({
+      anchorId: getAnchorId(),
+      headingPath: getHeadingPath(),
+      content,
+      contentType,
+    });
+  }
+
   function flushChunk() {
     const content = currentContent.join('\n').trim();
     if (!content) return;
 
-    // If the content is very long, split on code blocks
-    const codeBlockPattern = /^```[\s\S]*?^```/gm;
-    const hasCodeBlocks = codeBlockPattern.test(content);
-
-    if (hasCodeBlocks && content.length > 1500) {
-      // Split into prose and code chunks
-      const parts = content.split(/(```[\s\S]*?```)/gm);
-      for (const part of parts) {
-        const trimmed = part.trim();
-        if (!trimmed) continue;
-        chunks.push({
-          anchorId: getAnchorId(),
-          headingPath: getHeadingPath(),
-          content: trimmed,
-          contentType: detectContentType(trimmed),
-        });
+    for (const block of splitCodeAndProse(content)) {
+      if (block.code) {
+        emit(block.content, 'code');
+        continue;
       }
-    } else {
-      chunks.push({
-        anchorId: getAnchorId(),
-        headingPath: getHeadingPath(),
-        content,
-        contentType: detectContentType(content),
-      });
+
+      for (const proseChunk of splitProse(block.content)) {
+        emit(proseChunk, detectContentType(proseChunk));
+      }
     }
 
     currentContent = [];
   }
 
   for (const line of lines) {
-    // Track code blocks to avoid treating # inside code as headings
     if (line.trim().startsWith('```') || line.trim().startsWith('~~~')) {
       inCodeBlock = !inCodeBlock;
       currentContent.push(line);
@@ -92,16 +175,12 @@ export function chunkMDX(mdxSource: string): Chunk[] {
       continue;
     }
 
-    // Check for headings (## and ###)
     const headingMatch = line.match(/^(#{1,3})\s+(.+)$/);
     if (headingMatch) {
+      flushChunk();
       const level = headingMatch[1].length;
       const text = headingMatch[2].trim();
 
-      // Flush content from previous section
-      flushChunk();
-
-      // Update heading stack
       while (
         headingStack.length > 0 &&
         headingStack[headingStack.length - 1].level >= level
@@ -109,8 +188,6 @@ export function chunkMDX(mdxSource: string): Chunk[] {
         headingStack.pop();
       }
       headingStack.push({ level, text });
-
-      // Include the heading in the new chunk's content
       currentContent.push(line);
       continue;
     }
@@ -118,8 +195,6 @@ export function chunkMDX(mdxSource: string): Chunk[] {
     currentContent.push(line);
   }
 
-  // Flush remaining content
   flushChunk();
-
   return chunks;
 }

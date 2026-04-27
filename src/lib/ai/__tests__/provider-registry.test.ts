@@ -1,5 +1,23 @@
 import { describe, it, expect } from 'vitest';
 import { detectCapabilities } from '../provider-registry';
+import { isDiscoveryMode, isProviderKind } from '../types';
+
+describe('provider enum guards', () => {
+  it('accepts only supported provider kinds', () => {
+    expect(isProviderKind('openai_compatible')).toBe(true);
+    expect(isProviderKind('openrouter')).toBe(true);
+    expect(isProviderKind('litellm_proxy')).toBe(true);
+    expect(isProviderKind('anthropic')).toBe(false);
+  });
+
+  it('accepts only supported discovery modes', () => {
+    expect(isDiscoveryMode('v1-models')).toBe(true);
+    expect(isDiscoveryMode('openrouter-models')).toBe(true);
+    expect(isDiscoveryMode('litellm-model-info')).toBe(true);
+    expect(isDiscoveryMode('static')).toBe(true);
+    expect(isDiscoveryMode('unknown')).toBe(false);
+  });
+});
 
 describe('detectCapabilities', () => {
   it('marks all models as supporting chat', () => {

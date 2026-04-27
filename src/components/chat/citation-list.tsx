@@ -7,6 +7,7 @@ export interface ChatCitation {
   pageTitle: string;
   pageSlug: string;
   anchorId: string | null;
+  contentSnippet: string;
 }
 
 interface CitationListProps {
@@ -47,11 +48,12 @@ export function CitationList({ citations }: CitationListProps) {
           <Link
             key={c.num}
             href={href}
+            title={c.contentSnippet}
             style={{
               display: 'inline-flex',
-              alignItems: 'center',
+              flexDirection: 'column',
               gap: 3,
-              padding: '2px 8px',
+              padding: '5px 8px',
               borderRadius: 4,
               background: 'var(--teal-bg)',
               border: '1px solid var(--teal-bd)',
@@ -60,10 +62,13 @@ export function CitationList({ citations }: CitationListProps) {
               fontFamily: 'var(--font-mono)',
               textDecoration: 'none',
               transition: 'background .15s',
-              whiteSpace: 'nowrap',
+              maxWidth: 260,
             }}
           >
-            [{c.num}] {c.pageTitle.length > 30 ? c.pageTitle.slice(0, 30) + '...' : c.pageTitle}
+            <span>[{c.num}] {c.pageTitle.length > 30 ? c.pageTitle.slice(0, 30) + '...' : c.pageTitle}</span>
+            <span style={{ color: 'var(--tx-2)', whiteSpace: 'normal', lineHeight: 1.35 }}>
+              {c.contentSnippet}
+            </span>
           </Link>
         );
       })}

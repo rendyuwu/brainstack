@@ -66,9 +66,7 @@ export async function hybridSearch(
   if (options?.scopeType === 'page' && options.scopeId) {
     scopeFilter = sql` AND c.page_id = ${options.scopeId}::uuid`;
   } else if (options?.scopeType === 'collection' && options.scopeId) {
-    scopeFilter = sql` AND c.page_id IN (
-      SELECT id FROM pages WHERE collection_id = ${options.scopeId}::uuid
-    )`;
+    scopeFilter = sql` AND p.collection_id = ${options.scopeId}::uuid`;
   }
 
   // 1. Lexical search
@@ -76,7 +74,9 @@ export async function hybridSearch(
     SELECT c.id, c.page_id, c.anchor_id, c.heading_path, c.content,
            ts_rank(c.fts, plainto_tsquery('english', ${query})) as rank
     FROM chunks c
-    WHERE c.fts @@ plainto_tsquery('english', ${query})
+    JOIN pages p ON p.id = c.page_id
+    WHERE p.status = 'published'
+      AND c.fts @@ plainto_tsquery('english', ${query})
     ${scopeFilter}
     ORDER BY rank DESC
     LIMIT 20
@@ -93,7 +93,8 @@ export async function hybridSearch(
                1 - (ce.embedding <=> ${vectorStr}::vector) as similarity
         FROM chunk_embeddings ce
         JOIN chunks c ON c.id = ce.chunk_id
-        WHERE 1=1 ${scopeFilter}
+        JOIN pages p ON p.id = c.page_id
+        WHERE p.status = 'published' ${scopeFilter}
         ORDER BY ce.embedding <=> ${vectorStr}::vector
         LIMIT 20
       `);
@@ -181,7 +182,7 @@ export async function hybridSearch(
   // 4. Fetch page metadata
   const pageIds = [...new Set(topResults.map((r) => r.pageId))];
   const pageMetaRaw = await db.execute(sql`
-    SELECT id, title, slug FROM pages WHERE id = ANY(${pageIds}::uuid[])
+    SELECT id, title, slug FROM pages WHERE status = 'published' AND id = ANY(${pageIds}::uuid[])
   `);
 
   const pageMetaRows = extractRows<PageMeta>(pageMetaRaw);

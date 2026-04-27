@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { pages, pageTags } from '@/db/schema';
 import { eq, desc, and, SQL } from 'drizzle-orm';
 import { uniqueSlug } from '@/lib/slugify';
+import { isPageStatus, isPageType } from '@/lib/pages';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,8 +13,20 @@ export async function GET(request: NextRequest) {
     const collectionId = searchParams.get('collection_id');
     const type = searchParams.get('type');
 
+    if (status && !isPageStatus(status)) {
+      return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+    }
+    if (type && !isPageType(type)) {
+      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
+    }
+
+    const session = await auth();
     const conditions: SQL[] = [];
-    if (status) conditions.push(eq(pages.status, status));
+    if (session) {
+      if (status) conditions.push(eq(pages.status, status));
+    } else {
+      conditions.push(eq(pages.status, 'published'));
+    }
     if (collectionId) conditions.push(eq(pages.collectionId, collectionId));
     if (type) conditions.push(eq(pages.type, type));
 
@@ -70,6 +83,10 @@ export async function POST(request: NextRequest) {
         { error: 'Title is required' },
         { status: 400 }
       );
+    }
+
+    if (type !== undefined && !isPageType(type)) {
+      return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
     }
 
     const slug = await uniqueSlug(title);

@@ -2,6 +2,20 @@ import { db } from '@/db';
 import { pages, collections, pageTags } from '@/db/schema';
 import { eq, desc, and, ilike, or } from 'drizzle-orm';
 
+export const PAGE_STATUSES = ['draft', 'published', 'archived'] as const;
+export const PAGE_TYPES = ['tutorial', 'tip', 'cheatsheet', 'note'] as const;
+
+export type PageStatus = (typeof PAGE_STATUSES)[number];
+export type PageType = (typeof PAGE_TYPES)[number];
+
+export function isPageStatus(value: unknown): value is PageStatus {
+  return typeof value === 'string' && PAGE_STATUSES.includes(value as PageStatus);
+}
+
+export function isPageType(value: unknown): value is PageType {
+  return typeof value === 'string' && PAGE_TYPES.includes(value as PageType);
+}
+
 export async function getPublishedPages() {
   return db
     .select()
@@ -14,7 +28,7 @@ export async function getPageBySlug(slug: string) {
   const result = await db
     .select()
     .from(pages)
-    .where(eq(pages.slug, slug))
+    .where(and(eq(pages.slug, slug), eq(pages.status, 'published')))
     .limit(1);
   return result[0] ?? null;
 }
@@ -71,7 +85,9 @@ export async function getPageTags(pageId: string) {
 export async function getAllTags() {
   const result = await db
     .select({ tag: pageTags.tag })
-    .from(pageTags);
+    .from(pageTags)
+    .innerJoin(pages, eq(pageTags.pageId, pages.id))
+    .where(eq(pages.status, 'published'));
   const unique = [...new Set(result.map((r) => r.tag))];
   return unique.sort();
 }

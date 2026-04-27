@@ -21,6 +21,13 @@ interface Citation {
   pageSlug: string;
   anchorId: string | null;
   content: string;
+  contentSnippet: string;
+}
+
+export function contentSnippet(content: string, maxLength = 240): string {
+  const compact = content.replace(/```[\s\S]*?```/g, ' ').replace(/\s+/g, ' ').trim();
+  if (compact.length <= maxLength) return compact;
+  return `${compact.slice(0, maxLength - 1).trimEnd()}…`;
 }
 
 async function findChatProvider(): Promise<{
@@ -126,6 +133,7 @@ export async function POST(request: NextRequest) {
       pageSlug: r.pageSlug,
       anchorId: r.anchorId,
       content: r.content,
+      contentSnippet: contentSnippet(r.content),
     }));
 
     const contextText = citations
@@ -191,6 +199,7 @@ export async function POST(request: NextRequest) {
               pageTitle: c.pageTitle,
               pageSlug: c.pageSlug,
               anchorId: c.anchorId,
+              contentSnippet: c.contentSnippet,
             })),
           });
           controller.enqueue(encoder.encode(meta + '\n'));
@@ -220,6 +229,7 @@ export async function POST(request: NextRequest) {
               pageTitle: c.pageTitle,
               pageSlug: c.pageSlug,
               anchorId: c.anchorId,
+              contentSnippet: c.contentSnippet,
             })),
           });
 

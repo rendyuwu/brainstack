@@ -57,7 +57,10 @@ export function bm25Score(
 function minMaxNormalize(values: number[]): number[] {
   const min = Math.min(...values);
   const max = Math.max(...values);
-  if (max === min) return values.map(() => 1);
+  if (max === min) {
+    // All same score — if all zero (no matches), keep at 0; otherwise normalize to 1
+    return values.map(() => (max === 0 ? 0 : 1));
+  }
   return values.map((v) => (v - min) / (max - min));
 }
 
@@ -84,6 +87,9 @@ export function rerankBM25(
     score: 0.6 * normalizedBm25[i] + 0.4 * normalizedOriginal[i],
   }));
 
-  combined.sort((a, b) => b.score - a.score);
-  return limit ? combined.slice(0, limit) : combined;
+  // Filter out results with very low combined score (no meaningful match)
+  const filtered = combined.filter((c) => c.score > 0.05);
+
+  filtered.sort((a, b) => b.score - a.score);
+  return limit ? filtered.slice(0, limit) : filtered;
 }

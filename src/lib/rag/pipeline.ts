@@ -67,7 +67,7 @@ export async function runPublishPipeline(
       }
     }
   } catch (err) {
-    // Embeddings are optional — skip silently for MVP
-    console.warn('Embedding generation skipped:', (err as Error).message);
+    // Embeddings are optional — log but don't block publish
+    console.error('Embedding generation failed:', err);
   }
 }

@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { PublicShell } from '@/components/public-shell';
 import { Sidebar } from '@/components/sidebar';
+import { SiteFooter } from '@/components/site-footer';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,8 +16,18 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           }}
         >
           <Sidebar />
-          <main style={{ flex: 1, overflow: 'hidden', display: 'flex' }}>
-            {children}
+          <main
+            style={{
+              flex: 1,
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div style={{ flex: 1, overflow: 'hidden', display: 'flex' }}>
+              {children}
+            </div>
+            <SiteFooter />
           </main>
         </div>
       </PublicShell>

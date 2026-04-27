@@ -1,9 +1,5 @@
-import { db } from '@/db';
-import { aiProviders, aiModels } from '@/db/schema';
-import { eq, and } from 'drizzle-orm';
-import { createAIClient } from './client';
+import { chatWithFallback } from './find-chat-model';
 import { logAIUsage } from './usage-logger';
-import type { ProviderConfig, ProviderKind, DiscoveryMode } from './types';
 
 const STYLE_PROMPTS: Record<string, string> = {
   cheatsheet: `You are Noa, an AI writing assistant for BrainStack.
@@ -39,73 +35,24 @@ Rewrite the following content for advanced practitioners:
 - Output valid MDX only — no frontmatter, no imports`,
 };
 
-async function findChatProvider(): Promise<{
-  provider: ProviderConfig;
-  modelId: string;
-}> {
-  const providers = await db
-    .select()
-    .from(aiProviders)
-    .where(eq(aiProviders.enabled, true));
-
-  for (const row of providers) {
-    const models = await db
-      .select()
-      .from(aiModels)
-      .where(
-        and(eq(aiModels.providerId, row.id), eq(aiModels.supportsChat, true))
-      );
-
-    if (models.length > 0) {
-      return {
-        provider: {
-          id: row.id,
-          label: row.label,
-          kind: row.kind as ProviderKind,
-          baseUrl: row.baseUrl,
-          apiKeySecretRef: row.apiKeySecretRef,
-          defaultHeaders:
-            (row.defaultHeaders as Record<string, string>) ?? null,
-          discoveryMode: row.discoveryMode as DiscoveryMode,
-          enabled: row.enabled,
-        },
-        modelId: models[0].modelId,
-      };
-    }
-  }
-
-  throw new Error(
-    'No AI provider with a chat-capable model is configured. Go to Admin > AI Providers to add one.'
-  );
-}
-
 export type RewriteStyle = 'cheatsheet' | 'beginner' | 'advanced';
 
 export async function rewriteContent(
   content: string,
   style: RewriteStyle
 ): Promise<ReadableStream<Uint8Array>> {
-  const { provider, modelId } = await findChatProvider();
-  const client = createAIClient(provider);
-
   const systemPrompt = STYLE_PROMPTS[style];
   if (!systemPrompt) {
     throw new Error(`Unknown rewrite style: ${style}`);
   }
 
-  const stream = await client.chat.completions.create({
-    model: modelId,
-    stream: true,
-    messages: [
+  const { stream, provider, modelId } = await chatWithFallback(
+    [
       { role: 'system', content: systemPrompt },
-      {
-        role: 'user',
-        content: `Rewrite the following content:\n\n${content}`,
-      },
+      { role: 'user', content: `Rewrite the following content:\n\n${content}` },
     ],
-    temperature: 0.6,
-    max_tokens: 4096,
-  });
+    { temperature: 0.6, max_tokens: 4096 },
+  );
 
   const encoder = new TextEncoder();
   const startTime = Date.now();

@@ -5,14 +5,21 @@ import { createAIClient } from '@/lib/ai/client';
 import { logAIUsage } from '@/lib/ai/usage-logger';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from '@/lib/ai/types';
 
-async function findEmbeddingProvider(): Promise<{
+/** Must match the vector(N) column in chunk_embeddings */
+const EMBEDDING_DIMENSIONS = 1536;
+
+interface EmbeddingCandidate {
   provider: ProviderConfig;
   modelId: string;
-} | null> {
+}
+
+async function findEmbeddingCandidates(): Promise<EmbeddingCandidate[]> {
   const providers = await db
     .select()
     .from(aiProviders)
     .where(eq(aiProviders.enabled, true));
+
+  const candidates: EmbeddingCandidate[] = [];
 
   for (const row of providers) {
     const models = await db
@@ -25,75 +32,88 @@ async function findEmbeddingProvider(): Promise<{
         )
       );
 
-    if (models.length > 0) {
-      return {
-        provider: {
-          id: row.id,
-          label: row.label,
-          kind: row.kind as ProviderKind,
-          baseUrl: row.baseUrl,
-          apiKeySecretRef: row.apiKeySecretRef,
-          defaultHeaders:
-            (row.defaultHeaders as Record<string, string>) ?? null,
-          discoveryMode: row.discoveryMode as DiscoveryMode,
-          enabled: row.enabled,
-        },
-        modelId: models[0].modelId,
-      };
+    const providerConfig: ProviderConfig = {
+      id: row.id,
+      label: row.label,
+      kind: row.kind as ProviderKind,
+      baseUrl: row.baseUrl,
+      apiKeySecretRef: row.apiKeySecretRef,
+      defaultHeaders:
+        (row.defaultHeaders as Record<string, string>) ?? null,
+      discoveryMode: row.discoveryMode as DiscoveryMode,
+      enabled: row.enabled,
+    };
+
+    for (const model of models) {
+      candidates.push({ provider: providerConfig, modelId: model.modelId });
+    }
+  }
+
+  return candidates;
+}
+
+export async function embedChunks(
+  chunks: { content: string }[]
+): Promise<number[][] | null> {
+  const candidates = await findEmbeddingCandidates();
+  if (candidates.length === 0) return null;
+
+  for (const { provider, modelId } of candidates) {
+    try {
+      const client = createAIClient(provider);
+      const startTime = Date.now();
+      const response = await client.embeddings.create({
+        model: modelId,
+        input: chunks.map((c) => c.content),
+        dimensions: EMBEDDING_DIMENSIONS,
+      });
+
+      logAIUsage({
+        providerId: provider.id,
+        modelId,
+        endpoint: 'embed',
+        inputTokens: response.usage?.prompt_tokens,
+        outputTokens: response.usage?.total_tokens,
+        durationMs: Date.now() - startTime,
+      }).catch(() => {});
+
+      return response.data.map((d) => d.embedding);
+    } catch (err) {
+      console.warn(`Embedding model ${modelId} failed, trying next...`, err instanceof Error ? err.message : err);
     }
   }
 
   return null;
 }
 
-export async function embedChunks(
-  chunks: { content: string }[]
-): Promise<number[][] | null> {
-  const result = await findEmbeddingProvider();
-  if (!result) return null;
-
-  const { provider, modelId } = result;
-  const client = createAIClient(provider);
-
-  const startTime = Date.now();
-  const response = await client.embeddings.create({
-    model: modelId,
-    input: chunks.map((c) => c.content),
-  });
-
-  logAIUsage({
-    providerId: provider.id,
-    modelId,
-    endpoint: 'embed',
-    inputTokens: response.usage?.prompt_tokens,
-    outputTokens: response.usage?.total_tokens,
-    durationMs: Date.now() - startTime,
-  }).catch(() => {});
-
-  return response.data.map((d) => d.embedding);
-}
-
 export async function embedQuery(query: string): Promise<number[] | null> {
-  const result = await findEmbeddingProvider();
-  if (!result) return null;
+  const candidates = await findEmbeddingCandidates();
+  if (candidates.length === 0) return null;
 
-  const { provider, modelId } = result;
-  const client = createAIClient(provider);
+  for (const { provider, modelId } of candidates) {
+    try {
+      const client = createAIClient(provider);
+      const startTime = Date.now();
+      const response = await client.embeddings.create({
+        model: modelId,
+        input: [query],
+        dimensions: EMBEDDING_DIMENSIONS,
+      });
 
-  const startTime = Date.now();
-  const response = await client.embeddings.create({
-    model: modelId,
-    input: [query],
-  });
+      logAIUsage({
+        providerId: provider.id,
+        modelId,
+        endpoint: 'embed',
+        inputTokens: response.usage?.prompt_tokens,
+        outputTokens: response.usage?.total_tokens,
+        durationMs: Date.now() - startTime,
+      }).catch(() => {});
 
-  logAIUsage({
-    providerId: provider.id,
-    modelId,
-    endpoint: 'embed',
-    inputTokens: response.usage?.prompt_tokens,
-    outputTokens: response.usage?.total_tokens,
-    durationMs: Date.now() - startTime,
-  }).catch(() => {});
+      return response.data[0].embedding;
+    } catch (err) {
+      console.warn(`Embedding model ${modelId} failed, trying next...`, err instanceof Error ? err.message : err);
+    }
+  }
 
-  return response.data[0].embedding;
+  return null;
 }

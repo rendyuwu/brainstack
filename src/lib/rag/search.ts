@@ -94,7 +94,9 @@ export async function hybridSearch(
         FROM chunk_embeddings ce
         JOIN chunks c ON c.id = ce.chunk_id
         JOIN pages p ON p.id = c.page_id
-        WHERE p.status = 'published' ${scopeFilter}
+        WHERE p.status = 'published'
+          AND 1 - (ce.embedding <=> ${vectorStr}::vector) > 0.3
+          ${scopeFilter}
         ORDER BY ce.embedding <=> ${vectorStr}::vector
         LIMIT 20
       `);
@@ -181,8 +183,9 @@ export async function hybridSearch(
 
   // 4. Fetch page metadata
   const pageIds = [...new Set(topResults.map((r) => r.pageId))];
+  const pgArray = `{${pageIds.join(',')}}`;
   const pageMetaRaw = await db.execute(sql`
-    SELECT id, title, slug FROM pages WHERE status = 'published' AND id = ANY(${pageIds}::uuid[])
+    SELECT id, title, slug FROM pages WHERE status = 'published' AND id = ANY(${pgArray}::uuid[])
   `);
 
   const pageMetaRows = extractRows<PageMeta>(pageMetaRaw);

@@ -20,83 +20,91 @@ export async function GET(req: NextRequest) {
     return NextResponse.json([]);
   }
 
-  const chunks = await hybridSearch(q, { scopeType: 'site' });
+  try {
+    const chunks = await hybridSearch(q, { scopeType: 'site' });
 
-  if (chunks.length === 0) {
-    return NextResponse.json([]);
-  }
-
-  const pageIds = [...new Set(chunks.map((c) => c.pageId))];
-
-  const pageRows = await db
-    .select({
-      id: pages.id,
-      type: pages.type,
-      title: pages.title,
-      slug: pages.slug,
-      summary: pages.summary,
-      status: pages.status,
-      collectionId: pages.collectionId,
-    })
-    .from(pages)
-    .where(inArray(pages.id, pageIds));
-
-  const publishedPages = new Map(
-    pageRows
-      .filter((p) => p.status === 'published')
-      .map((p) => [p.id, p])
-  );
-
-  const collectionIds = [
-    ...new Set(
-      [...publishedPages.values()]
-        .map((p) => p.collectionId)
-        .filter((id): id is string => id !== null)
-    ),
-  ];
-
-  const collectionMap = new Map<string, string>();
-  if (collectionIds.length > 0) {
-    const cols = await db
-      .select({ id: collections.id, name: collections.name })
-      .from(collections)
-      .where(inArray(collections.id, collectionIds));
-    for (const c of cols) {
-      collectionMap.set(c.id, c.name);
+    if (chunks.length === 0) {
+      return NextResponse.json([]);
     }
-  }
 
-  const deduped = new Map<
-    string,
-    {
-      type: string;
-      title: string;
-      slug: string;
-      collection: string | undefined;
-      summary: string | null;
-      snippet: string;
-      score: number;
-      anchorId: string | null;
+    const pageIds = [...new Set(chunks.map((c) => c.pageId))];
+
+    const pageRows = await db
+      .select({
+        id: pages.id,
+        type: pages.type,
+        title: pages.title,
+        slug: pages.slug,
+        summary: pages.summary,
+        status: pages.status,
+        collectionId: pages.collectionId,
+      })
+      .from(pages)
+      .where(inArray(pages.id, pageIds));
+
+    const publishedPages = new Map(
+      pageRows
+        .filter((p) => p.status === 'published')
+        .map((p) => [p.id, p])
+    );
+
+    const collectionIds = [
+      ...new Set(
+        [...publishedPages.values()]
+          .map((p) => p.collectionId)
+          .filter((id): id is string => id !== null)
+      ),
+    ];
+
+    const collectionMap = new Map<string, string>();
+    if (collectionIds.length > 0) {
+      const cols = await db
+        .select({ id: collections.id, name: collections.name })
+        .from(collections)
+        .where(inArray(collections.id, collectionIds));
+      for (const c of cols) {
+        collectionMap.set(c.id, c.name);
+      }
     }
-  >();
 
-  for (const chunk of chunks) {
-    const page = publishedPages.get(chunk.pageId);
-    if (!page) continue;
+    const deduped = new Map<
+      string,
+      {
+        type: string;
+        title: string;
+        slug: string;
+        collection: string | undefined;
+        summary: string | null;
+        snippet: string;
+        score: number;
+        anchorId: string | null;
+      }
+    >();
 
-    if (!deduped.has(chunk.pageId) || chunk.score > deduped.get(chunk.pageId)!.score) {
-      deduped.set(chunk.pageId, {
-        type: page.type,
-        title: page.title,
-        slug: page.slug,
-        collection: page.collectionId ? collectionMap.get(page.collectionId) : undefined,
-        summary: page.summary,
-        snippet: chunk.content.slice(0, 200),
-        score: chunk.score,
-        anchorId: chunk.anchorId,
-      });
+    for (const chunk of chunks) {
+      const page = publishedPages.get(chunk.pageId);
+      if (!page) continue;
+
+      if (!deduped.has(chunk.pageId) || chunk.score > deduped.get(chunk.pageId)!.score) {
+        deduped.set(chunk.pageId, {
+          type: page.type,
+          title: page.title,
+          slug: page.slug,
+          collection: page.collectionId ? collectionMap.get(page.collectionId) : undefined,
+          summary: page.summary,
+          snippet: chunk.content.slice(0, 200),
+          score: chunk.score,
+          anchorId: chunk.anchorId,
+        });
+      }
     }
-  }
 
-  return NextResponse.json([...deduped.values()]);
+    return NextResponse.json([...deduped.values()]);
+  } catch (err) {
+    console.error('[search] GET /api/search failed:', err);
+    return NextResponse.json(
+      { error: 'Search failed', message: err instanceof Error ? err.message : 'Unknown error' },
+      { status: 500 }
+    );
+  }
 }

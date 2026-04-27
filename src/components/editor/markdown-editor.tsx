@@ -226,7 +226,7 @@ export default function MarkdownEditor({
             </div>
           )}
 
-          {content && !preview && (
+          {!preview && (
             <textarea
               ref={textareaRef}
               value={content}

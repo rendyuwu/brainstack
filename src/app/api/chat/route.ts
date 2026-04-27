@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
-import { conversations, messages, aiProviders, aiModels } from '@/db/schema';
-import { eq, and } from 'drizzle-orm';
-import { createAIClient } from '@/lib/ai/client';
+import { conversations, messages } from '@/db/schema';
+import { eq } from 'drizzle-orm';
+import { chatWithFallback } from '@/lib/ai/find-chat-model';
 import { hybridSearch } from '@/lib/rag/search';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { logAIUsage } from '@/lib/ai/usage-logger';
-import type { ProviderConfig, ProviderKind, DiscoveryMode } from '@/lib/ai/types';
 
 interface ChatRequestBody {
   message: string;
@@ -28,44 +27,6 @@ export function contentSnippet(content: string, maxLength = 240): string {
   const compact = content.replace(/```[\s\S]*?```/g, ' ').replace(/\s+/g, ' ').trim();
   if (compact.length <= maxLength) return compact;
   return `${compact.slice(0, maxLength - 1).trimEnd()}…`;
-}
-
-async function findChatProvider(): Promise<{
-  provider: ProviderConfig;
-  modelId: string;
-}> {
-  const providers = await db
-    .select()
-    .from(aiProviders)
-    .where(eq(aiProviders.enabled, true));
-
-  for (const row of providers) {
-    const models = await db
-      .select()
-      .from(aiModels)
-      .where(
-        and(eq(aiModels.providerId, row.id), eq(aiModels.supportsChat, true))
-      );
-
-    if (models.length > 0) {
-      return {
-        provider: {
-          id: row.id,
-          label: row.label,
-          kind: row.kind as ProviderKind,
-          baseUrl: row.baseUrl,
-          apiKeySecretRef: row.apiKeySecretRef,
-          defaultHeaders:
-            (row.defaultHeaders as Record<string, string>) ?? null,
-          discoveryMode: row.discoveryMode as DiscoveryMode,
-          enabled: row.enabled,
-        },
-        modelId: models[0].modelId,
-      };
-    }
-  }
-
-  throw new Error('No AI provider with a chat-capable model is configured.');
 }
 
 const CHAT_SYSTEM_PROMPT = `You are Noa, an AI assistant for BrainStack — an IT knowledge base covering DevOps, cloud, and infrastructure.
@@ -147,9 +108,7 @@ export async function POST(request: NextRequest) {
       ? `Context chunks:\n\n${contextText}\n\n---\n\nUser question: ${message}`
       : `No relevant context was found in the knowledge base.\n\nUser question: ${message}`;
 
-    // 5. Stream AI response
-    const { provider, modelId } = await findChatProvider();
-    const client = createAIClient(provider);
+    // 5. Stream AI response with model fallback
 
     // Fetch conversation history for multi-turn
     const history = await db
@@ -174,13 +133,7 @@ export async function POST(request: NextRequest) {
 
     chatMessages.push({ role: 'user', content: userPrompt });
 
-    const stream = await client.chat.completions.create({
-      model: modelId,
-      stream: true,
-      messages: chatMessages,
-      temperature: 0.3,
-      max_tokens: 2048,
-    });
+    const { stream, provider, modelId } = await chatWithFallback(chatMessages);
 
     // 6. Stream response and collect full text
     const encoder = new TextEncoder();

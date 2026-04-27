@@ -50,8 +50,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-  const pages = await getPublishedPages();
-  return pages.map((p) => ({ slug: p.slug }));
+  try {
+    const pages = await getPublishedPages();
+    return pages.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export default async function BlogPage({ params }: PageProps) {

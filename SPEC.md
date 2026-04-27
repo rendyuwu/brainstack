@@ -157,7 +157,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T18 | ✓ | logout button — add sign-out action to top-nav (auth users only) | V23,I.public |
 | T19 | ✓ | collapsible sidebar — toggle button, persist preference, responsive | V24,I.public |
 | T20 | ✓ | fix chat validation error — diagnose & harden `/api/chat` 400 path | V18,I.api |
-| T21 | . | verify content pipeline — confirm seed data indexed (FTS) + embedded (vectors); document gaps | V10,V13,V15 |
+| T21 | ✓ | verify content pipeline — confirm seed data indexed (FTS) + embedded (vectors); document gaps | V10,V13,V15 |
 | T22 | ✓ | embedding sync — `POST /api/admin/embeddings/sync` backfill missing; `POST /api/admin/embeddings/reset` clear+re-embed; admin UI button w/ progress | V25,V26,V27,I.api,I.admin |
 
 ## §B — Bugs

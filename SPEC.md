@@ -155,7 +155,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T17 | ✓ | manual model entry + test for proxy providers | V7,V9,I.api,I.admin |
 | T18 | . | logout button — add sign-out action to top-nav (auth users only) | V23,I.public |
 | T19 | . | collapsible sidebar — toggle button, persist preference, responsive | V24,I.public |
-| T20 | . | fix chat validation error — diagnose & harden `/api/chat` 400 path | V18,I.api |
+| T20 | ✓ | fix chat validation error — diagnose & harden `/api/chat` 400 path | V18,I.api |
 | T21 | . | verify content pipeline — confirm seed data indexed (FTS) + embedded (vectors); document gaps | V10,V13,V15 |
 | T22 | . | embedding sync — `POST /api/admin/embeddings/sync` backfill missing; `POST /api/admin/embeddings/reset` clear+re-embed; admin UI button w/ progress | V25,V26,V27,I.api,I.admin |
 
@@ -177,4 +177,4 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | B12 | 2026-04-27 | no footer on any public page — no `<footer>` element exists | create `SiteFooter` component with copyright + nav links; add to public layout below content area | fixed |
 | B13 | 2026-04-27 | `/editor` returns 404 — no article list/index page exists; only `/editor/[id]` and `/editor/new` | create `src/app/editor/page.tsx` with article list, status filters (all/draft/published), edit links, new article button | fixed |
 | B14 | 2026-04-27 | embedding model no fallback — `findEmbeddingProvider()` picked first DB model; paywalled models cause silent failure | refactor `embedder.ts` with `findEmbeddingCandidates()` + sequential fallback loop; same pattern as chat fallback | fixed |
-| B15 | 2026-04-27 | chat API returns `"Error: Validation failed"` 400 — `chatSchema` rejects request; likely empty `message`, bad UUID `conversationId`, or malformed body from client | investigate `use-chat.ts` payload + `chatSchema` in `validation.ts`; harden client-side guard before send | open |
+| B15 | 2026-04-27 | chat API returns `"Error: Validation failed"` 400 — `conversationId: null` sent by client; Zod `.uuid().optional()` rejects null | make `conversationId` `.nullable().optional()` in schema; client omits null fields; better error display in chat UI | fixed |

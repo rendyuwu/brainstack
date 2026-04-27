@@ -4,7 +4,7 @@
 
 | Version | Supported |
 |---------|-----------|
-| Latest `main` | ✅ Yes |
+| Latest `master` | ✅ Yes |
 | Feature branches | ❌ No |
 
 ## Reporting a Vulnerability

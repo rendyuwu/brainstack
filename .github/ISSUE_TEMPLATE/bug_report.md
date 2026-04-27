@@ -40,7 +40,7 @@ paste logs here
 - **Node.js version:** (e.g., 20.x, 22.x)
 - **pnpm version:** (e.g., 9.x)
 - **Database:** PostgreSQL 16 + pgvector
-- **Project version/commit:** (e.g., `v1.2.3` or `main@abc1234`)
+- **Project version/commit:** (e.g., `v1.2.3` or `master@abc1234`)
 
 ## Additional Context
 

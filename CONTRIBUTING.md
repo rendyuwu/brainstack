@@ -129,7 +129,7 @@ chore(ci): add Playwright E2E step to workflow
 
 ## Pull Request Process
 
-1. Create a feature branch from `main`
+1. Create a feature branch from `master`
 2. Make your changes
 3. Ensure all checks pass locally:
 

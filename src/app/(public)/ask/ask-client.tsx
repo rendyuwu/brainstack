@@ -1,151 +1,25 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useRef } from 'react';
 import { Icon } from '@/components/icons';
-import { MessageBubble } from '@/components/chat/message-bubble';
-import { CitationList, type ChatCitation } from '@/components/chat/citation-list';
-
-interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  citations?: ChatCitation[];
-}
+import { ChatMessages } from '@/components/chat/chat-messages';
+import { useChat } from '@/hooks/use-chat';
 
 interface AskPageClientProps {
   suggestedQuestions: string[];
 }
 
 export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const {
+    messages,
+    input,
+    setInput,
+    isStreaming,
+    sendMessage,
+    handleKeyDown,
+    scrollRef,
+  } = useChat({ scopeType: 'site' });
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const scrollToBottom = useCallback(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, []);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, scrollToBottom]);
-
-  const sendMessage = useCallback(async (text: string) => {
-    if (!text.trim() || isStreaming) return;
-
-    setInput('');
-    setIsStreaming(true);
-
-    const userMsg: Message = {
-      id: `user-${Date.now()}`,
-      role: 'user',
-      content: text,
-    };
-    const assistantMsg: Message = {
-      id: `assistant-${Date.now()}`,
-      role: 'assistant',
-      content: '',
-      citations: [],
-    };
-
-    setMessages((prev) => [...prev, userMsg, assistantMsg]);
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          conversationId,
-          scopeType: 'site',
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Chat request failed');
-      }
-
-      const reader = res.body?.getReader();
-      if (!reader) throw new Error('No response body');
-
-      const decoder = new TextDecoder();
-      let buffer = '';
-      let metaParsed = false;
-      let citations: ChatCitation[] = [];
-      let fullText = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-
-        if (!metaParsed && buffer.includes('\n')) {
-          const newlineIdx = buffer.indexOf('\n');
-          const firstLine = buffer.slice(0, newlineIdx);
-          buffer = buffer.slice(newlineIdx + 1);
-
-          try {
-            const meta = JSON.parse(firstLine);
-            if (meta.type === 'meta') {
-              setConversationId(meta.conversationId);
-              citations = meta.citations || [];
-            }
-          } catch {
-            buffer = firstLine + buffer;
-          }
-          metaParsed = true;
-        }
-
-        if (metaParsed) {
-          fullText += buffer;
-          buffer = '';
-
-          setMessages((prev) => {
-            const updated = [...prev];
-            const lastMsg = updated[updated.length - 1];
-            if (lastMsg.role === 'assistant') {
-              updated[updated.length - 1] = {
-                ...lastMsg,
-                content: fullText,
-                citations,
-              };
-            }
-            return updated;
-          });
-        }
-      }
-    } catch (err) {
-      setMessages((prev) => {
-        const updated = [...prev];
-        const lastMsg = updated[updated.length - 1];
-        if (lastMsg.role === 'assistant') {
-          updated[updated.length - 1] = {
-            ...lastMsg,
-            content: `Error: ${(err as Error).message}`,
-          };
-        }
-        return updated;
-      });
-    } finally {
-      setIsStreaming(false);
-    }
-  }, [isStreaming, conversationId]);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage(input);
-      }
-    },
-    [sendMessage, input]
-  );
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
@@ -235,18 +109,7 @@ export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
           </div>
         )}
 
-        {messages.map((msg) => (
-          <div key={msg.id}>
-            <MessageBubble
-              role={msg.role}
-              content={msg.content}
-              isStreaming={isStreaming && msg.role === 'assistant' && !msg.content}
-            />
-            {msg.role === 'assistant' && msg.citations && msg.citations.length > 0 && msg.content && (
-              <CitationList citations={msg.citations} />
-            )}
-          </div>
-        ))}
+        <ChatMessages messages={messages} isStreaming={isStreaming} />
         </div>
       </div>
 

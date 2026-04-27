@@ -214,19 +214,56 @@ export async function testConnection(provider: ProviderConfig) {
   }
 }
 
+// ---------- capability detection ----------
+
+interface CapabilityPattern {
+  pattern: RegExp;
+  supportsResponses?: boolean;
+  supportsEmbeddings?: boolean;
+  supportsVision?: boolean;
+}
+
+/**
+ * Configurable capability patterns — extend this array when new model
+ * families are added instead of scattering `.includes()` checks.
+ */
+const CAPABILITY_PATTERNS: CapabilityPattern[] = [
+  // OpenAI
+  { pattern: /gpt-4o/,            supportsResponses: true, supportsVision: true },
+  { pattern: /gpt-4/,             supportsResponses: true },
+  { pattern: /gpt-3\.5/,          supportsResponses: true },
+  { pattern: /o[1-9]/,            supportsResponses: true, supportsVision: true },
+  // Anthropic
+  { pattern: /claude-3/,          supportsVision: true },
+  { pattern: /claude-4/,          supportsVision: true },
+  // Google
+  { pattern: /gemini/,            supportsVision: true },
+  // Embeddings
+  { pattern: /embed/,             supportsEmbeddings: true },
+  // Vision keyword
+  { pattern: /vision/,            supportsVision: true },
+];
+
 export function detectCapabilities(modelId: string) {
   const id = modelId.toLowerCase();
-  return {
+
+  const caps = {
     supportsChat: true,
-    supportsResponses: id.includes('gpt-4') || id.includes('gpt-3.5'),
-    supportsEmbeddings: id.includes('embed'),
-    supportsVision:
-      id.includes('vision') ||
-      id.includes('gpt-4o') ||
-      id.includes('claude-3') ||
-      id.includes('gemini'),
+    supportsResponses: false,
+    supportsEmbeddings: false,
+    supportsVision: false,
     contextLength: null as number | null,
   };
+
+  for (const rule of CAPABILITY_PATTERNS) {
+    if (rule.pattern.test(id)) {
+      if (rule.supportsResponses) caps.supportsResponses = true;
+      if (rule.supportsEmbeddings) caps.supportsEmbeddings = true;
+      if (rule.supportsVision) caps.supportsVision = true;
+    }
+  }
+
+  return caps;
 }
 
 export async function discoverModels(provider: ProviderConfig) {

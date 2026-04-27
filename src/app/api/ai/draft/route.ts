@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { generateDraft } from '@/lib/ai/draft';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { aiDraftSchema, validateBody } from '@/lib/validation';
@@ -14,10 +14,9 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.35: AI features require admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const body = await request.json();
     const v = validateBody(aiDraftSchema, body);

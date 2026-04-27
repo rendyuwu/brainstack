@@ -4,6 +4,7 @@ import { compare } from 'bcryptjs';
 import { db } from '@/db';
 import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
+import { NextResponse } from 'next/server';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -67,3 +68,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: 'jwt',
   },
 });
+
+/**
+ * Shared admin guard — returns session if role === 'admin', null otherwise.
+ * Use in API routes: `const session = await requireAdmin(); if (!session) return unauthorizedResponse();`
+ */
+export async function requireAdmin() {
+  const session = await auth();
+  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
+    return null;
+  }
+  return session;
+}
+
+/** Standard 401 response for unauthorized requests */
+export function unauthorizedResponse() {
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+}

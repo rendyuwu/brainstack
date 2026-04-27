@@ -9,7 +9,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - Next.js 16 App Router + React 19 + TypeScript
 - PostgreSQL 16 + pgvector (1536-dim embeddings)
 - Drizzle ORM + drizzle-kit migrations
-- Auth.js v5 (credentials provider, JWT sessions, bcryptjs)
+- Auth.js v5 (credentials provider, JWT sessions, bcryptjs, admin-only write access)
 - OpenAI SDK as client for all providers (custom baseURL)
 - Custom CSS design system (IBM Plex fonts, amber/teal accents, NO Tailwind)
 - MDX stored in DB, rendered server-side via next-mdx-remote
@@ -34,14 +34,15 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/discover` | GET | browse published pages by topic |
 | `/login` | GET | login form |
 
-### Editor routes (auth required)
+### Editor routes (admin role required)
 
 | path | method | purpose |
 |------|--------|---------|
+| `/editor` | GET | article list — drafts/published, edit links |
 | `/editor/new` | GET | create new page |
 | `/editor/[id]` | GET | edit existing page |
 
-### Settings routes (auth required)
+### Settings routes (admin role required)
 
 | path | method | purpose |
 |------|--------|---------|
@@ -59,23 +60,23 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | path | method | auth | purpose |
 |------|--------|------|---------|
 | `/api/pages` | GET | no | list pages (filters: status, collection_id, type) |
-| `/api/pages` | POST | yes | create page |
+| `/api/pages` | POST | admin | create page |
 | `/api/pages/[id]` | GET | no | get page by id |
-| `/api/pages/[id]` | PUT | yes | update page |
-| `/api/pages/[id]` | DELETE | yes | archive page (soft delete) |
-| `/api/pages/[id]/publish` | POST | yes | publish → revision + chunk + embed |
-| `/api/pages/[id]/tags` | PUT | yes | sync tags |
-| `/api/pages/[id]/assets` | GET | yes | list assets for page |
-| `/api/pages/[id]/assets` | POST | yes | upload image asset (multipart) |
-| `/api/pages/[id]/assets` | DELETE | yes | delete asset by assetId |
+| `/api/pages/[id]` | PUT | admin | update page |
+| `/api/pages/[id]` | DELETE | admin | archive page (soft delete) |
+| `/api/pages/[id]/publish` | POST | admin | publish → revision + chunk + embed |
+| `/api/pages/[id]/tags` | PUT | admin | sync tags |
+| `/api/pages/[id]/assets` | GET | admin | list assets for page |
+| `/api/pages/[id]/assets` | POST | admin | upload image asset (multipart) |
+| `/api/pages/[id]/assets` | DELETE | admin | delete asset by assetId |
 | `/api/pages/[id]/relations` | GET | no | list relations for page |
-| `/api/pages/[id]/relations` | POST | yes | create relation (related/prerequisite/see-also) |
-| `/api/pages/[id]/relations` | DELETE | yes | delete relation by relationId |
+| `/api/pages/[id]/relations` | POST | admin | create relation (related/prerequisite/see-also) |
+| `/api/pages/[id]/relations` | DELETE | admin | delete relation by relationId |
 | `/api/collections` | GET | no | list collections |
 | `/api/search` | GET | no | keyword search (title/summary ILIKE) |
 | `/api/chat` | POST | no | RAG chat w/ citations (streams) |
-| `/api/ai/draft` | POST | yes | generate draft from idea ± image (streams) |
-| `/api/ai/rewrite` | POST | yes | rewrite content for style (streams) |
+| `/api/ai/draft` | POST | admin | generate draft from idea ± image (streams) |
+| `/api/ai/rewrite` | POST | admin | rewrite content for style (streams) |
 | `/api/admin/providers` | GET | admin | list providers |
 | `/api/admin/providers` | POST | admin | create provider |
 | `/api/admin/providers/[id]` | GET | admin | get provider |
@@ -87,7 +88,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/api/admin/embeddings/stats` | GET | admin | chunk + embedding counts for admin UI |
 | `/api/admin/embeddings/sync` | POST | admin | backfill missing embeddings for chunks w/o vectors |
 | `/api/admin/embeddings/reset` | POST | admin | delete all embeddings + re-embed all chunks |
-| `/api/account/password` | PATCH | yes | change own password (current + new) |
+| `/api/account/password` | PATCH | admin | change own password (current + new) |
 | `/api/auth/[...nextauth]` | GET,POST | — | NextAuth handlers |
 
 ### Setup routes (bootstrap, one-time)
@@ -137,6 +138,14 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V29: new password ! ≠ current password
 - V30: password change API ! require authenticated session
 - V31: password change error msgs ! generic — ⊥ leak specifics
+- V32: only `admin` role exists; `editor` role removed; user creation default = `admin`
+- V33: ∀ write API (`POST/PUT/DELETE /api/pages/*`, publish, tags, assets, relations) → require `role === 'admin'`
+- V34: unauthenticated users = read-only; can view published articles + cheatsheets + discover + ask only
+- V35: AI features (`/api/ai/draft`, `/api/ai/rewrite`) require `role === 'admin'`; `/api/chat` POST open (RAG chat = public read feature)
+- V36: `/editor/*` middleware ! check `role === 'admin'` — ⊥ token-only; redirect non-admin → `/`
+- V37: `/settings` route requires valid session (admin); non-admin → redirect `/`
+- V38: `/admin/*` unchanged — already requires `role === 'admin'`
+- V39: client UI ! hide editor/admin/AI links for non-admin sessions
 
 ## §T — Tasks
 
@@ -168,6 +177,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T24 | ✓ | add "Account" tab to `/settings` page w/ password change form (current + new + confirm) | V28,V6,I.settings |
 | T25 | ✓ | wire form submit → `PATCH /api/account/password`, show success/error feedback | V28,V29,V31,I.api |
 | T26 | ✓ | add tests for password change API route | V28,V29,V30,V31 |
+| T27 | ✓ | admin-only safeguard — remove `editor` role; upgrade middleware to check `role === 'admin'` for `/editor/*`, `/settings`; add `requireAdmin()` guard to all write API routes (`/api/pages` POST/PUT/DELETE, publish, tags, assets, relations, `/api/ai/draft`, `/api/ai/rewrite`); hide editor/AI nav links for non-admin; update schema default role; add tests | V32,V33,V34,V35,V36,V37,V38,V39 |
 
 ## §B — Bugs
 

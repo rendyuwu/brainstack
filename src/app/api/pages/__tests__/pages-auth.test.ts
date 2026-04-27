@@ -4,6 +4,15 @@ import { NextRequest } from 'next/server';
 const mockAuth = vi.fn();
 vi.mock('@/lib/auth', () => ({
   auth: () => mockAuth(),
+  requireAdmin: async () => {
+    const session = await mockAuth();
+    if (!session?.user || session.user.role !== 'admin') return null;
+    return session;
+  },
+  unauthorizedResponse: () => {
+    const { NextResponse } = require('next/server');
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  },
 }));
 
 vi.mock('@/db', () => {
@@ -103,9 +112,25 @@ describe('pages auth guard', () => {
     expect(res.status).toBe(401);
   });
 
-  it('POST /api/pages succeeds with valid session', async () => {
+  // §V.33: editor role → 401 on POST (admin-only)
+  it('POST /api/pages returns 401 with editor role', async () => {
     mockAuth.mockResolvedValue({
       user: { id: 'u1', email: 'e@e.com', role: 'editor' },
+    });
+    const { POST } = await import('../../pages/route');
+    const req = new NextRequest('http://localhost/api/pages', {
+      method: 'POST',
+      body: JSON.stringify({ title: 'Test Page' }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const res = await POST(req);
+    expect(res.status).toBe(401);
+  });
+
+  // §V.33: admin role → 201 on POST
+  it('POST /api/pages succeeds with admin role', async () => {
+    mockAuth.mockResolvedValue({
+      user: { id: 'u1', email: 'admin@e.com', role: 'admin' },
     });
     const { POST } = await import('../../pages/route');
     const req = new NextRequest('http://localhost/api/pages', {
@@ -119,7 +144,7 @@ describe('pages auth guard', () => {
 
   it('POST /api/pages rejects invalid type', async () => {
     mockAuth.mockResolvedValue({
-      user: { id: 'u1', email: 'e@e.com', role: 'editor' },
+      user: { id: 'u1', email: 'admin@e.com', role: 'admin' },
     });
     const { POST } = await import('../../pages/route');
     const req = new NextRequest('http://localhost/api/pages', {
@@ -133,7 +158,7 @@ describe('pages auth guard', () => {
 
   it('POST /api/pages returns 400 without title', async () => {
     mockAuth.mockResolvedValue({
-      user: { id: 'u1', email: 'e@e.com', role: 'editor' },
+      user: { id: 'u1', email: 'admin@e.com', role: 'admin' },
     });
     const { POST } = await import('../../pages/route');
     const req = new NextRequest('http://localhost/api/pages', {

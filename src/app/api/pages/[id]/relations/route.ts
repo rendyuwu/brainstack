@@ -1,20 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { db } from '@/db';
 import { pageRelations, pages } from '@/db/schema';
 import { eq, or, and } from 'drizzle-orm';
 import { createRelationSchema, deleteRelationSchema, validateBody } from '@/lib/validation';
 
+// §V.34: relations GET is public (read-only)
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const { id } = await params;
 
     const relations = await db
@@ -65,10 +61,9 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
     const body = await request.json();
@@ -107,10 +102,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
     const body = await request.json();

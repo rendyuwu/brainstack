@@ -6,8 +6,15 @@ import { getPublishedPages, getCollections, getAllTags } from '@/lib/pages';
 import { estimateReadTime } from '@/lib/mdx';
 
 export const metadata: Metadata = {
-  title: 'BrainStack — Knowledge Base',
-  description: 'Tutorials, docs, and cheatsheets for developers and ops engineers.',
+  title: 'Knowledge Base',
+  description:
+    'Tutorials, docs, and cheatsheets for developers and ops engineers. Browse topic stacks on Docker, Kubernetes, Linux, Git, Nginx, and PostgreSQL.',
+  openGraph: {
+    title: 'Knowledge Base | BrainStack',
+    description:
+      'Tutorials, docs, and cheatsheets for developers and ops engineers.',
+    url: '/',
+  },
 };
 
 const ICON_MAP: Record<string, string> = {

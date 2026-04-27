@@ -7,6 +7,7 @@ import { Icon } from '@/components/icons';
 import { getPageWithCollection, getPublishedPages } from '@/lib/pages';
 import { renderMDX } from '@/lib/mdx';
 import { RelatedPages } from '@/components/related-pages';
+import { JsonLd } from '@/components/json-ld';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -25,9 +26,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const page = await getPageWithCollection(slug);
   if (!page) return { title: 'Not Found' };
+  const description = page.summary ?? `Cheatsheet for ${page.title}`;
   return {
-    title: `${page.title} Cheatsheet — BrainStack`,
-    description: page.summary ?? `Cheatsheet for ${page.title}`,
+    title: `${page.title} Cheatsheet`,
+    description,
+    openGraph: {
+      title: `${page.title} Cheatsheet`,
+      description,
+      type: 'article',
+      url: `/cheatsheets/${slug}`,
+      ...(page.publishedAt && { publishedTime: new Date(page.publishedAt).toISOString() }),
+      tags: page.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${page.title} Cheatsheet`,
+      description,
+    },
   };
 }
 
@@ -164,6 +179,16 @@ export default async function CheatsheetPage({ params }: PageProps) {
             </div>
           )}
         </div>
+
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@type': 'HowTo',
+            name: page.title,
+            description: page.summary ?? `Cheatsheet for ${page.title}`,
+            ...(page.publishedAt && { datePublished: new Date(page.publishedAt).toISOString() }),
+          }}
+        />
 
         <RelatedPages pageId={page.id} />
       </div>

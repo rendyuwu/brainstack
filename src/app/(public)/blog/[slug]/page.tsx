@@ -9,6 +9,7 @@ import { renderMDX, extractHeadings, estimateReadTime } from '@/lib/mdx';
 import { ArticleTOC } from '@/components/article-toc';
 import { ArticleChatToggle } from '@/components/chat/article-chat-toggle';
 import { RelatedPages } from '@/components/related-pages';
+import { JsonLd } from '@/components/json-ld';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -27,9 +28,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const page = await getPageWithCollection(slug);
   if (!page) return { title: 'Not Found' };
+  const description = page.summary ?? `Read ${page.title} on BrainStack`;
   return {
-    title: `${page.title} — BrainStack`,
-    description: page.summary ?? `Read ${page.title} on BrainStack`,
+    title: page.title,
+    description,
+    openGraph: {
+      title: page.title,
+      description,
+      type: 'article',
+      url: `/blog/${slug}`,
+      ...(page.publishedAt && { publishedTime: new Date(page.publishedAt).toISOString() }),
+      ...(page.updatedAt && { modifiedTime: new Date(page.updatedAt).toISOString() }),
+      tags: page.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: page.title,
+      description,
+    },
   };
 }
 
@@ -81,6 +97,20 @@ export default async function BlogPage({ params }: PageProps) {
 
   return (
     <div style={{ display: 'flex', flex: 1, overflow: 'hidden', height: '100%' }}>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: page.title,
+          description: page.summary ?? '',
+          ...(page.publishedAt && { datePublished: new Date(page.publishedAt).toISOString() }),
+          ...(page.updatedAt && { dateModified: new Date(page.updatedAt).toISOString() }),
+          author: { '@type': 'Organization', name: 'BrainStack' },
+          publisher: { '@type': 'Organization', name: 'BrainStack' },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': `/blog/${slug}` },
+          keywords: page.tags,
+        }}
+      />
       {/* TOC sidebar */}
       {headings.length > 0 && (
         <div

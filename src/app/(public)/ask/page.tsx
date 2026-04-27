@@ -3,8 +3,15 @@ import { Icon } from '@/components/icons';
 import { AskPageClient } from './ask-client';
 
 export const metadata: Metadata = {
-  title: 'Ask the Knowledge Base — BrainStack',
-  description: 'Chat with Noa, the AI assistant, about anything in the BrainStack knowledge base.',
+  title: 'Ask the Knowledge Base',
+  description:
+    'Chat with Noa, the AI assistant, about anything in the BrainStack knowledge base. Get answers grounded in real articles with citations.',
+  openGraph: {
+    title: 'Ask the Knowledge Base | BrainStack',
+    description:
+      'Chat with Noa about DevOps, cloud, and infrastructure topics across all articles.',
+    url: '/ask',
+  },
 };
 
 const SUGGESTED_QUESTIONS = [

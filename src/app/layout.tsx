@@ -15,9 +15,35 @@ const plexMono = IBM_Plex_Mono({
   variable: '--font-mono',
 });
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://brainstack.dev';
+
 export const metadata: Metadata = {
-  title: 'BrainStack — Knowledge Platform',
-  description: 'A knowledge-first IT publishing platform',
+  metadataBase: new URL(BASE_URL),
+  title: {
+    template: '%s | BrainStack',
+    default: 'BrainStack — Knowledge-First IT Publishing',
+  },
+  description:
+    'Tutorials, cheatsheets, and deep-dive articles on Docker, Kubernetes, Linux, Git, Nginx, and PostgreSQL — built for developers and ops engineers.',
+  openGraph: {
+    type: 'website',
+    siteName: 'BrainStack',
+    locale: 'en_US',
+    url: BASE_URL,
+    title: 'BrainStack — Knowledge-First IT Publishing',
+    description:
+      'Tutorials, cheatsheets, and deep-dive articles on Docker, Kubernetes, Linux, Git, Nginx, and PostgreSQL.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BrainStack — Knowledge-First IT Publishing',
+    description:
+      'Tutorials, cheatsheets, and deep-dive articles on Docker, Kubernetes, Linux, Git, Nginx, and PostgreSQL.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

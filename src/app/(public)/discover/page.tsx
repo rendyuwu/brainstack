@@ -14,8 +14,14 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 export const metadata: Metadata = {
-  title: 'Discover — BrainStack',
-  description: 'Browse all articles across topic stacks',
+  title: 'Discover',
+  description:
+    'Browse all articles across topic stacks — filter by Docker, Kubernetes, Linux, Git, Nginx, PostgreSQL, and more.',
+  openGraph: {
+    title: 'Discover | BrainStack',
+    description: 'Browse all articles across topic stacks.',
+    url: '/discover',
+  },
 };
 
 export default async function DiscoverPage() {

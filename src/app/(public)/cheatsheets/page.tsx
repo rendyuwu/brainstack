@@ -14,8 +14,14 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 export const metadata: Metadata = {
-  title: 'Cheatsheets — BrainStack',
-  description: 'Quick-reference cheatsheets for DevOps and infrastructure topics',
+  title: 'Cheatsheets',
+  description:
+    'Quick-reference cheatsheets for DevOps and infrastructure — Docker, Kubernetes, Linux, Git, Nginx, and PostgreSQL.',
+  openGraph: {
+    title: 'Cheatsheets | BrainStack',
+    description: 'Quick-reference cheatsheets for DevOps and infrastructure.',
+    url: '/cheatsheets',
+  },
 };
 
 export default async function CheatsheetsPage() {

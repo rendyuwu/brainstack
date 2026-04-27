@@ -14,8 +14,14 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 export const metadata: Metadata = {
-  title: 'Blog — BrainStack',
-  description: 'Articles, tutorials, and tips on DevOps and infrastructure',
+  title: 'Blog',
+  description:
+    'Articles, tutorials, and tips on DevOps and infrastructure — Docker, Kubernetes, Linux, Git, Nginx, and PostgreSQL.',
+  openGraph: {
+    title: 'Blog | BrainStack',
+    description: 'Articles, tutorials, and tips on DevOps and infrastructure.',
+    url: '/blog',
+  },
 };
 
 export default async function BlogPage() {

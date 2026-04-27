@@ -10,5 +10,12 @@ export async function logAIUsage(data: {
   durationMs?: number;
   userId?: string;
 }) {
-  await db.insert(aiUsageLogs).values(data);
+  try {
+    await db.insert(aiUsageLogs).values(data);
+  } catch (err) {
+    console.warn(
+      `[usage-logger] Failed to log AI usage (${data.endpoint}):`,
+      err instanceof Error ? err.message : err
+    );
+  }
 }

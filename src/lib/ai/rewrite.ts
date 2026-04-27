@@ -83,7 +83,7 @@ export async function rewriteContent(
           inputTokens,
           outputTokens,
           durationMs: Date.now() - startTime,
-        }).catch(() => {});
+        });
       } catch (err) {
         controller.error(err);
       }

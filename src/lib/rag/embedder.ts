@@ -75,7 +75,7 @@ export async function embedChunks(
         inputTokens: response.usage?.prompt_tokens,
         outputTokens: response.usage?.total_tokens,
         durationMs: Date.now() - startTime,
-      }).catch(() => {});
+      });
 
       return response.data.map((d) => d.embedding);
     } catch (err) {
@@ -107,7 +107,7 @@ export async function embedQuery(query: string): Promise<number[] | null> {
         inputTokens: response.usage?.prompt_tokens,
         outputTokens: response.usage?.total_tokens,
         durationMs: Date.now() - startTime,
-      }).catch(() => {});
+      });
 
       return response.data[0].embedding;
     } catch (err) {

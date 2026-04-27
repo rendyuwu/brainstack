@@ -181,7 +181,7 @@ export async function POST(request: NextRequest) {
             inputTokens,
             outputTokens,
             durationMs: Date.now() - startTime,
-          }).catch(() => {});
+          });
 
           controller.close();
         } catch (err) {

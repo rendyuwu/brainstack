@@ -61,7 +61,7 @@ export async function generateDraft(
           inputTokens,
           outputTokens,
           durationMs: Date.now() - startTime,
-        }).catch(() => {});
+        });
       } catch (err) {
         controller.error(err);
       }

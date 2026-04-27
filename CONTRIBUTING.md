@@ -106,6 +106,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/).
 | `ai` | AI provider registry and model discovery |
 | `editor` | Content editor |
 | `admin` | Admin panel |
+| `account` | User account management (password, profile) |
 | `ci` | CI/CD workflows |
 | `config` | Configuration and environment |
 

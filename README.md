@@ -130,7 +130,7 @@ src/
 │   ├── api/                # API routes (pages, search, chat, AI, auth)
 │   ├── editor/             # Content editor (create, edit, publish)
 │   ├── login/              # Authentication
-│   ├── settings/           # User preferences
+│   ├── settings/           # User preferences (AI, appearance, account)
 │   └── setup/              # First-run admin setup
 ├── components/             # React components (chat, editor, navigation, MDX)
 ├── db/                     # Drizzle schema, relations, connection pool
@@ -157,7 +157,7 @@ pnpm test:watch        # Watch mode
 pnpm playwright test   # Run all E2E tests
 ```
 
-**Unit test coverage**: Authentication, middleware, slugification, provider registry, content chunking, hybrid search, API auth guards, citation formatting.
+**Unit test coverage**: Authentication, middleware, slugification, provider registry, content chunking, hybrid search, API auth guards, citation formatting, password change.
 
 **E2E test coverage**: Search functionality, AI draft/rewrite endpoints, chat Q&A.
 
@@ -181,6 +181,7 @@ pnpm playwright test   # Run all E2E tests
 | `POST` | `/api/pages/:id/publish` | Publish + chunk + embed |
 | `POST` | `/api/ai/draft` | Generate article from idea |
 | `POST` | `/api/ai/rewrite` | Rewrite content for style |
+| `PATCH` | `/api/account/password` | Change own password |
 
 ### Admin Endpoints
 | Method | Path | Description |
@@ -209,12 +210,13 @@ Multi-stage build. Optimized Next.js standalone output.
 
 ## 🔒 Security
 
-- Passwords hashed with bcryptjs (10 rounds)
+- Passwords hashed with bcryptjs (12 rounds)
 - JWT session tokens via NextAuth.js v5
 - Middleware-protected routes (`/editor/*`, `/admin/*`)
 - Admin role required for provider management
 - Rate limiting on public API endpoints
 - Input validation with Zod on all API routes
+- Password change requires current password verification
 
 ---
 

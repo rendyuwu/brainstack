@@ -51,6 +51,7 @@ export const chunkEmbeddings = pgTable("chunk_embeddings", {
 	embeddingModel: text("embedding_model").notNull(),
 	embedding: vector({ dimensions: 1536 }),
 }, (table) => [
+	unique("chunk_embeddings_chunk_model_unique").on(table.chunkId, table.embeddingModel),
 	index("chunk_embeddings_chunk_idx").using("btree", table.chunkId.asc().nullsLast().op("uuid_ops")),
 	foreignKey({
 			columns: [table.chunkId],

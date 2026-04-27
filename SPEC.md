@@ -165,8 +165,8 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T21 | ✓ | verify content pipeline — confirm seed data indexed (FTS) + embedded (vectors); document gaps | V10,V13,V15 |
 | T22 | ✓ | embedding sync — `POST /api/admin/embeddings/sync` backfill missing; `POST /api/admin/embeddings/reset` clear+re-embed; admin UI button w/ progress | V25,V26,V27,I.api,I.admin |
 | T23 | ✓ | add `PATCH /api/account/password` route — verify session, check current pw, hash new pw, update DB | V28,V29,V30,V31,V22,I.api |
-| T24 | . | add "Account" tab to `/settings` page w/ password change form (current + new + confirm) | V28,V6,I.settings |
-| T25 | . | wire form submit → `PATCH /api/account/password`, show success/error feedback | V28,V29,V31,I.api |
+| T24 | ✓ | add "Account" tab to `/settings` page w/ password change form (current + new + confirm) | V28,V6,I.settings |
+| T25 | ✓ | wire form submit → `PATCH /api/account/password`, show success/error feedback | V28,V29,V31,I.api |
 | T26 | . | add tests for password change API route | V28,V29,V30,V31 |
 
 ## §B — Bugs

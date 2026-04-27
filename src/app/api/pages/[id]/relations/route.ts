@@ -10,6 +10,11 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
 
     const relations = await db
@@ -107,7 +112,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    await params;
+    const { id } = await params;
     const body = await request.json();
     const v = validateBody(deleteRelationSchema, body);
     if (!v.success) return v.response;
@@ -115,7 +120,15 @@ export async function DELETE(
 
     const [deleted] = await db
       .delete(pageRelations)
-      .where(eq(pageRelations.id, relationId))
+      .where(
+        and(
+          eq(pageRelations.id, relationId),
+          or(
+            eq(pageRelations.sourcePageId, id),
+            eq(pageRelations.targetPageId, id)
+          )
+        )
+      )
       .returning();
 
     if (!deleted) {

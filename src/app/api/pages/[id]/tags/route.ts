@@ -21,15 +21,16 @@ export async function PUT(
     if (!v.success) return v.response;
     const { tags } = v.data;
 
-    // Delete existing tags
-    await db.delete(pageTags).where(eq(pageTags.pageId, id));
+    // Atomic: delete + insert in a transaction
+    await db.transaction(async (tx) => {
+      await tx.delete(pageTags).where(eq(pageTags.pageId, id));
 
-    // Insert new tags
-    if (tags.length > 0) {
-      await db.insert(pageTags).values(
-        tags.map((tag: string) => ({ pageId: id, tag }))
-      );
-    }
+      if (tags.length > 0) {
+        await tx.insert(pageTags).values(
+          tags.map((tag: string) => ({ pageId: id, tag }))
+        );
+      }
+    });
 
     return NextResponse.json({ pageId: id, tags });
   } catch (error) {

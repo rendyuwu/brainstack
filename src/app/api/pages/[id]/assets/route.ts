@@ -33,6 +33,11 @@ export async function GET(
   { params }: RouteContext
 ) {
   try {
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
 
     const rows = await db

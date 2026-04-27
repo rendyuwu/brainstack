@@ -6,7 +6,16 @@ import { asc } from 'drizzle-orm';
 export async function GET() {
   try {
     const rows = await db
-      .select()
+      .select({
+        id: collections.id,
+        name: collections.name,
+        slug: collections.slug,
+        description: collections.description,
+        icon: collections.icon,
+        color: collections.color,
+        sortOrder: collections.sortOrder,
+        createdAt: collections.createdAt,
+      })
       .from(collections)
       .orderBy(asc(collections.sortOrder));
 

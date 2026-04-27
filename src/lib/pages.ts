@@ -18,7 +18,19 @@ export function isPageType(value: unknown): value is PageType {
 
 export async function getPublishedPages() {
   return db
-    .select()
+    .select({
+      id: pages.id,
+      title: pages.title,
+      slug: pages.slug,
+      type: pages.type,
+      summary: pages.summary,
+      mdxSource: pages.mdxSource,
+      collectionId: pages.collectionId,
+      status: pages.status,
+      publishedAt: pages.publishedAt,
+      createdAt: pages.createdAt,
+      updatedAt: pages.updatedAt,
+    })
     .from(pages)
     .where(eq(pages.status, 'published'))
     .orderBy(desc(pages.publishedAt));
@@ -37,7 +49,18 @@ export async function getPagesByCollection(collectionSlug: string) {
   const col = await getCollectionBySlug(collectionSlug);
   if (!col) return [];
   return db
-    .select()
+    .select({
+      id: pages.id,
+      title: pages.title,
+      slug: pages.slug,
+      type: pages.type,
+      summary: pages.summary,
+      collectionId: pages.collectionId,
+      status: pages.status,
+      publishedAt: pages.publishedAt,
+      createdAt: pages.createdAt,
+      updatedAt: pages.updatedAt,
+    })
     .from(pages)
     .where(and(eq(pages.collectionId, col.id), eq(pages.status, 'published')))
     .orderBy(desc(pages.publishedAt));
@@ -45,7 +68,15 @@ export async function getPagesByCollection(collectionSlug: string) {
 
 export async function getCollections() {
   const allCollections = await db
-    .select()
+    .select({
+      id: collections.id,
+      name: collections.name,
+      slug: collections.slug,
+      description: collections.description,
+      icon: collections.icon,
+      color: collections.color,
+      sortOrder: collections.sortOrder,
+    })
     .from(collections)
     .orderBy(collections.sortOrder);
 
@@ -92,7 +123,15 @@ export async function getCollections() {
 
 export async function getCollectionBySlug(slug: string) {
   const result = await db
-    .select()
+    .select({
+      id: collections.id,
+      name: collections.name,
+      slug: collections.slug,
+      description: collections.description,
+      icon: collections.icon,
+      color: collections.color,
+      sortOrder: collections.sortOrder,
+    })
     .from(collections)
     .where(eq(collections.slug, slug))
     .limit(1);
@@ -146,7 +185,15 @@ export async function getPageWithCollection(slug: string) {
   let collection = null;
   if (page.collectionId) {
     const colResult = await db
-      .select()
+      .select({
+        id: collections.id,
+        name: collections.name,
+        slug: collections.slug,
+        description: collections.description,
+        icon: collections.icon,
+        color: collections.color,
+        sortOrder: collections.sortOrder,
+      })
       .from(collections)
       .where(eq(collections.id, page.collectionId))
       .limit(1);

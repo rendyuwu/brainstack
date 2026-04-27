@@ -40,7 +40,19 @@ export async function GET(request: NextRequest) {
     const where = conditions.length > 0 ? and(...conditions) : undefined;
 
     const rows = await db
-      .select()
+      .select({
+        id: pages.id,
+        title: pages.title,
+        slug: pages.slug,
+        type: pages.type,
+        summary: pages.summary,
+        collectionId: pages.collectionId,
+        parentPageId: pages.parentPageId,
+        status: pages.status,
+        publishedAt: pages.publishedAt,
+        createdAt: pages.createdAt,
+        updatedAt: pages.updatedAt,
+      })
       .from(pages)
       .where(where)
       .orderBy(desc(pages.updatedAt))
@@ -52,7 +64,7 @@ export async function GET(request: NextRequest) {
     const allTags =
       pageIds.length > 0
         ? await db
-            .select()
+            .select({ pageId: pageTags.pageId, tag: pageTags.tag })
             .from(pageTags)
             .where(inArray(pageTags.pageId, pageIds))
         : [];

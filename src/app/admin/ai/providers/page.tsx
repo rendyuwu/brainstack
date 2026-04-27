@@ -196,6 +196,20 @@ export default function ProvidersPage() {
     Record<string, { status: 'idle' | 'saving' | 'testing' | 'ok' | 'fail'; message?: string }>
   >({});
 
+  // Embedding sync state
+  const [embeddingStats, setEmbeddingStats] = useState<{
+    totalChunks: number;
+    embeddedChunks: number;
+    loading: boolean;
+  }>({ totalChunks: 0, embeddedChunks: 0, loading: true });
+  const [syncState, setSyncState] = useState<{
+    status: 'idle' | 'syncing' | 'resetting' | 'done' | 'fail';
+    processed: number;
+    total: number;
+    errors: number;
+    message?: string;
+  }>({ status: 'idle', processed: 0, total: 0, errors: 0 });
+
   // ---------- Fetch ----------
 
   const fetchProviders = useCallback(async () => {
@@ -214,7 +228,81 @@ export default function ProvidersPage() {
 
   useEffect(() => {
     fetchProviders();
+    fetchEmbeddingStats();
   }, [fetchProviders]);
+
+  // ---------- Embedding stats ----------
+
+  async function fetchEmbeddingStats() {
+    try {
+      setEmbeddingStats(s => ({ ...s, loading: true }));
+      const res = await fetch('/api/admin/embeddings/stats');
+      if (res.ok) {
+        const data = await res.json();
+        setEmbeddingStats({ totalChunks: data.totalChunks, embeddedChunks: data.embeddedChunks, loading: false });
+      } else {
+        setEmbeddingStats(s => ({ ...s, loading: false }));
+      }
+    } catch {
+      setEmbeddingStats(s => ({ ...s, loading: false }));
+    }
+  }
+
+  async function handleEmbeddingAction(action: 'sync' | 'reset') {
+    const statusKey = action === 'sync' ? 'syncing' : 'resetting';
+    setSyncState({ status: statusKey, processed: 0, total: 0, errors: 0 });
+
+    try {
+      const res = await fetch(`/api/admin/embeddings/${action}`, { method: 'POST' });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Request failed' }));
+        setSyncState({ status: 'fail', processed: 0, total: 0, errors: 0, message: err.error });
+        return;
+      }
+
+      const reader = res.body?.getReader();
+      if (!reader) {
+        setSyncState({ status: 'fail', processed: 0, total: 0, errors: 0, message: 'No response body' });
+        return;
+      }
+
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          try {
+            const progress = JSON.parse(line);
+            setSyncState({
+              status: progress.done ? 'done' : statusKey,
+              processed: progress.processed,
+              total: progress.total,
+              errors: progress.errors,
+            });
+          } catch {}
+        }
+      }
+
+      fetchEmbeddingStats();
+    } catch (err) {
+      setSyncState({
+        status: 'fail',
+        processed: 0,
+        total: 0,
+        errors: 0,
+        message: err instanceof Error ? err.message : 'Network error',
+      });
+    }
+  }
 
   // ---------- Form actions ----------
 
@@ -1320,6 +1408,177 @@ export default function ProvidersPage() {
             })}
           </div>
         )}
+
+        {/* Embedding Sync Section */}
+        <div style={{ marginTop: 36 }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+              marginBottom: 16,
+            }}
+          >
+            <div>
+              <h2
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: 'var(--tx-1)',
+                  margin: '0 0 4px',
+                  letterSpacing: '-.02em',
+                }}
+              >
+                Embeddings
+              </h2>
+              <p style={{ fontSize: 13, color: 'var(--tx-3)', margin: 0 }}>
+                Vector embeddings for RAG search. Sync missing or reset all.
+              </p>
+            </div>
+          </div>
+
+          <div style={cardStyle}>
+            {/* Stats */}
+            <div
+              style={{
+                padding: '16px 18px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 20,
+                borderBottom: '1px solid var(--bd-default)',
+              }}
+            >
+              {embeddingStats.loading ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: 'var(--tx-3)', fontSize: 13 }}>
+                  <Spinner size={14} /> Loading stats...
+                </div>
+              ) : (
+                <>
+                  <div style={{ fontSize: 13, color: 'var(--tx-2)' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--tx-1)', fontSize: 20 }}>
+                      {embeddingStats.totalChunks}
+                    </span>{' '}
+                    chunks
+                  </div>
+                  <div style={{ fontSize: 13, color: 'var(--tx-2)' }}>
+                    <span style={{ fontWeight: 600, color: 'var(--green)', fontSize: 20 }}>
+                      {embeddingStats.embeddedChunks}
+                    </span>{' '}
+                    embedded
+                  </div>
+                  {embeddingStats.totalChunks - embeddingStats.embeddedChunks > 0 && (
+                    <div style={{ fontSize: 13, color: 'var(--tx-2)' }}>
+                      <span style={{ fontWeight: 600, color: 'var(--amber)', fontSize: 20 }}>
+                        {embeddingStats.totalChunks - embeddingStats.embeddedChunks}
+                      </span>{' '}
+                      missing
+                    </div>
+                  )}
+                </>
+              )}
+
+              <div style={{ flex: 1 }} />
+
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button
+                  onClick={() => handleEmbeddingAction('sync')}
+                  disabled={syncState.status === 'syncing' || syncState.status === 'resetting'}
+                  style={{
+                    ...btnPrimary,
+                    fontSize: 13,
+                    padding: '7px 14px',
+                    opacity: syncState.status === 'syncing' || syncState.status === 'resetting' ? 0.6 : 1,
+                    cursor: syncState.status === 'syncing' || syncState.status === 'resetting' ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}
+                >
+                  {syncState.status === 'syncing' && <Spinner size={13} />}
+                  Sync Missing
+                </button>
+                <button
+                  onClick={() => {
+                    if (confirm('Delete all embeddings and re-embed? This may take a while.')) {
+                      handleEmbeddingAction('reset');
+                    }
+                  }}
+                  disabled={syncState.status === 'syncing' || syncState.status === 'resetting'}
+                  style={{
+                    ...btnSecondary,
+                    opacity: syncState.status === 'syncing' || syncState.status === 'resetting' ? 0.6 : 1,
+                    cursor: syncState.status === 'syncing' || syncState.status === 'resetting' ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {syncState.status === 'resetting' && <Spinner size={13} />}
+                  Reset &amp; Re-embed
+                </button>
+              </div>
+            </div>
+
+            {/* Progress */}
+            {(syncState.status === 'syncing' || syncState.status === 'resetting' || syncState.status === 'done') && (
+              <div style={{ padding: '12px 18px', borderBottom: '1px solid var(--bd-default)' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    marginBottom: 8,
+                    fontSize: 13,
+                    color: syncState.status === 'done' ? 'var(--green)' : 'var(--tx-2)',
+                  }}
+                >
+                  {syncState.status !== 'done' && <Spinner size={13} />}
+                  <span style={{ fontWeight: 500 }}>
+                    {syncState.status === 'done'
+                      ? `Done — ${syncState.processed} embedded`
+                      : `Embedding ${syncState.processed} / ${syncState.total}...`}
+                  </span>
+                  {syncState.errors > 0 && (
+                    <span style={{ color: 'var(--red)' }}>
+                      ({syncState.errors} error{syncState.errors !== 1 ? 's' : ''})
+                    </span>
+                  )}
+                </div>
+                {syncState.total > 0 && (
+                  <div
+                    style={{
+                      height: 6,
+                      borderRadius: 3,
+                      background: 'var(--bg-3)',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        height: '100%',
+                        borderRadius: 3,
+                        background: syncState.errors > 0 ? 'var(--amber)' : 'var(--green)',
+                        width: `${Math.round((syncState.processed / syncState.total) * 100)}%`,
+                        transition: 'width .3s ease',
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {syncState.status === 'fail' && (
+              <div
+                style={{
+                  padding: '10px 18px',
+                  background: 'rgba(248,81,73,.08)',
+                  borderBottom: '1px solid rgba(248,81,73,.2)',
+                  fontSize: 13,
+                  color: 'var(--red)',
+                }}
+              >
+                Failed: {syncState.message}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

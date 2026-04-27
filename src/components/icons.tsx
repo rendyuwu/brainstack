@@ -38,6 +38,7 @@ const ICONS: Record<string, string> = {
   wand: 'M15 4l5 5-11 11H4v-5L15 4zM13 6l5 5',
   refresh: 'M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15',
   play: 'M5 3l14 9-14 9V3z',
+  logOut: 'M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9',
 };
 
 interface IconProps {

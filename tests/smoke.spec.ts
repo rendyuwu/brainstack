@@ -71,9 +71,11 @@ test.describe('BrainStack Smoke Tests', () => {
     const response = await request.get('/api/pages');
     expect(response.status()).toBe(200);
     const body = await response.json();
-    expect(Array.isArray(body)).toBe(true);
+    // Paginated response: { data: [...], pagination: {...} }
+    expect(body).toHaveProperty('data');
+    expect(Array.isArray(body.data)).toBe(true);
     // All returned pages should be published
-    for (const page of body) {
+    for (const page of body.data) {
       expect(page.status).toBe('published');
     }
   });

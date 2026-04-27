@@ -6,18 +6,19 @@ import { inArray } from 'drizzle-orm';
 import { checkRateLimit } from '@/lib/rate-limiter';
 
 export async function GET(req: NextRequest) {
+  const q = req.nextUrl.searchParams.get('q') ?? '';
+
+  // Return early for empty queries without consuming rate limit
+  if (!q.trim()) {
+    return NextResponse.json([]);
+  }
+
   const rateCheck = checkRateLimit(req, 60, 60_000);
   if (!rateCheck.allowed) {
     return new NextResponse('Too Many Requests', {
       status: 429,
       headers: { 'Retry-After': String(rateCheck.retryAfter) },
     });
-  }
-
-  const q = req.nextUrl.searchParams.get('q') ?? '';
-
-  if (!q.trim()) {
-    return NextResponse.json([]);
   }
 
   try {

@@ -125,7 +125,6 @@ export function chunkMDX(mdxSource: string): Chunk[] {
   const chunks: Chunk[] = [];
   const headingStack: { level: number; text: string }[] = [];
   let currentContent: string[] = [];
-  let inCodeBlock = false;
 
   function getHeadingPath(): string[] {
     return headingStack.map((h) => h.text);
@@ -163,14 +162,20 @@ export function chunkMDX(mdxSource: string): Chunk[] {
     currentContent = [];
   }
 
+  let codeFenceMarker: string | null = null;
+
   for (const line of lines) {
-    if (line.trim().startsWith('```') || line.trim().startsWith('~~~')) {
-      inCodeBlock = !inCodeBlock;
+    const trimmed = line.trim();
+    if (codeFenceMarker) {
+      // Only close if same marker type
+      if (trimmed.startsWith(codeFenceMarker)) {
+        codeFenceMarker = null;
+      }
       currentContent.push(line);
       continue;
     }
-
-    if (inCodeBlock) {
+    if (trimmed.startsWith('```') || trimmed.startsWith('~~~')) {
+      codeFenceMarker = trimmed.startsWith('```') ? '```' : '~~~';
       currentContent.push(line);
       continue;
     }

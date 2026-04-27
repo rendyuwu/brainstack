@@ -23,15 +23,15 @@ describe('toSlug', () => {
   });
 
   it('handles empty string', () => {
-    expect(toSlug('')).toBe('');
+    expect(toSlug('')).toBe('untitled');
   });
 
   it('handles already-slugified input', () => {
     expect(toSlug('already-slugified')).toBe('already-slugified');
   });
 
-  it('strips unicode characters', () => {
-    expect(toSlug('café résumé')).toBe('caf-rsum');
+  it('normalizes unicode diacritics to ASCII equivalents', () => {
+    expect(toSlug('café résumé')).toBe('cafe-resume');
   });
 
   it('handles multiple spaces', () => {
@@ -39,6 +39,10 @@ describe('toSlug', () => {
   });
 
   it('handles whitespace-only input', () => {
-    expect(toSlug('   ')).toBe('');
+    expect(toSlug('   ')).toBe('untitled');
+  });
+
+  it('preserves CJK characters', () => {
+    expect(toSlug('Kubernetes の基本')).toBe('kubernetes-の基本');
   });
 });

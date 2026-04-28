@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { auth, requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { db } from '@/db';
 import { pages, pageTags } from '@/db/schema';
 import { eq } from 'drizzle-orm';
@@ -46,10 +46,9 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
     const body = await request.json();
@@ -91,10 +90,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
 

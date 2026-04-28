@@ -33,6 +33,13 @@ describe('middleware', () => {
     expect(new URL(res.headers.get('location')!).pathname).toBe('/login');
   });
 
+  it('redirects to /login when no valid session on /settings path', async () => {
+    mockGetToken.mockResolvedValue(null);
+    const res = await middleware(makeRequest('/settings'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/login');
+  });
+
   it('preserves callbackUrl in redirect', async () => {
     mockGetToken.mockResolvedValue(null);
     const res = await middleware(makeRequest('/editor/abc-123'));
@@ -40,15 +47,59 @@ describe('middleware', () => {
     expect(location.searchParams.get('callbackUrl')).toBe('/editor/abc-123');
   });
 
-  it('passes through when session token is valid', async () => {
-    mockGetToken.mockResolvedValue({ sub: 'user-1' });
+  // §V.36: non-admin token → redirect to / for /editor/*
+  it('redirects non-admin to / on /editor path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'editor' });
     const res = await middleware(makeRequest('/editor/new'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/');
+  });
+
+  // §V.37: non-admin token → redirect to / for /settings
+  it('redirects non-admin to / on /settings path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'editor' });
+    const res = await middleware(makeRequest('/settings'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/');
+  });
+
+  // §V.38: non-admin token → redirect to / for /admin/*
+  it('redirects non-admin to / on /admin path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'editor' });
+    const res = await middleware(makeRequest('/admin/ai/providers'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/');
+  });
+
+  // §V.36: token with no role → redirect to /
+  it('redirects user with no role to / on /editor path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1' });
+    const res = await middleware(makeRequest('/editor'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/');
+  });
+
+  it('passes through when admin token on /editor path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'admin' });
+    const res = await middleware(makeRequest('/editor/new'));
+    expect(res.headers.get('location')).toBeNull();
+  });
+
+  it('passes through when admin token on /settings path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'admin' });
+    const res = await middleware(makeRequest('/settings'));
+    expect(res.headers.get('location')).toBeNull();
+  });
+
+  it('passes through when admin token on /admin path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'admin' });
+    const res = await middleware(makeRequest('/admin/ai/usage'));
     expect(res.headers.get('location')).toBeNull();
   });
 
   it('uses AUTH_SECRET before NEXTAUTH_SECRET', async () => {
     process.env.AUTH_SECRET = 'auth-secret';
-    mockGetToken.mockResolvedValue({ sub: 'user-1' });
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'admin' });
     await middleware(makeRequest('/admin/ai/usage'));
     expect(mockGetToken).toHaveBeenCalledWith(
       expect.objectContaining({ secret: 'auth-secret' })
@@ -57,9 +108,10 @@ describe('middleware', () => {
 });
 
 describe('middleware config', () => {
-  it('matches /editor and /admin paths', () => {
+  it('matches /editor, /admin, and /settings paths', () => {
     expect(config.matcher).toContain('/editor/:path*');
     expect(config.matcher).toContain('/admin/:path*');
+    expect(config.matcher).toContain('/settings/:path*');
   });
 
   it('does not match public paths', () => {

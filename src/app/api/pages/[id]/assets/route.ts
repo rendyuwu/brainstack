@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { db } from '@/db';
 import { assets } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
@@ -33,10 +33,9 @@ export async function GET(
   { params }: RouteContext
 ) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: assets require admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
 
@@ -60,10 +59,9 @@ export async function POST(
   { params }: RouteContext
 ) {
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: assets require admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
 
@@ -123,10 +121,9 @@ export async function DELETE(
   { params }: RouteContext
 ) {
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: assets require admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
     const body = await request.json();

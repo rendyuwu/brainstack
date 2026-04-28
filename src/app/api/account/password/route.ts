@@ -1,20 +1,15 @@
 import { NextResponse } from 'next/server';
 import { compare, hash } from 'bcryptjs';
-import { auth } from '@/lib/auth';
+import { requireAdmin } from '@/lib/auth';
 import { db } from '@/db';
 import { users } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { changePasswordSchema, validateBody } from '@/lib/validation';
 
-async function requireSession() {
-  const session = await auth();
-  if (!session?.user?.id) return null;
-  return session;
-}
-
 export async function PATCH(request: Request) {
   try {
-    const session = await requireSession();
+    // §V.33: admin-only write access
+    const session = await requireAdmin();
     if (!session) {
       return NextResponse.json(
         { error: 'Authentication required' },

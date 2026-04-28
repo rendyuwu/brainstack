@@ -1,21 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { auth, requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { db } from '@/db';
 import { pageRelations, pages } from '@/db/schema';
 import { eq, or, and } from 'drizzle-orm';
 import { createRelationSchema, deleteRelationSchema, validateBody } from '@/lib/validation';
 
+// §V.34: relations GET is public (read-only)
+// §V.6: only published pages visible to unauthenticated users
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const isAdmin =
+      (session?.user as { role?: string } | undefined)?.role === 'admin';
+
+    // §V.6: non-admin cannot access relations for unpublished pages
+    if (!isAdmin) {
+      const [page] = await db
+        .select({ status: pages.status })
+        .from(pages)
+        .where(eq(pages.id, id))
+        .limit(1);
+
+      if (page?.status !== 'published') {
+        return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      }
     }
 
-    const { id } = await params;
+    const baseCondition = or(
+      eq(pageRelations.sourcePageId, id),
+      eq(pageRelations.targetPageId, id)
+    );
+
+    // Non-admin/public users only see relations to published pages
+    const whereCondition = isAdmin
+      ? baseCondition
+      : and(baseCondition, eq(pages.status, 'published'));
 
     const relations = await db
       .select({
@@ -43,12 +66,7 @@ export async function GET(
           )
         )
       )
-      .where(
-        or(
-          eq(pageRelations.sourcePageId, id),
-          eq(pageRelations.targetPageId, id)
-        )
-      );
+      .where(whereCondition);
 
     return NextResponse.json(relations);
   } catch (error) {
@@ -65,10 +83,9 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
     const body = await request.json();
@@ -107,10 +124,9 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await auth();
-    if (!session?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const { id } = await params;
     const body = await request.json();

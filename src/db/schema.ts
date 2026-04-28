@@ -155,7 +155,7 @@ export const users = pgTable("users", {
 	email: text().notNull(),
 	passwordHash: text("password_hash").notNull(),
 	name: text().notNull(),
-	role: text().default('editor').notNull(),
+	role: text().default('admin').notNull(),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
 }, (table) => [
 	unique("users_email_unique").on(table.email),

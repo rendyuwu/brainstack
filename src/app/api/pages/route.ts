@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { auth, requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { db } from '@/db';
 import { pages, pageTags } from '@/db/schema';
 import { eq, desc, and, inArray, count, SQL } from 'drizzle-orm';
@@ -107,10 +107,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    // §V.33: write API requires admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
 
     const body = await request.json();
     const v = validateBody(createPageSchema, body);

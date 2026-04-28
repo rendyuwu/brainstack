@@ -194,22 +194,24 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
         </Link>
       )}
 
-      {/* Settings */}
-      <Link
-        href="/settings"
-        style={{
-          color: 'var(--tx-2)',
-          padding: 6,
-          borderRadius: 6,
-          display: 'flex',
-          alignItems: 'center',
-          textDecoration: 'none',
-        }}
-      >
-        <Icon name="settings" size={16} />
-      </Link>
+      {/* §V.39: Settings — admin only */}
+      {isAdmin && (
+        <Link
+          href="/settings"
+          style={{
+            color: 'var(--tx-2)',
+            padding: 6,
+            borderRadius: 6,
+            display: 'flex',
+            alignItems: 'center',
+            textDecoration: 'none',
+          }}
+        >
+          <Icon name="settings" size={16} />
+        </Link>
+      )}
 
-      {/* Logout */}
+      {/* Logout — any authenticated user */}
       {isAuthenticated && (
         <button
           onClick={() => {
@@ -233,29 +235,31 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
         </button>
       )}
 
-      {/* New Post */}
-      <Link
-        href="/editor"
-        style={{
-          background: 'var(--amber)',
-          border: 'none',
-          cursor: 'pointer',
-          color: '#000',
-          padding: '6px 12px',
-          borderRadius: 6,
-          fontSize: 13,
-          fontWeight: 600,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 5,
-          transition: 'opacity .15s',
-          flexShrink: 0,
-          textDecoration: 'none',
-        }}
-      >
-        <Icon name="plus" size={13} style={{ color: '#000' }} />
-        <span className="nav-label">New Post</span>
-      </Link>
+      {/* §V.39: New Post — admin only */}
+      {isAdmin && (
+        <Link
+          href="/editor"
+          style={{
+            background: 'var(--amber)',
+            border: 'none',
+            cursor: 'pointer',
+            color: '#000',
+            padding: '6px 12px',
+            borderRadius: 6,
+            fontSize: 13,
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 5,
+            transition: 'opacity .15s',
+            flexShrink: 0,
+            textDecoration: 'none',
+          }}
+        >
+          <Icon name="plus" size={13} style={{ color: '#000' }} />
+          <span className="nav-label">New Post</span>
+        </Link>
+      )}
     </header>
   );
 }

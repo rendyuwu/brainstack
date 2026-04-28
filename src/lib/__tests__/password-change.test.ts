@@ -11,6 +11,11 @@ vi.mock('bcryptjs', () => ({
 const mockAuth = vi.fn();
 vi.mock('@/lib/auth', () => ({
   auth: () => mockAuth(),
+  requireAdmin: async () => {
+    const session = await mockAuth();
+    if (!session?.user || session.user.role !== 'admin') return null;
+    return session;
+  },
 }));
 
 const mockSelectResult = vi.fn();
@@ -73,9 +78,16 @@ describe('PATCH /api/account/password', () => {
     expect(res.status).toBe(401);
   });
 
+  // §V.33: non-admin role → 401
+  it('returns 401 when user role is not admin', async () => {
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'editor' } });
+    const res = await callPATCH({ currentPassword: 'old', newPassword: 'newpass123' });
+    expect(res.status).toBe(401);
+  });
+
   // Invalid JSON body
   it('returns 400 for invalid JSON body', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     const { PATCH } = await import('@/app/api/account/password/route');
     const request = new Request('http://localhost/api/account/password', {
       method: 'PATCH',
@@ -90,7 +102,7 @@ describe('PATCH /api/account/password', () => {
 
   // Missing passwordHash guard
   it('returns 400 when user has no passwordHash', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     mockSelectResult.mockResolvedValue([{ passwordHash: null }]);
     const res = await callPATCH({ currentPassword: 'old', newPassword: 'newpass123' });
     expect(res.status).toBe(400);
@@ -100,20 +112,20 @@ describe('PATCH /api/account/password', () => {
 
   // Validation: missing fields
   it('returns 400 when currentPassword missing', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     const res = await callPATCH({ newPassword: 'newpass123' });
     expect(res.status).toBe(400);
   });
 
   it('returns 400 when newPassword too short', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     const res = await callPATCH({ currentPassword: 'old', newPassword: 'short' });
     expect(res.status).toBe(400);
   });
 
   // V28: verify current password before update
   it('returns 400 when current password is wrong', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     mockSelectResult.mockResolvedValue([{ passwordHash: '$2a$12$hashed' }]);
     (compare as any).mockResolvedValue(false);
 
@@ -126,7 +138,7 @@ describe('PATCH /api/account/password', () => {
 
   // V29: new password must differ from current
   it('returns 400 when new password same as current', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     mockSelectResult.mockResolvedValue([{ passwordHash: '$2a$12$hashed' }]);
     (compare as any)
       .mockResolvedValueOnce(true)   // current password valid
@@ -140,7 +152,7 @@ describe('PATCH /api/account/password', () => {
 
   // Happy path
   it('returns 200 and updates password on valid change', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     mockSelectResult.mockResolvedValue([{ passwordHash: '$2a$12$hashed' }]);
     (compare as any)
       .mockResolvedValueOnce(true)    // current password valid
@@ -157,7 +169,7 @@ describe('PATCH /api/account/password', () => {
 
   // V31: user not found returns generic error
   it('returns 400 when user not found in DB', async () => {
-    mockAuth.mockResolvedValue({ user: { id: 'u1' } });
+    mockAuth.mockResolvedValue({ user: { id: 'u1', role: 'admin' } });
     mockSelectResult.mockResolvedValue([]);
 
     const res = await callPATCH({ currentPassword: 'old', newPassword: 'newpass123' });

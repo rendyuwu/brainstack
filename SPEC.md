@@ -30,7 +30,6 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/stack/[collection]/[slug]` | GET | stack/docs view (collection context) |
 | `/cheatsheets` | GET | cheatsheet index — published cheatsheets listing |
 | `/cheatsheets/[slug]` | GET | cheatsheet view (compact reference) |
-| `/ask` | GET | site-wide chat interface |
 | `/discover` | GET | browse published pages by topic |
 | `/login` | GET | login form |
 
@@ -47,6 +46,12 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | path | method | purpose |
 |------|--------|---------|
 | `/settings` | GET | user settings — AI provider/model, editor, appearance, account (password change) |
+
+### AI routes (admin role required)
+
+| path | method | purpose |
+|------|--------|---------|
+| `/ask` | GET | site-wide RAG chat interface |
 
 ### Admin routes (admin role required)
 
@@ -74,7 +79,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/api/pages/[id]/relations` | DELETE | admin | delete relation by relationId |
 | `/api/collections` | GET | no | list collections |
 | `/api/search` | GET | no | keyword search (title/summary ILIKE) |
-| `/api/chat` | POST | no | RAG chat w/ citations (streams) |
+| `/api/chat` | POST | admin | RAG chat w/ citations (streams) |
 | `/api/ai/draft` | POST | admin | generate draft from idea ± image (streams) |
 | `/api/ai/rewrite` | POST | admin | rewrite content for style (streams) |
 | `/api/admin/providers` | GET | admin | list providers |
@@ -140,12 +145,13 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V31: password change error msgs ! generic — ⊥ leak specifics
 - V32: only `admin` role exists; `editor` role removed; user creation default = `admin`
 - V33: ∀ write API (`POST/PUT/DELETE /api/pages/*`, publish, tags, assets, relations) → require `role === 'admin'`
-- V34: unauthenticated users = read-only; can view published articles + cheatsheets + discover + ask only
-- V35: AI features (`/api/ai/draft`, `/api/ai/rewrite`) require `role === 'admin'`; `/api/chat` POST open (RAG chat = public read feature)
+- V34: unauthenticated users = read-only; can view published articles + cheatsheets + discover only; ⊥ AI features
+- V35: ∀ AI features (`/api/ai/draft`, `/api/ai/rewrite`, `/api/chat`) require `role === 'admin'`
 - V36: `/editor/*` middleware ! check `role === 'admin'` — ⊥ token-only; redirect non-admin → `/`
 - V37: `/settings` route requires valid session (admin); non-admin → redirect `/`
 - V38: `/admin/*` unchanged — already requires `role === 'admin'`
 - V39: client UI ! hide editor/admin/AI links for non-admin sessions
+- V40: `/ask` page requires `role === 'admin'` (middleware); non-admin → redirect `/`
 
 ## §T — Tasks
 
@@ -178,6 +184,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T25 | ✓ | wire form submit → `PATCH /api/account/password`, show success/error feedback | V28,V29,V31,I.api |
 | T26 | ✓ | add tests for password change API route | V28,V29,V30,V31 |
 | T27 | ✓ | admin-only safeguard — remove `editor` role; upgrade middleware to check `role === 'admin'` for `/editor/*`, `/settings`; add `requireAdmin()` guard to all write API routes (`/api/pages` POST/PUT/DELETE, publish, tags, assets, relations, `/api/ai/draft`, `/api/ai/rewrite`); hide editor/AI nav links for non-admin; update schema default role; add tests | V32,V33,V34,V35,V36,V37,V38,V39 |
+| T28 | . | lock AI chat to admin — add `requireAdmin()` to `/api/chat`; add `/ask` to middleware matcher; hide "Ask AI" nav link for non-admin; update tests | V35,V40,V39,I.api |
 
 ## §B — Bugs
 

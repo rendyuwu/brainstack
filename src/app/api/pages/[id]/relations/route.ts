@@ -17,6 +17,19 @@ export async function GET(
     const isAdmin =
       (session?.user as { role?: string } | undefined)?.role === 'admin';
 
+    // §V.6: non-admin cannot access relations for unpublished pages
+    if (!isAdmin) {
+      const [page] = await db
+        .select({ status: pages.status })
+        .from(pages)
+        .where(eq(pages.id, id))
+        .limit(1);
+
+      if (page?.status !== 'published') {
+        return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      }
+    }
+
     const baseCondition = or(
       eq(pageRelations.sourcePageId, id),
       eq(pageRelations.targetPageId, id)

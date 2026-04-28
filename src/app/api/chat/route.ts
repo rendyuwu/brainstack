@@ -7,7 +7,7 @@ import { hybridSearch } from '@/lib/rag/search';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { logAIUsage } from '@/lib/ai/usage-logger';
 import { chatSchema, validateBody } from '@/lib/validation';
-import { auth } from '@/lib/auth';
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { contentSnippet } from '@/lib/content-snippet';
 
 interface Citation {
@@ -31,10 +31,7 @@ Answer the user's question based ONLY on the provided context chunks. Follow the
 6. Never make up information not present in the context`;
 
 export async function POST(request: NextRequest) {
-  // Tighter rate limit for unauthenticated users (cost protection)
-  const session = await auth();
-  const limit = session ? 30 : 5;
-  const rateCheck = checkRateLimit(request, limit, 60_000);
+  const rateCheck = checkRateLimit(request, 30, 60_000);
   if (!rateCheck.allowed) {
     return new NextResponse('Too Many Requests', {
       status: 429,
@@ -43,6 +40,10 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // §V.35: AI features require admin role
+    const session = await requireAdmin();
+    if (!session) return unauthorizedResponse();
+
     const body = await request.json();
     const v = validateBody(chatSchema, body);
     if (!v.success) return v.response;

@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { href: '/discover', label: 'Discover', icon: 'home' },
   { href: '/blog', label: 'Article', icon: 'book' },
   { href: '/cheatsheets', label: 'Cheatsheet', icon: 'list' },
-  { href: '/ask', label: 'Ask AI', icon: 'sparkles' },
 ];
 
 export function TopNav({ onSearchOpen }: TopNavProps) {
@@ -156,6 +155,34 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
           </Link>
         );
       })}
+
+      {/* §V.39, §V.40: Ask AI — admin only */}
+      {isAdmin && (() => {
+        const active = isActive('/ask');
+        return (
+          <Link
+            href="/ask"
+            className="nav-link-desktop"
+            style={{
+              cursor: 'pointer',
+              color: active ? 'var(--amber)' : 'var(--tx-2)',
+              fontSize: 13.5,
+              padding: '4px 8px',
+              borderRadius: 5,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 5,
+              fontWeight: active ? 500 : 400,
+              background: active ? 'var(--amber-bg)' : 'none',
+              transition: 'all .15s',
+              textDecoration: 'none',
+            }}
+          >
+            <Icon name="sparkles" size={14} />
+            <span className="nav-label">Ask AI</span>
+          </Link>
+        );
+      })()}
 
       <div style={{ width: 1, height: 20, background: 'var(--bd-default)' }} />
 

@@ -1,17 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { auth, requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { db } from '@/db';
 import { pageRelations, pages } from '@/db/schema';
 import { eq, or, and } from 'drizzle-orm';
 import { createRelationSchema, deleteRelationSchema, validateBody } from '@/lib/validation';
 
 // §V.34: relations GET is public (read-only)
+// §V.6: only published pages visible to unauthenticated users
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;
+    const session = await auth();
+
+    const baseCondition = or(
+      eq(pageRelations.sourcePageId, id),
+      eq(pageRelations.targetPageId, id)
+    );
+
+    // Unauthenticated: only show relations to published pages
+    const whereCondition = session
+      ? baseCondition
+      : and(baseCondition, eq(pages.status, 'published'));
 
     const relations = await db
       .select({
@@ -39,12 +51,7 @@ export async function GET(
           )
         )
       )
-      .where(
-        or(
-          eq(pageRelations.sourcePageId, id),
-          eq(pageRelations.targetPageId, id)
-        )
-      );
+      .where(whereCondition);
 
     return NextResponse.json(relations);
   } catch (error) {

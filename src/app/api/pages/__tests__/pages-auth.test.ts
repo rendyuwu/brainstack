@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const mockAuth = vi.fn();
 vi.mock('@/lib/auth', () => ({
@@ -9,10 +9,8 @@ vi.mock('@/lib/auth', () => ({
     if (!session?.user || session.user.role !== 'admin') return null;
     return session;
   },
-  unauthorizedResponse: () => {
-    const { NextResponse } = require('next/server');
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  },
+  unauthorizedResponse: () =>
+    NextResponse.json({ error: 'Unauthorized' }, { status: 401 }),
 }));
 
 vi.mock('@/db', () => {

@@ -75,9 +75,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
  */
 export async function requireAdmin() {
   const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
+  const user = session?.user as { id?: string; role?: string } | undefined;
+
+  if (!user?.id || user.role !== 'admin') {
     return null;
   }
+
   return session;
 }
 

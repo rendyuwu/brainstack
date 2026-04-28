@@ -14,14 +14,16 @@ export async function GET(
   try {
     const { id } = await params;
     const session = await auth();
+    const isAdmin =
+      (session?.user as { role?: string } | undefined)?.role === 'admin';
 
     const baseCondition = or(
       eq(pageRelations.sourcePageId, id),
       eq(pageRelations.targetPageId, id)
     );
 
-    // Unauthenticated: only show relations to published pages
-    const whereCondition = session
+    // Non-admin/public users only see relations to published pages
+    const whereCondition = isAdmin
       ? baseCondition
       : and(baseCondition, eq(pages.status, 'published'));
 

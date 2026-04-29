@@ -1,0 +1,59 @@
+/* ── Sidebar ────────────────────────────────────────────── */
+
+.aside {
+  width: 220px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--bd-default);
+  background: var(--bg-1);
+  overflow-y: auto;
+  padding: 16px 0;
+  height: 100%;
+  position: relative;
+}
+
+.sectionHeader {
+  padding: 0 12px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  color: var(--tx-3);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.divider {
+  margin: 16px 12px;
+  height: 1px;
+  background: var(--bd-subtle);
+}
+
+.quickAccessLabel {
+  padding: 0 12px 12px;
+  font-size: 11px;
+  color: var(--tx-3);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.quickLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  color: var(--tx-2);
+  transition: all 0.1s;
+  font-size: 13.5px;
+  text-decoration: none;
+}
+
+.quickLink:hover {
+  color: var(--tx-1);
+  background: var(--bg-2);
+}

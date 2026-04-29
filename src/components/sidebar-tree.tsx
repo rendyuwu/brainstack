@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Icon } from './icons';
+import styles from './sidebar-tree.module.css';
 
 interface CollectionWithPages {
   id: string;
@@ -48,32 +49,17 @@ export function SidebarTree({ collections }: SidebarTreeProps) {
           <div key={collection.id}>
             <div
               onClick={() => toggle(collection.slug)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '7px 14px',
-                cursor: 'pointer',
-                color: isExpanded ? 'var(--tx-1)' : 'var(--tx-2)',
-                transition: 'background .1s',
-              }}
+              className={styles.collectionHeader}
+              data-expanded={isExpanded}
             >
               <Icon
                 name={isExpanded ? 'chevronDown' : 'chevronRight'}
                 size={12}
-                style={{ color: 'var(--tx-3)', flexShrink: 0 }}
+                className={styles.chevron}
               />
-              <Icon name={iconName} size={14} style={{ flexShrink: 0 }} />
-              <span style={{ fontSize: 13.5, fontWeight: 500, flex: 1 }}>{collection.name}</span>
-              <span
-                style={{
-                  fontSize: 11,
-                  color: 'var(--tx-3)',
-                  fontFamily: 'var(--font-mono)',
-                }}
-              >
-                {collection.pages.length}
-              </span>
+              <Icon name={iconName} size={14} className={styles.collectionIcon} />
+              <span className={styles.collectionName}>{collection.name}</span>
+              <span className={styles.collectionCount}>{collection.pages.length}</span>
             </div>
             {isExpanded && (
               <div>
@@ -81,16 +67,7 @@ export function SidebarTree({ collections }: SidebarTreeProps) {
                   <Link
                     key={page.id}
                     href={`/blog/${page.slug}`}
-                    style={{
-                      display: 'block',
-                      padding: '6px 14px 6px 38px',
-                      fontSize: 13,
-                      color: 'var(--tx-2)',
-                      cursor: 'pointer',
-                      transition: 'all .1s',
-                      borderLeft: '2px solid transparent',
-                      textDecoration: 'none',
-                    }}
+                    className={styles.pageLink}
                   >
                     {page.title}
                   </Link>

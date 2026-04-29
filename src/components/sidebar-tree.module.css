@@ -1,0 +1,57 @@
+/* ── Sidebar Tree ──────────────────────────────────────── */
+
+.collectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  color: var(--tx-2);
+  transition: background 0.1s, color 0.1s;
+}
+
+.collectionHeader:hover {
+  background: var(--bg-2);
+}
+
+.collectionHeader[data-expanded="true"] {
+  color: var(--tx-1);
+}
+
+.chevron {
+  color: var(--tx-3);
+  flex-shrink: 0;
+}
+
+.collectionIcon {
+  flex-shrink: 0;
+}
+
+.collectionName {
+  font-size: 13.5px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.collectionCount {
+  font-size: 11px;
+  color: var(--tx-3);
+  font-family: var(--font-mono);
+}
+
+.pageLink {
+  display: block;
+  padding: 6px 14px 6px 38px;
+  font-size: 13px;
+  color: var(--tx-2);
+  cursor: pointer;
+  transition: all 0.1s;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+}
+
+.pageLink:hover {
+  color: var(--tx-1);
+  background: var(--bg-2);
+  border-left-color: var(--amber);
+}

@@ -174,9 +174,6 @@ a { color: inherit; text-decoration: none; }
 
   /* Hide sidebar on mobile */
   aside { display: none !important; }
-
-  /* Constrain top-nav search bar */
-  header > div[style*="flex: 1"][style*="max-width"] { display: none !important; }
 }
 @media (max-width: 960px) {
   .nav-label { display: none; }

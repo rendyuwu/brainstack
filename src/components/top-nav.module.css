@@ -70,6 +70,11 @@
   border-color: var(--bd-strong);
 }
 
+.searchBar:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
 .searchPlaceholder {
   flex: 1;
 }
@@ -112,6 +117,11 @@
   background: var(--bg-2);
 }
 
+.navLink:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
 .navLink[data-active="true"] {
   color: var(--amber);
   font-weight: 500;
@@ -150,6 +160,11 @@
   background: var(--bg-2);
 }
 
+.iconBtn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
 /* ── New Post button ───────────────────────────────────── */
 
 .newPostBtn {
@@ -171,4 +186,17 @@
 
 .newPostBtn:hover {
   opacity: 0.85;
+}
+
+.newPostBtn:focus-visible {
+  outline: 2px solid var(--tx-1);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .searchBar {
+    display: none;
+  }
 }

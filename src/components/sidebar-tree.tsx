@@ -49,6 +49,14 @@ export function SidebarTree({ collections }: SidebarTreeProps) {
           <div key={collection.id}>
             <div
               onClick={() => toggle(collection.slug)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  toggle(collection.slug);
+                }
+              }}
+              role="button"
+              tabIndex={0}
               className={styles.collectionHeader}
               data-expanded={isExpanded}
             >

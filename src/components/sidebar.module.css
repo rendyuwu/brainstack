@@ -1,7 +1,8 @@
 /* ── Sidebar ────────────────────────────────────────────── */
 
 .aside {
-  width: 220px;
+  --sidebar-width: 220px;
+  width: var(--sidebar-width);
   flex-shrink: 0;
   border-right: 1px solid var(--bd-default);
   background: var(--bg-1);
@@ -56,4 +57,9 @@
 .quickLink:hover {
   color: var(--tx-1);
   background: var(--bg-2);
+}
+
+.quickLink:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
 }

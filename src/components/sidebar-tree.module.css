@@ -14,6 +14,11 @@
   background: var(--bg-2);
 }
 
+.collectionHeader:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+}
+
 .collectionHeader[data-expanded="true"] {
   color: var(--tx-1);
 }
@@ -54,4 +59,9 @@
   color: var(--tx-1);
   background: var(--bg-2);
   border-left-color: var(--amber);
+}
+
+.pageLink:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
 }

@@ -34,10 +34,7 @@ export function SidebarToggle({ children }: { children: React.ReactNode }) {
       <div
         className={styles.sidebarContainer}
         data-mounted={mounted}
-        style={{
-          width: collapsed ? 0 : 220,
-          minWidth: collapsed ? 0 : 220,
-        }}
+        data-collapsed={collapsed}
       >
         {children}
       </div>
@@ -48,7 +45,7 @@ export function SidebarToggle({ children }: { children: React.ReactNode }) {
         title={collapsed ? 'Show sidebar' : 'Hide sidebar'}
         className={styles.toggleBtn}
         data-mounted={mounted}
-        style={{ left: collapsed ? 4 : 208 }}
+        data-collapsed={collapsed}
       >
         <Icon name={collapsed ? 'menu' : 'chevronLeft'} size={14} />
       </button>

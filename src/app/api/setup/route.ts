@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { users } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { hash } from 'bcryptjs';
 import { setupSchema, validateBody } from '@/lib/validation';
 
@@ -45,7 +45,9 @@ export async function POST(request: Request) {
     let created = false;
 
     await db.transaction(async (tx) => {
-      // Re-check inside transaction — prevents race with different emails
+      // Advisory lock serializes setup attempts across concurrent requests
+      await tx.execute(sql`SELECT pg_advisory_xact_lock(42424242::bigint)`);
+
       const [existing] = await tx
         .select({ id: users.id })
         .from(users)

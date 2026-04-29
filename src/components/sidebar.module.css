@@ -1,7 +1,6 @@
 /* ── Sidebar ────────────────────────────────────────────── */
 
 .aside {
-  --sidebar-width: 220px;
   width: var(--sidebar-width);
   flex-shrink: 0;
   border-right: 1px solid var(--bd-default);
@@ -49,7 +48,7 @@
   padding: 7px 14px;
   cursor: pointer;
   color: var(--tx-2);
-  transition: all 0.1s;
+  transition: color 0.1s, background 0.1s;
   font-size: 13.5px;
   text-decoration: none;
 }

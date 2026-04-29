@@ -1,7 +1,6 @@
 /* ── Sidebar Toggle ────────────────────────────────────── */
 
 .wrapper {
-  --sidebar-width: 220px;
   display: flex;
   position: relative;
   height: 100%;

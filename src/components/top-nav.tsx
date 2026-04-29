@@ -40,7 +40,7 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
       {/* Logo */}
       <Link href="/" className={styles.logo}>
         <div className={styles.logoIcon}>
-          <Icon name="layers" size={15} style={{ color: '#000' }} />
+          <Icon name="layers" size={15} />
         </div>
         <span className={styles.logoText}>
           Brain<span className={styles.logoAccent}>Stack</span>
@@ -48,7 +48,18 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
       </Link>
 
       {/* Search bar trigger */}
-      <div onClick={onSearchOpen} className={styles.searchBar}>
+      <div
+        onClick={onSearchOpen}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSearchOpen?.();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+        className={styles.searchBar}
+      >
         <Icon name="search" size={14} />
         <span className={styles.searchPlaceholder}>Search docs, tutorials, cheatsheets...</span>
         <kbd className={styles.searchKbd}>Cmd+K</kbd>
@@ -119,7 +130,7 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
       {/* §V.39: New Post — admin only */}
       {isAdmin && (
         <Link href="/editor" className={styles.newPostBtn}>
-          <Icon name="plus" size={13} style={{ color: '#000' }} />
+          <Icon name="plus" size={13} />
           <span className="nav-label">New Post</span>
         </Link>
       )}

@@ -17,7 +17,13 @@ export async function POST(request: NextRequest) {
   if (!session) return unauthorizedResponse();
 
   try {
-    const body = await request.json();
+    // Parse body — treat empty/missing body as "no confirmation" (show preview)
+    let body: unknown = {};
+    try {
+      body = await request.json();
+    } catch {
+      // Empty body or invalid JSON — treat as no confirmation
+    }
     const v = validateBody(embeddingResetSchema, body);
 
     if (!v.success) {

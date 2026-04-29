@@ -127,7 +127,14 @@ export async function updateProvider(
   if (data.label !== undefined) updates.label = data.label;
   if (data.kind !== undefined) updates.kind = data.kind;
   if (data.baseUrl !== undefined) updates.baseUrl = data.baseUrl;
-  if (data.apiKeySecretRef !== undefined) updates.apiKeySecretRef = data.apiKeySecretRef ? encrypt(data.apiKeySecretRef) : null;
+  if (data.apiKeySecretRef !== undefined) {
+    // Skip if value looks like a masked key (contains consecutive *'s) — prevents
+    // overwriting real key with masked placeholder from GET/PUT response
+    const isMasked = data.apiKeySecretRef && /\*{3,}/.test(data.apiKeySecretRef);
+    if (!isMasked) {
+      updates.apiKeySecretRef = data.apiKeySecretRef ? encrypt(data.apiKeySecretRef) : null;
+    }
+  }
   if (data.defaultHeaders !== undefined) updates.defaultHeaders = data.defaultHeaders;
   if (data.discoveryMode !== undefined) updates.discoveryMode = data.discoveryMode;
   if (data.enabled !== undefined) updates.enabled = data.enabled;

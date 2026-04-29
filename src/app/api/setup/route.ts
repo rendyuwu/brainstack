@@ -24,7 +24,7 @@ export async function GET() {
 
 /**
  * §V.42: POST is atomic — returns 403 after first admin exists.
- * Uses try/catch on unique email constraint as secondary guard against race.
+ * Uses transaction with re-check inside to prevent race with different emails.
  */
 export async function POST(request: Request) {
   if (await adminExists()) {
@@ -42,15 +42,43 @@ export async function POST(request: Request) {
   const passwordHash = await hash(password, 12);
 
   try {
-    await db.insert(users).values({
-      email,
-      passwordHash,
-      name,
-      role: 'admin',
+    let created = false;
+
+    await db.transaction(async (tx) => {
+      // Re-check inside transaction — prevents race with different emails
+      const [existing] = await tx
+        .select({ id: users.id })
+        .from(users)
+        .where(eq(users.role, 'admin'))
+        .limit(1);
+
+      if (existing) {
+        // Admin already created by concurrent request
+        created = false;
+        return;
+      }
+
+      await tx.insert(users).values({
+        email,
+        passwordHash,
+        name,
+        role: 'admin',
+      });
+      created = true;
     });
+
+    if (!created) {
+      return NextResponse.json(
+        { error: 'Setup is not available' },
+        { status: 403 },
+      );
+    }
+
+    return NextResponse.json({ success: true });
   } catch (err) {
-    // Unique constraint on email — race condition guard
-    if (err instanceof Error && err.message.includes('unique')) {
+    const msg = err instanceof Error ? err.message : '';
+    // Unique email constraint — secondary guard
+    if (msg.includes('unique')) {
       return NextResponse.json(
         { error: 'Setup is not available' },
         { status: 403 },
@@ -58,6 +86,4 @@ export async function POST(request: Request) {
     }
     throw err;
   }
-
-  return NextResponse.json({ success: true });
 }

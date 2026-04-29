@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getProviders, createProvider } from '@/lib/ai/provider-registry';
 import { createProviderSchema, validateBody } from '@/lib/validation';
 import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { maskKey } from '@/lib/crypto';
 
 export async function GET() {
   const session = await requireAdmin();
@@ -9,7 +10,12 @@ export async function GET() {
 
   try {
     const providers = await getProviders();
-    return NextResponse.json(providers);
+    // §V.41: mask API keys in GET responses (write-only pattern)
+    const masked = providers.map((p) => ({
+      ...p,
+      apiKeySecretRef: maskKey(p.apiKeySecretRef),
+    }));
+    return NextResponse.json(masked);
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },

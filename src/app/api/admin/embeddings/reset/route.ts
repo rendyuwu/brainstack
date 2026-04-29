@@ -1,17 +1,35 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { chunks, chunkEmbeddings } from '@/db/schema';
-import { sql } from 'drizzle-orm';
+import { sql, count } from 'drizzle-orm';
 import { embedChunks } from '@/lib/rag/embedder';
 import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { embeddingResetSchema, validateBody } from '@/lib/validation';
 
 const BATCH_SIZE = 20;
 
-export async function POST() {
+/**
+ * §V.52: POST without confirm=true returns chunk count + warning.
+ * POST with confirm=true proceeds with reset.
+ */
+export async function POST(request: NextRequest) {
   const session = await requireAdmin();
   if (!session) return unauthorizedResponse();
 
   try {
+    const body = await request.json();
+    const v = validateBody(embeddingResetSchema, body);
+
+    if (!v.success) {
+      // No confirm=true — return chunk count as preview
+      const [totalResult] = await db.select({ n: count() }).from(chunks);
+      return NextResponse.json({
+        warning: 'This will delete all embeddings and re-embed all chunks',
+        totalChunks: totalResult.n,
+        action: 'Send { "confirm": true } to proceed',
+      });
+    }
+
     // Delete all existing embeddings
     await db.delete(chunkEmbeddings);
 

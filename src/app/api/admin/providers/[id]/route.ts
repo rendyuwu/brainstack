@@ -7,6 +7,7 @@ import {
 import { updateProviderSchema, validateBody } from '@/lib/validation';
 import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 import { isValidUUID } from '@/lib/uuid';
+import { maskKey } from '@/lib/crypto';
 
 export async function GET(
   _request: Request,
@@ -25,7 +26,8 @@ export async function GET(
     if (!provider) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
-    return NextResponse.json(provider);
+    // §V.41: mask API key in GET response
+    return NextResponse.json({ ...provider, apiKeySecretRef: maskKey(provider.apiKeySecretRef) });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },

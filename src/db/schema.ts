@@ -206,6 +206,7 @@ export const pages = pgTable("pages", {
 	publishedAt: timestamp("published_at", { withTimezone: true, mode: 'string' }),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
 	updatedAt: timestamp("updated_at", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+	embeddingStatus: text("embedding_status").default('none').notNull(),
 }, (table) => [
 	index("pages_collection_idx").using("btree", table.collectionId.asc().nullsLast().op("uuid_ops")),
 	index("pages_status_idx").using("btree", table.status.asc().nullsLast().op("text_ops")),

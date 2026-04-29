@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { chunks, chunkEmbeddings } from '@/db/schema';
+import { chunks, chunkEmbeddings, pages } from '@/db/schema';
 import { eq, sql } from 'drizzle-orm';
 import { chunkMDX } from './chunker';
 import { embedChunks } from './embedder';
@@ -21,6 +21,9 @@ export async function runPublishPipeline(
   revisionId: string,
   mdxSource: string
 ): Promise<void> {
+  // §V.47: set embedding status to pending
+  await db.update(pages).set({ embeddingStatus: 'pending' }).where(eq(pages.id, pageId));
+
   // 1. Delete existing chunks for this page (cascade deletes embeddings)
   await db.delete(chunks).where(eq(chunks.pageId, pageId));
 
@@ -65,9 +68,15 @@ export async function runPublishPipeline(
       }));
 
       await db.insert(chunkEmbeddings).values(embeddingValues);
+      // §V.47: mark embedding as complete
+      await db.update(pages).set({ embeddingStatus: 'complete' }).where(eq(pages.id, pageId));
+    } else {
+      // No embedding provider available
+      await db.update(pages).set({ embeddingStatus: 'failed' }).where(eq(pages.id, pageId));
     }
   } catch (err) {
     // Embeddings are optional — log but don't block publish
     console.error('Embedding generation failed:', err);
+    await db.update(pages).set({ embeddingStatus: 'failed' }).where(eq(pages.id, pageId));
   }
 }

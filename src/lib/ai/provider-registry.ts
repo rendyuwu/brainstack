@@ -1,11 +1,23 @@
 import { db } from '@/db';
 import { aiProviders, aiModels } from '@/db/schema';
-import { eq, sql } from 'drizzle-orm';
+import { eq, sql, inArray } from 'drizzle-orm';
 import { createAIClient } from './client';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from './types';
 import { isDiscoveryMode, isProviderKind } from './types';
+import { encrypt, decrypt, isEncrypted } from '@/lib/crypto';
 
 // ---------- helpers ----------
+
+function decryptApiKey(stored: string | null): string | null {
+  if (!stored) return null;
+  try {
+    // §V.41: decrypt if encrypted, pass through if plaintext (migration compat)
+    return isEncrypted(stored) ? decrypt(stored) : stored;
+  } catch {
+    console.warn('Failed to decrypt API key — returning as-is (may be plaintext)');
+    return stored;
+  }
+}
 
 function rowToProviderConfig(row: typeof aiProviders.$inferSelect): ProviderConfig {
   return {
@@ -13,7 +25,7 @@ function rowToProviderConfig(row: typeof aiProviders.$inferSelect): ProviderConf
     label: row.label,
     kind: row.kind as ProviderKind,
     baseUrl: row.baseUrl,
-    apiKeySecretRef: row.apiKeySecretRef,
+    apiKeySecretRef: decryptApiKey(row.apiKeySecretRef),
     defaultHeaders: (row.defaultHeaders as Record<string, string>) ?? null,
     discoveryMode: row.discoveryMode as DiscoveryMode,
     enabled: row.enabled,
@@ -25,7 +37,14 @@ function rowToProviderConfig(row: typeof aiProviders.$inferSelect): ProviderConf
 export async function getProviders() {
   const rows = await db.select().from(aiProviders).orderBy(aiProviders.label);
 
-  const models = await db.select().from(aiModels);
+  if (rows.length === 0) return [];
+
+  // §V.54: filter models by provider IDs instead of loading entire table
+  const providerIds = rows.map((r) => r.id);
+  const models = await db
+    .select()
+    .from(aiModels)
+    .where(inArray(aiModels.providerId, providerIds));
 
   return rows.map((row) => ({
     ...rowToProviderConfig(row),
@@ -75,7 +94,7 @@ export async function createProvider(data: {
       label: data.label,
       kind: data.kind,
       baseUrl: data.baseUrl,
-      apiKeySecretRef: data.apiKeySecretRef ?? null,
+      apiKeySecretRef: data.apiKeySecretRef ? encrypt(data.apiKeySecretRef) : null,
       defaultHeaders: data.defaultHeaders ?? null,
       discoveryMode: data.discoveryMode ?? 'v1-models',
       enabled: data.enabled ?? true,
@@ -108,7 +127,7 @@ export async function updateProvider(
   if (data.label !== undefined) updates.label = data.label;
   if (data.kind !== undefined) updates.kind = data.kind;
   if (data.baseUrl !== undefined) updates.baseUrl = data.baseUrl;
-  if (data.apiKeySecretRef !== undefined) updates.apiKeySecretRef = data.apiKeySecretRef;
+  if (data.apiKeySecretRef !== undefined) updates.apiKeySecretRef = data.apiKeySecretRef ? encrypt(data.apiKeySecretRef) : null;
   if (data.defaultHeaders !== undefined) updates.defaultHeaders = data.defaultHeaders;
   if (data.discoveryMode !== undefined) updates.discoveryMode = data.discoveryMode;
   if (data.enabled !== undefined) updates.enabled = data.enabled;

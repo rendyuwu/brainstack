@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-// §V.36, §V.37, §V.38: /editor/*, /admin/*, /settings require admin role
-const ADMIN_REQUIRED = ['/editor', '/admin', '/settings'];
+// §V.36, §V.37, §V.38, §V.40: /editor/*, /admin/*, /settings, /ask require admin role
+const ADMIN_REQUIRED = ['/editor', '/admin', '/settings', '/ask'];
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({
@@ -32,5 +32,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/editor/:path*', '/admin/:path*', '/settings/:path*'],
+  matcher: ['/editor/:path*', '/admin/:path*', '/settings/:path*', '/ask/:path*'],
 };

@@ -184,7 +184,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T25 | ✓ | wire form submit → `PATCH /api/account/password`, show success/error feedback | V28,V29,V31,I.api |
 | T26 | ✓ | add tests for password change API route | V28,V29,V30,V31 |
 | T27 | ✓ | admin-only safeguard — remove `editor` role; upgrade middleware to check `role === 'admin'` for `/editor/*`, `/settings`; add `requireAdmin()` guard to all write API routes (`/api/pages` POST/PUT/DELETE, publish, tags, assets, relations, `/api/ai/draft`, `/api/ai/rewrite`); hide editor/AI nav links for non-admin; update schema default role; add tests | V32,V33,V34,V35,V36,V37,V38,V39 |
-| T28 | . | lock AI chat to admin — add `requireAdmin()` to `/api/chat`; add `/ask` to middleware matcher; hide "Ask AI" nav link for non-admin; update tests | V35,V40,V39,I.api |
+| T28 | ✓ | lock AI chat to admin — add `requireAdmin()` to `/api/chat`; add `/ask` to middleware matcher; hide "Ask AI" nav link for non-admin; update tests | V35,V40,V39,I.api |
 
 ## §B — Bugs
 

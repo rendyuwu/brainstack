@@ -40,6 +40,14 @@ describe('middleware', () => {
     expect(new URL(res.headers.get('location')!).pathname).toBe('/login');
   });
 
+  // §V.40: /ask requires admin — redirect to login when no session
+  it('redirects to /login when no valid session on /ask path', async () => {
+    mockGetToken.mockResolvedValue(null);
+    const res = await middleware(makeRequest('/ask'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/login');
+  });
+
   it('preserves callbackUrl in redirect', async () => {
     mockGetToken.mockResolvedValue(null);
     const res = await middleware(makeRequest('/editor/abc-123'));
@@ -71,6 +79,14 @@ describe('middleware', () => {
     expect(new URL(res.headers.get('location')!).pathname).toBe('/');
   });
 
+  // §V.40: non-admin token → redirect to / for /ask
+  it('redirects non-admin to / on /ask path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'editor' });
+    const res = await middleware(makeRequest('/ask'));
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/');
+  });
+
   // §V.36: token with no role → redirect to /
   it('redirects user with no role to / on /editor path', async () => {
     mockGetToken.mockResolvedValue({ sub: 'user-1' });
@@ -97,6 +113,13 @@ describe('middleware', () => {
     expect(res.headers.get('location')).toBeNull();
   });
 
+  // §V.40: admin token → pass through for /ask
+  it('passes through when admin token on /ask path', async () => {
+    mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'admin' });
+    const res = await middleware(makeRequest('/ask'));
+    expect(res.headers.get('location')).toBeNull();
+  });
+
   it('uses AUTH_SECRET before NEXTAUTH_SECRET', async () => {
     process.env.AUTH_SECRET = 'auth-secret';
     mockGetToken.mockResolvedValue({ sub: 'user-1', role: 'admin' });
@@ -108,10 +131,11 @@ describe('middleware', () => {
 });
 
 describe('middleware config', () => {
-  it('matches /editor, /admin, and /settings paths', () => {
+  it('matches /editor, /admin, /settings, and /ask paths', () => {
     expect(config.matcher).toContain('/editor/:path*');
     expect(config.matcher).toContain('/admin/:path*');
     expect(config.matcher).toContain('/settings/:path*');
+    expect(config.matcher).toContain('/ask/:path*');
   });
 
   it('does not match public paths', () => {

@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { pageRelations, pages } from '@/db/schema';
 import { eq, or, and } from 'drizzle-orm';
 import { createRelationSchema, deleteRelationSchema, validateBody } from '@/lib/validation';
+import { isValidUUID } from '@/lib/uuid';
 
 // §V.34: relations GET is public (read-only)
 // §V.6: only published pages visible to unauthenticated users
@@ -13,6 +14,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
     const session = await auth();
     const isAdmin =
       (session?.user as { role?: string } | undefined)?.role === 'admin';
@@ -88,6 +92,9 @@ export async function POST(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
     const body = await request.json();
     const v = validateBody(createRelationSchema, body);
     if (!v.success) return v.response;
@@ -129,6 +136,9 @@ export async function DELETE(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
     const body = await request.json();
     const v = validateBody(deleteRelationSchema, body);
     if (!v.success) return v.response;

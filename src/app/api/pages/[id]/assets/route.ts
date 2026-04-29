@@ -7,6 +7,7 @@ import { writeFile, unlink, mkdir } from 'fs/promises';
 import { join } from 'path';
 import crypto from 'crypto';
 import { deleteAssetSchema, validateBody } from '@/lib/validation';
+import { isValidUUID } from '@/lib/uuid';
 
 const ALLOWED_TYPES = new Set([
   'image/jpeg',
@@ -38,6 +39,9 @@ export async function GET(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
 
     const rows = await db
       .select()
@@ -64,6 +68,9 @@ export async function POST(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
 
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
@@ -126,6 +133,9 @@ export async function DELETE(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
     const body = await request.json();
     const v = validateBody(deleteAssetSchema, body);
     if (!v.success) return v.response;

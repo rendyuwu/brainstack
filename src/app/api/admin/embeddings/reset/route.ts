@@ -1,27 +1,41 @@
-import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { chunks, chunkEmbeddings } from '@/db/schema';
-import { sql } from 'drizzle-orm';
+import { sql, count } from 'drizzle-orm';
 import { embedChunks } from '@/lib/rag/embedder';
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { embeddingResetSchema, validateBody } from '@/lib/validation';
 
 const BATCH_SIZE = 20;
 
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
-
-export async function POST() {
+/**
+ * §V.52: POST without confirm=true returns chunk count + warning.
+ * POST with confirm=true proceeds with reset.
+ */
+export async function POST(request: NextRequest) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   try {
+    // Parse body — treat empty/missing body as "no confirmation" (show preview)
+    let body: unknown = {};
+    try {
+      body = await request.json();
+    } catch {
+      // Empty body or invalid JSON — treat as no confirmation
+    }
+    const v = validateBody(embeddingResetSchema, body);
+
+    if (!v.success) {
+      // No confirm=true — return chunk count as preview
+      const [totalResult] = await db.select({ n: count() }).from(chunks);
+      return NextResponse.json({
+        warning: 'This will delete all embeddings and re-embed all chunks',
+        totalChunks: totalResult.n,
+        action: 'Send { "confirm": true } to proceed',
+      });
+    }
+
     // Delete all existing embeddings
     await db.delete(chunkEmbeddings);
 
@@ -54,13 +68,13 @@ export async function POST() {
             const batch = allChunks.slice(i, i + BATCH_SIZE);
 
             try {
-              const embeddings = await embedChunks(batch);
+              const result = await embedChunks(batch);
 
-              if (embeddings) {
+              if (result) {
                 const embeddingValues = batch.map((chunk, j) => ({
                   chunkId: chunk.id,
-                  embeddingModel: 'default',
-                  embedding: sql`${`[${embeddings[j].join(',')}]`}::vector`,
+                  embeddingModel: result.modelId,
+                  embedding: sql`${`[${result.embeddings[j].join(',')}]`}::vector`,
                 }));
 
                 await db.insert(chunkEmbeddings).values(embeddingValues);

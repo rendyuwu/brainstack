@@ -1,37 +1,33 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import {
   getProvider,
   updateProvider,
   deleteProvider,
 } from '@/lib/ai/provider-registry';
 import { updateProviderSchema, validateBody } from '@/lib/validation';
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { isValidUUID } from '@/lib/uuid';
+import { maskKey } from '@/lib/crypto';
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const provider = await getProvider(id);
     if (!provider) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
-    return NextResponse.json(provider);
+    // §V.41: mask API key in GET response
+    return NextResponse.json({ ...provider, apiKeySecretRef: maskKey(provider.apiKeySecretRef) });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },
@@ -45,11 +41,12 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const body = await request.json();
@@ -60,7 +57,7 @@ export async function PUT(
     if (!updated) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
-    return NextResponse.json(updated);
+    return NextResponse.json({ ...updated, apiKeySecretRef: maskKey(updated.apiKeySecretRef) });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },
@@ -74,11 +71,12 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const deleted = await deleteProvider(id);

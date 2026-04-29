@@ -4,9 +4,20 @@ import { eq, and } from 'drizzle-orm';
 import { createAIClient } from '@/lib/ai/client';
 import { logAIUsage } from '@/lib/ai/usage-logger';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from '@/lib/ai/types';
+import { decrypt, isEncrypted } from '@/lib/crypto';
 
 /** Must match the vector(N) column in chunk_embeddings */
 const EMBEDDING_DIMENSIONS = 1536;
+
+/** Decrypt API key if encrypted, pass through if plaintext (migration compat) */
+function decryptApiKey(stored: string | null): string | null {
+  if (!stored) return null;
+  try {
+    return isEncrypted(stored) ? decrypt(stored) : stored;
+  } catch {
+    return stored;
+  }
+}
 
 interface EmbeddingCandidate {
   provider: ProviderConfig;
@@ -37,7 +48,7 @@ async function findEmbeddingCandidates(): Promise<EmbeddingCandidate[]> {
       label: row.label,
       kind: row.kind as ProviderKind,
       baseUrl: row.baseUrl,
-      apiKeySecretRef: row.apiKeySecretRef,
+      apiKeySecretRef: decryptApiKey(row.apiKeySecretRef),
       defaultHeaders:
         (row.defaultHeaders as Record<string, string>) ?? null,
       discoveryMode: row.discoveryMode as DiscoveryMode,
@@ -54,7 +65,7 @@ async function findEmbeddingCandidates(): Promise<EmbeddingCandidate[]> {
 
 export async function embedChunks(
   chunks: { content: string }[]
-): Promise<number[][] | null> {
+): Promise<{ embeddings: number[][]; modelId: string } | null> {
   const candidates = await findEmbeddingCandidates();
   if (candidates.length === 0) return null;
 
@@ -77,7 +88,10 @@ export async function embedChunks(
         durationMs: Date.now() - startTime,
       });
 
-      return response.data.map((d) => d.embedding);
+      return {
+        embeddings: response.data.map((d) => d.embedding),
+        modelId,
+      };
     } catch (err) {
       console.warn(`Embedding model ${modelId} failed, trying next...`, err instanceof Error ? err.message : err);
     }

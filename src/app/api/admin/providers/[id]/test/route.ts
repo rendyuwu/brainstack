@@ -1,26 +1,20 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import { getProvider, testConnection } from '@/lib/ai/provider-registry';
 import type { ProviderConfig } from '@/lib/ai/types';
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function POST(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const provider = await getProvider(id);

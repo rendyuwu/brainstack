@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { users } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { hash } from 'bcryptjs';
 import { setupSchema, validateBody } from '@/lib/validation';
 
@@ -14,15 +14,22 @@ async function adminExists(): Promise<boolean> {
   return !!row;
 }
 
+/**
+ * §V.42: GET no longer reveals whether admin exists.
+ * Returns generic status only.
+ */
 export async function GET() {
-  const exists = await adminExists();
-  return NextResponse.json({ needsSetup: !exists });
+  return NextResponse.json({ status: 'ready' });
 }
 
+/**
+ * §V.42: POST is atomic — returns 403 after first admin exists.
+ * Uses transaction with re-check inside to prevent race with different emails.
+ */
 export async function POST(request: Request) {
   if (await adminExists()) {
     return NextResponse.json(
-      { error: 'Admin account already exists' },
+      { error: 'Setup is not available' },
       { status: 403 },
     );
   }
@@ -34,12 +41,51 @@ export async function POST(request: Request) {
 
   const passwordHash = await hash(password, 12);
 
-  await db.insert(users).values({
-    email,
-    passwordHash,
-    name,
-    role: 'admin',
-  });
+  try {
+    let created = false;
 
-  return NextResponse.json({ success: true });
+    await db.transaction(async (tx) => {
+      // Advisory lock serializes setup attempts across concurrent requests
+      await tx.execute(sql`SELECT pg_advisory_xact_lock(42424242::bigint)`);
+
+      const [existing] = await tx
+        .select({ id: users.id })
+        .from(users)
+        .where(eq(users.role, 'admin'))
+        .limit(1);
+
+      if (existing) {
+        // Admin already created by concurrent request
+        created = false;
+        return;
+      }
+
+      await tx.insert(users).values({
+        email,
+        passwordHash,
+        name,
+        role: 'admin',
+      });
+      created = true;
+    });
+
+    if (!created) {
+      return NextResponse.json(
+        { error: 'Setup is not available' },
+        { status: 403 },
+      );
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : '';
+    // Unique email constraint — secondary guard
+    if (msg.includes('unique')) {
+      return NextResponse.json(
+        { error: 'Setup is not available' },
+        { status: 403 },
+      );
+    }
+    throw err;
+  }
 }

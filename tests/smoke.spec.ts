@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
 
+/**
+ * E2E credentials loaded from environment variables.
+ * Set E2E_EMAIL and E2E_PASSWORD in .env.local (never hardcode).
+ * Falls back to SEED_ADMIN_EMAIL/SEED_ADMIN_PASSWORD if E2E vars not set.
+ */
+const TEST_EMAIL = process.env.E2E_EMAIL || process.env.SEED_ADMIN_EMAIL || '';
+const TEST_PASSWORD = process.env.E2E_PASSWORD || process.env.SEED_ADMIN_PASSWORD || '';
+
 test.describe('BrainStack Smoke Tests', () => {
   test('homepage loads and shows content', async ({ page }) => {
     await page.goto('/');
@@ -118,9 +126,10 @@ test.describe('BrainStack Smoke Tests', () => {
 
 test.describe('Auth Flow', () => {
   test('can login with valid credentials', async ({ page }) => {
+    test.skip(!TEST_EMAIL || !TEST_PASSWORD, 'E2E credentials not configured');
     await page.goto('/login');
-    await page.fill('input[type="email"]', 'noa@brainstack.dev');
-    await page.fill('input[type="password"]', 'noa');
+    await page.fill('input[type="email"]', TEST_EMAIL);
+    await page.fill('input[type="password"]', TEST_PASSWORD);
     await page.click('button[type="submit"]');
     // signIn uses redirect:false + router.push('/'), wait for navigation
     await page.waitForURL((url) => !url.pathname.includes('/login'), { timeout: 15000 });

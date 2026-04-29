@@ -1,25 +1,21 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import { getProviders, createProvider } from '@/lib/ai/provider-registry';
 import { createProviderSchema, validateBody } from '@/lib/validation';
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { maskKey } from '@/lib/crypto';
 
 export async function GET() {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   try {
     const providers = await getProviders();
-    return NextResponse.json(providers);
+    // §V.41: mask API keys in GET responses (write-only pattern)
+    const masked = providers.map((p) => ({
+      ...p,
+      apiKeySecretRef: maskKey(p.apiKeySecretRef),
+    }));
+    return NextResponse.json(masked);
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },
@@ -30,9 +26,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   try {
     const body = await request.json();
@@ -50,7 +44,7 @@ export async function POST(request: Request) {
       enabled,
     });
 
-    return NextResponse.json(provider, { status: 201 });
+    return NextResponse.json({ ...provider, apiKeySecretRef: maskKey(provider.apiKeySecretRef) }, { status: 201 });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },

@@ -152,6 +152,21 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V38: `/admin/*` unchanged — already requires `role === 'admin'`
 - V39: client UI ! hide editor/admin/AI links for non-admin sessions
 - V40: `/ask` page requires `role === 'admin'` (middleware); non-admin → redirect `/`
+- V41: provider API keys ! encrypted at rest (AES-256-GCM); ⊥ plaintext in DB; GET responses ! mask key (write-only pattern)
+- V42: `POST /api/setup` ! atomic — DB-level guard (unique constraint); endpoint ! return 403 after first admin exists; ⊥ `needsSetup` field in public responses; ⊥ two admins from concurrent requests
+- V43: `requireAdmin()` ! single canonical impl in `src/lib/auth.ts`; ⊥ local copies in route files
+- V44: `AUTH_SECRET` ! cryptographically random ≥ 32 bytes; seed password ! pass same validation as user-facing password (≥ 8 chars)
+- V45: ∀ state-mutating API route → CSRF protection (SameSite=Lax|Strict on auth cookies + Origin header validation); ⊥ token-based CSRF (unnecessary w/ JWT + SameSite)
+- V46: HTTP responses ! include security headers: `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Strict-Transport-Security`
+- V47: publish pipeline ! track embedding status per page (`pending` | `complete` | `failed`); admin UI ! show status; retry available on failure
+- V48: ∀ `[id]` route param → validate UUID format before DB query; invalid → 400 (not 500)
+- V49: chat history DB query ! `LIMIT ≤ 50` + `ORDER BY createdAt DESC` — ⊥ unbounded fetch; slice in DB not JS
+- V50: `embeddingModel` column ! store actual model ID from provider; ⊥ hardcoded `'default'`
+- V51: rate limiter ! not trust raw `x-forwarded-for`; require trusted proxy config | strip header at edge
+- V52: `POST /api/admin/embeddings/reset` ! show chunk count + require explicit confirmation param before re-embedding; UI ! confirmation dialog
+- V53: ∀ MDX render → `next-mdx-remote` output sanitized against `<script>` & event handlers; CSP policy (§V.46) ! block inline scripts as defense-in-depth
+- V54: `getProviders()` ! JOIN or filter models by needed provider IDs; ⊥ load entire `ai_models` table
+- V55: design system ! use CSS modules | CSS custom properties for layout; ⊥ inline `style={{}}` as primary layout mechanism; hover/focus/responsive states ! work
 
 ## §T — Tasks
 
@@ -185,6 +200,20 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T26 | ✓ | add tests for password change API route | V28,V29,V30,V31 |
 | T27 | ✓ | admin-only safeguard — remove `editor` role; upgrade middleware to check `role === 'admin'` for `/editor/*`, `/settings`; add `requireAdmin()` guard to all write API routes (`/api/pages` POST/PUT/DELETE, publish, tags, assets, relations, `/api/ai/draft`, `/api/ai/rewrite`); hide editor/AI nav links for non-admin; update schema default role; add tests | V32,V33,V34,V35,V36,V37,V38,V39 |
 | T28 | ✓ | lock AI chat to admin — add `requireAdmin()` to `/api/chat`; add `/ask` to middleware matcher; hide "Ask AI" nav link for non-admin; update tests | V35,V40,V39,I.api |
+| T29 | ✓ | encrypt provider API keys — AES-256-GCM encrypt/decrypt helpers; migrate existing plaintext to ciphertext; mask in GET responses; update provider CRUD; rollback plan if encryption key lost | V41,I.api |
+| T30 | ✓ | harden setup endpoint — atomic admin creation (DB unique constraint); return 403 after first admin; remove `needsSetup` from GET response; disable POST after bootstrap | V42,I.api |
+| T31 | ✓ | deduplicate `requireAdmin()` — delete all local copies in admin routes; import canonical from `src/lib/auth.ts`; verify tests pass | V43 |
+| T32 | ✓ | rotate secrets + enforce seed validation — boot-time check rejects `AUTH_SECRET` < 32 bytes; seed script enforces ≥ 8 char password; `.env.example` documents requirements; generate crypto-random secret | V44,V22 |
+| T33 | ✓ | add CSRF protection — verify SameSite=Lax|Strict on auth cookies (Auth.js default); add Origin header validation middleware for state-mutating routes; ⊥ token-based CSRF | V45,I.api |
+| T34 | ✓ | add security headers — CSP (block inline scripts), X-Content-Type-Options, X-Frame-Options, HSTS via Next.js config | middleware; covers V53 MDX sanitization | V46,V53 |
+| T35 | ✓ | publish pipeline status tracking — add `embeddingStatus` column to pages; update pipeline to set pending→complete→failed; show in editor UI; add retry button | V47,V10,I.api,I.admin |
+| T36 | ✓ | UUID param validation — shared `validateUUID()` helper; apply to all `[id]` route handlers; return 400 on invalid format | V48,I.api |
+| T37 | ✓ | bound chat history query — add `LIMIT 11` (10 displayed + 1 has-more sentinel) + `ORDER BY createdAt DESC` to DB query; reverse in JS; remove unbounded fetch | V49 |
+| T38 | ✓ | store actual embedding model ID — replace hardcoded `'default'` with real model ID from provider in pipeline + sync + reset routes | V50 |
+| T39 | ✓ | harden rate limiter — strip/ignore `x-forwarded-for` unless trusted proxy configured; document proxy requirements | V51 |
+| T40 | ✓ | embedding reset confirmation — add chunk count display; require explicit confirmation param; add UI confirmation dialog | V52,I.api,I.admin |
+| T41 | ✓ | optimize getProviders() query — JOIN models by provider IDs; ⊥ load entire `ai_models` table into memory; filter at DB level | V54 |
+| T42 | . | migrate inline styles to CSS modules — layout components first (top-nav, sidebar, editor); hover/focus/responsive states ! work; incremental migration (deferred to separate PR) | V55 |
 
 ## §B — Bugs
 

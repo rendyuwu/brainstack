@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { chunks, chunkEmbeddings } from '@/db/schema';
+import { chunks, chunkEmbeddings, pages } from '@/db/schema';
 import { eq, sql } from 'drizzle-orm';
 import { chunkMDX } from './chunker';
 import { embedChunks } from './embedder';
@@ -21,13 +21,20 @@ export async function runPublishPipeline(
   revisionId: string,
   mdxSource: string
 ): Promise<void> {
+  // §V.47: set embedding status to pending
+  await db.update(pages).set({ embeddingStatus: 'pending' }).where(eq(pages.id, pageId));
+
   // 1. Delete existing chunks for this page (cascade deletes embeddings)
   await db.delete(chunks).where(eq(chunks.pageId, pageId));
 
   // 2. Chunk the MDX
   const mdxChunks = chunkMDX(mdxSource);
 
-  if (mdxChunks.length === 0) return;
+  if (mdxChunks.length === 0) {
+    // No chunks to embed — mark as complete (nothing to do)
+    await db.update(pages).set({ embeddingStatus: 'complete' }).where(eq(pages.id, pageId));
+    return;
+  }
 
   // 3. Filter and prepare chunk values
   const chunkValues = mdxChunks
@@ -46,7 +53,10 @@ export async function runPublishPipeline(
     })
     .filter((v): v is NonNullable<typeof v> => v !== null);
 
-  if (chunkValues.length === 0) return;
+  if (chunkValues.length === 0) {
+    await db.update(pages).set({ embeddingStatus: 'complete' }).where(eq(pages.id, pageId));
+    return;
+  }
 
   // 4. Batch insert all chunks
   const insertedChunks = await db
@@ -56,18 +66,24 @@ export async function runPublishPipeline(
 
   // 5. Try to generate embeddings (optional)
   try {
-    const embeddings = await embedChunks(insertedChunks);
-    if (embeddings) {
+    const result = await embedChunks(insertedChunks);
+    if (result) {
       const embeddingValues = insertedChunks.map((chunk, i) => ({
         chunkId: chunk.id,
-        embeddingModel: 'default',
-        embedding: sql`${`[${embeddings[i].join(',')}]`}::vector`,
+        embeddingModel: result.modelId,
+        embedding: sql`${`[${result.embeddings[i].join(',')}]`}::vector`,
       }));
 
       await db.insert(chunkEmbeddings).values(embeddingValues);
+      // §V.47: mark embedding as complete
+      await db.update(pages).set({ embeddingStatus: 'complete' }).where(eq(pages.id, pageId));
+    } else {
+      // No embedding provider available
+      await db.update(pages).set({ embeddingStatus: 'failed' }).where(eq(pages.id, pageId));
     }
   } catch (err) {
     // Embeddings are optional — log but don't block publish
     console.error('Embedding generation failed:', err);
+    await db.update(pages).set({ embeddingStatus: 'failed' }).where(eq(pages.id, pageId));
   }
 }

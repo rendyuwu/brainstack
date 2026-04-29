@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { pageTags } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { updateTagsSchema, validateBody } from '@/lib/validation';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function PUT(
   request: NextRequest,
@@ -15,6 +16,9 @@ export async function PUT(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
     const body = await request.json();
     const v = validateBody(updateTagsSchema, body);
     if (!v.success) return v.response;

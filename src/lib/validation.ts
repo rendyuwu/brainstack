@@ -176,6 +176,12 @@ export const changePasswordSchema = z.object({
   newPassword: z.string().min(8, 'Password must be at least 8 characters').max(200),
 });
 
+// ── Embedding Reset ─────────────────────────────────────────────────
+
+export const embeddingResetSchema = z.object({
+  confirm: z.literal(true),
+});
+
 // ── Type exports ─────────────────────────────────────────────────────
 
 export type CreatePageInput = z.infer<typeof createPageSchema>;

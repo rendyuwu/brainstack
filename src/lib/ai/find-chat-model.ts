@@ -4,10 +4,21 @@ import { aiProviders, aiModels } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { createAIClient } from './client';
 import type { ProviderConfig, ProviderKind, DiscoveryMode } from './types';
+import { decrypt, isEncrypted } from '@/lib/crypto';
 
 export interface ChatCandidate {
   provider: ProviderConfig;
   modelId: string;
+}
+
+/** Decrypt API key if encrypted, pass through if plaintext (migration compat) */
+function decryptApiKey(stored: string | null): string | null {
+  if (!stored) return null;
+  try {
+    return isEncrypted(stored) ? decrypt(stored) : stored;
+  } catch {
+    return stored;
+  }
 }
 
 /** Non-chat model ID patterns to skip */
@@ -49,7 +60,7 @@ export async function findChatCandidates(): Promise<ChatCandidate[]> {
         label: row.label,
         kind: row.kind as ProviderKind,
         baseUrl: row.baseUrl,
-        apiKeySecretRef: row.apiKeySecretRef,
+        apiKeySecretRef: decryptApiKey(row.apiKeySecretRef),
         defaultHeaders:
           (row.defaultHeaders as Record<string, string>) ?? null,
         discoveryMode: row.discoveryMode as DiscoveryMode,

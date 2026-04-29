@@ -1,8 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { NextResponse } from 'next/server';
 
 const mockAuth = vi.fn();
 vi.mock('@/lib/auth', () => ({
   auth: () => mockAuth(),
+  requireAdmin: async () => {
+    const session = await mockAuth();
+    const user = session?.user as { id?: string; role?: string } | undefined;
+    if (!user?.id || user.role !== 'admin') return null;
+    return session;
+  },
+  unauthorizedResponse: () =>
+    NextResponse.json({ error: 'Unauthorized' }, { status: 401 }),
 }));
 
 vi.mock('@/lib/ai/provider-registry', () => ({

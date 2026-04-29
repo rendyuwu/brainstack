@@ -1510,6 +1510,12 @@ async function seed() {
         'SEED_ADMIN_EMAIL and SEED_ADMIN_PASSWORD must be set in .env.local'
       );
     }
+    // §V.44: seed password must meet same validation as user-facing (≥ 8 chars)
+    if (adminPassword.length < 8) {
+      throw new Error(
+        'SEED_ADMIN_PASSWORD must be at least 8 characters'
+      );
+    }
     const passwordHash = await hash(adminPassword, 12);
     const userResult = await client.query(
       `INSERT INTO users (email, password_hash, name, role)
@@ -1523,14 +1529,17 @@ async function seed() {
     const e2eEmail = process.env.E2E_EMAIL;
     const e2ePassword = process.env.E2E_PASSWORD;
     if (e2eEmail && e2ePassword) {
+      if (e2ePassword.length < 8) {
+        throw new Error('E2E_PASSWORD must be at least 8 characters');
+      }
       console.log('🧪 Creating E2E test user...');
       const e2eHash = await hash(e2ePassword, 12);
       await client.query(
         `INSERT INTO users (email, password_hash, name, role)
          VALUES ($1, $2, $3, $4)`,
-        [e2eEmail, e2eHash, 'Smoke Test', 'editor']
+        [e2eEmail, e2eHash, 'Smoke Test', 'admin']
       );
-      console.log(`   E2E user: ${e2eEmail} (editor)`);
+      console.log(`   E2E user: ${e2eEmail} (admin)`);
     }
 
     // ── Collections ────────────────────────────────────────────────────────

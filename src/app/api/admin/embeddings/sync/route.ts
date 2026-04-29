@@ -1,25 +1,15 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import { db } from '@/db';
 import { chunks, chunkEmbeddings } from '@/db/schema';
 import { sql, notInArray } from 'drizzle-orm';
 import { embedChunks } from '@/lib/rag/embedder';
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 
 const BATCH_SIZE = 20;
 
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
-
 export async function POST() {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   try {
     // Find chunks without embeddings
@@ -56,13 +46,13 @@ export async function POST() {
             const batch = unembeddedChunks.slice(i, i + BATCH_SIZE);
 
             try {
-              const embeddings = await embedChunks(batch);
+              const result = await embedChunks(batch);
 
-              if (embeddings) {
+              if (result) {
                 const embeddingValues = batch.map((chunk, j) => ({
                   chunkId: chunk.id,
-                  embeddingModel: 'default',
-                  embedding: sql`${`[${embeddings[j].join(',')}]`}::vector`,
+                  embeddingModel: result.modelId,
+                  embedding: sql`${`[${result.embeddings[j].join(',')}]`}::vector`,
                 }));
 
                 await db.insert(chunkEmbeddings).values(embeddingValues);

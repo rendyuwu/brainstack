@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { conversations, messages } from '@/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, desc } from 'drizzle-orm';
 import { chatWithFallback } from '@/lib/ai/find-chat-model';
 import { hybridSearch } from '@/lib/rag/search';
 import { checkRateLimit } from '@/lib/rate-limiter';
@@ -100,20 +100,21 @@ export async function POST(request: NextRequest) {
 
     // 5. Stream AI response with model fallback
 
-    // Fetch conversation history for multi-turn
+    // Fetch conversation history for multi-turn (§V.49: bounded query)
     const history = await db
       .select()
       .from(messages)
       .where(eq(messages.conversationId, convId))
-      .orderBy(messages.createdAt);
+      .orderBy(desc(messages.createdAt))
+      .limit(11);
 
     const chatMessages: Array<{
       role: 'system' | 'user' | 'assistant';
       content: string;
     }> = [{ role: 'system', content: CHAT_SYSTEM_PROMPT }];
 
-    // Include recent history (last 10 messages, excluding the one we just saved)
-    const recentHistory = history.slice(-11, -1);
+    // Reverse to chronological order, exclude the user message we just saved
+    const recentHistory = history.reverse().slice(0, -1);
     for (const msg of recentHistory) {
       chatMessages.push({
         role: msg.role as 'user' | 'assistant',

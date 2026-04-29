@@ -29,7 +29,16 @@ function getEncryptionKey(): Buffer {
 /** Returns true if the string looks like our encrypted format (iv:tag:ciphertext) */
 export function isEncrypted(value: string): boolean {
   const parts = value.split(':');
-  return parts.length === 3 && parts.every((p) => /^[0-9a-f]+$/i.test(p));
+  if (parts.length !== 3) return false;
+  const [iv, tag, cipher] = parts;
+  // IV = 12 bytes = 24 hex chars, auth tag = 16 bytes = 32 hex chars
+  return (
+    iv.length === IV_LENGTH * 2 &&
+    tag.length === AUTH_TAG_LENGTH * 2 &&
+    /^[0-9a-f]+$/i.test(iv) &&
+    /^[0-9a-f]+$/i.test(tag) &&
+    (cipher.length === 0 || /^[0-9a-f]+$/i.test(cipher))
+  );
 }
 
 export function encrypt(plaintext: string): string {

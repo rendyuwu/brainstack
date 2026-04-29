@@ -57,7 +57,7 @@ export async function PUT(
     if (!updated) {
       return NextResponse.json({ error: 'Not found' }, { status: 404 });
     }
-    return NextResponse.json(updated);
+    return NextResponse.json({ ...updated, apiKeySecretRef: maskKey(updated.apiKeySecretRef) });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },

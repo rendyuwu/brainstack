@@ -8,22 +8,36 @@ const ADMIN_REQUIRED = ['/editor', '/admin', '/settings', '/ask'];
 // §V.45: Methods that mutate state require Origin validation
 const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
-export async function middleware(request: NextRequest) {
-  // §V.45: CSRF protection — validate Origin header on state-mutating requests
-  if (MUTATING_METHODS.has(request.method)) {
-    const origin = request.headers.get('origin');
-    const expectedOrigin = request.nextUrl.origin;
+// §V.45: Skip CSRF for NextAuth callbacks (need cross-origin for OAuth flows)
+const CSRF_EXEMPT = ['/api/auth/'];
 
-    // Origin header present but doesn't match → reject
-    // Missing Origin is allowed (same-origin requests from some browsers omit it)
-    if (origin && origin !== expectedOrigin) {
-      return NextResponse.json(
-        { error: 'Forbidden: origin mismatch' },
-        { status: 403 },
-      );
+export async function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  const isApiRoute = path.startsWith('/api/');
+
+  // §V.45: CSRF protection — validate Origin header on state-mutating requests
+  // Applies to ALL matched routes including /api/*
+  if (MUTATING_METHODS.has(request.method)) {
+    const isExempt = CSRF_EXEMPT.some((prefix) => path.startsWith(prefix));
+    if (!isExempt) {
+      const origin = request.headers.get('origin');
+      const expectedOrigin = request.nextUrl.origin;
+
+      if (origin && origin !== expectedOrigin) {
+        return NextResponse.json(
+          { error: 'Forbidden: origin mismatch' },
+          { status: 403 },
+        );
+      }
     }
   }
 
+  // API routes: CSRF check only, no auth redirect (API routes handle their own auth)
+  if (isApiRoute) {
+    return NextResponse.next();
+  }
+
+  // Page routes: full auth check
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,
@@ -37,7 +51,6 @@ export async function middleware(request: NextRequest) {
   }
 
   // §V.36: check admin role for protected routes
-  const path = request.nextUrl.pathname;
   const needsAdmin = ADMIN_REQUIRED.some(
     (prefix) => path === prefix || path.startsWith(prefix + '/')
   );
@@ -50,5 +63,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/editor/:path*', '/admin/:path*', '/settings/:path*', '/ask/:path*'],
+  matcher: [
+    '/editor/:path*',
+    '/admin/:path*',
+    '/settings/:path*',
+    '/ask/:path*',
+    '/api/:path*',
+  ],
 };

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       enabled,
     });
 
-    return NextResponse.json(provider, { status: 201 });
+    return NextResponse.json({ ...provider, apiKeySecretRef: maskKey(provider.apiKeySecretRef) }, { status: 201 });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : 'Internal error' },

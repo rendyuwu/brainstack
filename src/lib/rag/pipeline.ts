@@ -30,7 +30,11 @@ export async function runPublishPipeline(
   // 2. Chunk the MDX
   const mdxChunks = chunkMDX(mdxSource);
 
-  if (mdxChunks.length === 0) return;
+  if (mdxChunks.length === 0) {
+    // No chunks to embed — mark as complete (nothing to do)
+    await db.update(pages).set({ embeddingStatus: 'complete' }).where(eq(pages.id, pageId));
+    return;
+  }
 
   // 3. Filter and prepare chunk values
   const chunkValues = mdxChunks
@@ -49,7 +53,10 @@ export async function runPublishPipeline(
     })
     .filter((v): v is NonNullable<typeof v> => v !== null);
 
-  if (chunkValues.length === 0) return;
+  if (chunkValues.length === 0) {
+    await db.update(pages).set({ embeddingStatus: 'complete' }).where(eq(pages.id, pageId));
+    return;
+  }
 
   // 4. Batch insert all chunks
   const insertedChunks = await db

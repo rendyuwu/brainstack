@@ -136,11 +136,12 @@ describe('middleware config', () => {
     expect(config.matcher).toContain('/admin/:path*');
     expect(config.matcher).toContain('/settings/:path*');
     expect(config.matcher).toContain('/ask/:path*');
+    // §V.45: API routes included for CSRF protection
+    expect(config.matcher).toContain('/api/:path*');
   });
 
-  it('does not match public paths', () => {
+  it('does not match public page paths', () => {
     expect(config.matcher).not.toContain('/');
     expect(config.matcher).not.toContain('/blog/:path*');
-    expect(config.matcher).not.toContain('/api/:path*');
   });
 });

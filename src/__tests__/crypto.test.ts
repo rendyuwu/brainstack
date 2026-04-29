@@ -54,6 +54,30 @@ describe('crypto', () => {
     });
   });
 
+  describe('tamper detection', () => {
+    it('rejects tampered ciphertext', () => {
+      const encrypted = encrypt('secret-key');
+      const parts = encrypted.split(':');
+      // Flip a character in the ciphertext
+      const tampered = parts[2].replace(/[0-9a-f]/, (c) =>
+        c === '0' ? '1' : '0'
+      );
+      const tamperedStr = `${parts[0]}:${parts[1]}:${tampered}`;
+      expect(() => decrypt(tamperedStr)).toThrow();
+    });
+
+    it('rejects wrong encryption key', () => {
+      const encrypted = encrypt('secret-key');
+      // Change key
+      process.env.ENCRYPTION_KEY = randomBytes(32).toString('hex');
+      expect(() => decrypt(encrypted)).toThrow();
+    });
+
+    it('rejects malformed input', () => {
+      expect(() => decrypt('not:valid')).toThrow('Invalid encrypted format');
+    });
+  });
+
   describe('maskKey', () => {
     it('masks middle of long key', () => {
       expect(maskKey('sk-1234567890abcdef')).toBe('sk-1***********cdef');

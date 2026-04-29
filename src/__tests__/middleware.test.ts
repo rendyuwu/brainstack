@@ -135,7 +135,7 @@ describe('middleware config', () => {
     expect(config.matcher).toContain('/editor/:path*');
     expect(config.matcher).toContain('/admin/:path*');
     expect(config.matcher).toContain('/settings/:path*');
-    expect(config.matcher).toContain('/ask');
+    expect(config.matcher).toContain('/ask/:path*');
   });
 
   it('does not match public paths', () => {

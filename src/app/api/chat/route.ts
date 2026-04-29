@@ -31,18 +31,18 @@ Answer the user's question based ONLY on the provided context chunks. Follow the
 6. Never make up information not present in the context`;
 
 export async function POST(request: NextRequest) {
-  const rateCheck = checkRateLimit(request, 30, 60_000);
-  if (!rateCheck.allowed) {
-    return new NextResponse('Too Many Requests', {
-      status: 429,
-      headers: { 'Retry-After': String(rateCheck.retryAfter) },
-    });
-  }
-
   try {
-    // §V.35: AI features require admin role
+    // §V.35: AI features require admin role — check before rate limit
     const session = await requireAdmin();
     if (!session) return unauthorizedResponse();
+
+    const rateCheck = checkRateLimit(request, 30, 60_000);
+    if (!rateCheck.allowed) {
+      return new NextResponse('Too Many Requests', {
+        status: 429,
+        headers: { 'Retry-After': String(rateCheck.retryAfter) },
+      });
+    }
 
     const body = await request.json();
     const v = validateBody(chatSchema, body);

@@ -1,0 +1,9 @@
+/* ── Editor Layout ─────────────────────────────────────── */
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-1);
+  overflow: hidden;
+}

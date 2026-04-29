@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Icon } from './icons';
+import styles from './sidebar-toggle.module.css';
 
 const STORAGE_KEY = 'brainstack-sidebar-collapsed';
 
@@ -28,17 +29,12 @@ export function SidebarToggle({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div style={{ display: 'flex', position: 'relative', height: '100%' }}>
+    <div className={styles.wrapper}>
       {/* Sidebar container */}
       <div
-        style={{
-          width: collapsed ? 0 : 220,
-          minWidth: collapsed ? 0 : 220,
-          overflow: 'hidden',
-          transition: mounted ? 'width .2s ease, min-width .2s ease' : 'none',
-          height: '100%',
-          flexShrink: 0,
-        }}
+        className={styles.sidebarContainer}
+        data-mounted={mounted}
+        data-collapsed={collapsed}
       >
         {children}
       </div>
@@ -47,24 +43,9 @@ export function SidebarToggle({ children }: { children: React.ReactNode }) {
       <button
         onClick={toggle}
         title={collapsed ? 'Show sidebar' : 'Hide sidebar'}
-        style={{
-          position: 'absolute',
-          left: collapsed ? 4 : 208,
-          top: 8,
-          zIndex: 10,
-          width: 26,
-          height: 26,
-          borderRadius: 6,
-          border: '1px solid var(--bd-default)',
-          background: 'var(--bg-2)',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--tx-3)',
-          transition: mounted ? 'left .2s ease' : 'none',
-          padding: 0,
-        }}
+        className={styles.toggleBtn}
+        data-mounted={mounted}
+        data-collapsed={collapsed}
       >
         <Icon name={collapsed ? 'menu' : 'chevronLeft'} size={14} />
       </button>

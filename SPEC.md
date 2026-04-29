@@ -213,7 +213,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T39 | ✓ | harden rate limiter — strip/ignore `x-forwarded-for` unless trusted proxy configured; document proxy requirements | V51 |
 | T40 | ✓ | embedding reset confirmation — add chunk count display; require explicit confirmation param; add UI confirmation dialog | V52,I.api,I.admin |
 | T41 | ✓ | optimize getProviders() query — JOIN models by provider IDs; ⊥ load entire `ai_models` table into memory; filter at DB level | V54 |
-| T42 | . | migrate inline styles to CSS modules — layout components first (top-nav, sidebar, editor); hover/focus/responsive states ! work; incremental migration (deferred to separate PR) | V55 |
+| T42 | ✓ | migrate inline styles to CSS modules — layout components first (top-nav, sidebar, editor); hover/focus/responsive states ! work; incremental migration (deferred to separate PR) | V55 |
 
 ## §B — Bugs
 

@@ -1,0 +1,203 @@
+/* ── Top Navigation ─────────────────────────────────────── */
+
+.header {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  background: var(--bg-1);
+  border-bottom: 1px solid var(--bd-default);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── Logo ──────────────────────────────────────────────── */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  user-select: none;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.logoText {
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: var(--tx-1);
+}
+
+.logoAccent {
+  color: var(--amber);
+}
+
+/* ── Search bar ────────────────────────────────────────── */
+
+.searchBar {
+  flex: 1;
+  max-width: 440px;
+  margin: 0 8px;
+  background: var(--bg-0);
+  border: 1px solid var(--bd-default);
+  border-radius: 7px;
+  padding: 0 12px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--tx-3);
+  font-size: 13.5px;
+  transition: border-color 0.15s;
+}
+
+.searchBar:hover {
+  border-color: var(--bd-strong);
+}
+
+.searchBar:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.searchPlaceholder {
+  flex: 1;
+}
+
+.searchKbd {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 6px;
+  background: var(--bg-2);
+  border: 1px solid var(--bd-default);
+  border-radius: 4px;
+  color: var(--tx-3);
+}
+
+/* ── Spacer ────────────────────────────────────────────── */
+
+.spacer {
+  flex: 1;
+}
+
+/* ── Nav links ─────────────────────────────────────────── */
+
+.navLink {
+  cursor: pointer;
+  color: var(--tx-2);
+  font-size: 13.5px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 400;
+  background: none;
+  transition: color 0.15s, background 0.15s, font-weight 0.15s;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: var(--tx-1);
+  background: var(--bg-2);
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.navLink[data-active="true"] {
+  color: var(--amber);
+  font-weight: 500;
+  background: var(--amber-bg);
+}
+
+.navLink[data-active="true"]:hover {
+  background: var(--amber-bg);
+}
+
+/* ── Divider ───────────────────────────────────────────── */
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: var(--bd-default);
+}
+
+/* ── Icon buttons (theme, admin, settings, logout) ─────── */
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--tx-2);
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+
+.iconBtn:hover {
+  color: var(--tx-1);
+  background: var(--bg-2);
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* ── New Post button ───────────────────────────────────── */
+
+.newPostBtn {
+  background: var(--amber);
+  border: none;
+  cursor: pointer;
+  color: #000;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.newPostBtn:hover {
+  opacity: 0.85;
+}
+
+.newPostBtn:focus-visible {
+  outline: 2px solid var(--tx-1);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .searchBar {
+    display: none;
+  }
+}

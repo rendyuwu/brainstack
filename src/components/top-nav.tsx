@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Icon } from './icons';
 import { useTheme } from './theme-provider';
+import styles from './top-nav.module.css';
 
 interface TopNavProps {
   onSearchOpen?: () => void;
@@ -35,205 +36,79 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
   const isActive = (href: string) => pathname.startsWith(href);
 
   return (
-    <header
-      style={{
-        height: 52,
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 20px',
-        gap: 12,
-        background: 'var(--bg-1)',
-        borderBottom: '1px solid var(--bd-default)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-      }}
-    >
+    <header className={styles.header}>
       {/* Logo */}
-      <Link
-        href="/"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          cursor: 'pointer',
-          flexShrink: 0,
-          userSelect: 'none',
-          textDecoration: 'none',
-        }}
-      >
-        <div
-          style={{
-            width: 28,
-            height: 28,
-            borderRadius: 6,
-            background: 'var(--amber)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Icon name="layers" size={15} style={{ color: '#000' }} />
+      <Link href="/" className={styles.logo}>
+        <div className={styles.logoIcon}>
+          <Icon name="layers" size={15} />
         </div>
-        <span
-          style={{
-            fontWeight: 600,
-            fontSize: 16,
-            letterSpacing: '-.02em',
-            color: 'var(--tx-1)',
-          }}
-        >
-          Brain<span style={{ color: 'var(--amber)' }}>Stack</span>
+        <span className={styles.logoText}>
+          Brain<span className={styles.logoAccent}>Stack</span>
         </span>
       </Link>
 
       {/* Search bar trigger */}
       <div
         onClick={onSearchOpen}
-        style={{
-          flex: 1,
-          maxWidth: 440,
-          margin: '0 8px',
-          background: 'var(--bg-0)',
-          border: '1px solid var(--bd-default)',
-          borderRadius: 7,
-          padding: '0 12px',
-          height: 34,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          cursor: 'pointer',
-          color: 'var(--tx-3)',
-          fontSize: 13.5,
-          transition: 'border-color .15s',
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSearchOpen?.();
+          }
         }}
+        role="button"
+        tabIndex={0}
+        className={styles.searchBar}
       >
         <Icon name="search" size={14} />
-        <span style={{ flex: 1 }}>Search docs, tutorials, cheatsheets...</span>
-        <kbd
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            padding: '2px 6px',
-            background: 'var(--bg-2)',
-            border: '1px solid var(--bd-default)',
-            borderRadius: 4,
-            color: 'var(--tx-3)',
-          }}
-        >
-          Cmd+K
-        </kbd>
+        <span className={styles.searchPlaceholder}>Search docs, tutorials, cheatsheets...</span>
+        <kbd className={styles.searchKbd}>Cmd+K</kbd>
       </div>
 
-      <div style={{ flex: 1 }} />
+      <div className={styles.spacer} />
 
       {/* Nav links */}
-      {NAV_LINKS.map((link) => {
-        const active = isActive(link.href);
-        return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="nav-link-desktop"
-            style={{
-              cursor: 'pointer',
-              color: active ? 'var(--amber)' : 'var(--tx-2)',
-              fontSize: 13.5,
-              padding: '4px 8px',
-              borderRadius: 5,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 5,
-              fontWeight: active ? 500 : 400,
-              background: active ? 'var(--amber-bg)' : 'none',
-              transition: 'all .15s',
-              textDecoration: 'none',
-            }}
-          >
-            <Icon name={link.icon} size={14} />
-            <span className="nav-label">{link.label}</span>
-          </Link>
-        );
-      })}
+      {NAV_LINKS.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className={`${styles.navLink} nav-link-desktop`}
+          data-active={isActive(link.href)}
+        >
+          <Icon name={link.icon} size={14} />
+          <span className="nav-label">{link.label}</span>
+        </Link>
+      ))}
 
       {/* §V.39, §V.40: Ask AI — admin only */}
-      {isAdmin && (() => {
-        const active = isActive('/ask');
-        return (
-          <Link
-            href="/ask"
-            className="nav-link-desktop"
-            style={{
-              cursor: 'pointer',
-              color: active ? 'var(--amber)' : 'var(--tx-2)',
-              fontSize: 13.5,
-              padding: '4px 8px',
-              borderRadius: 5,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 5,
-              fontWeight: active ? 500 : 400,
-              background: active ? 'var(--amber-bg)' : 'none',
-              transition: 'all .15s',
-              textDecoration: 'none',
-            }}
-          >
-            <Icon name="sparkles" size={14} />
-            <span className="nav-label">Ask AI</span>
-          </Link>
-        );
-      })()}
+      {isAdmin && (
+        <Link
+          href="/ask"
+          className={`${styles.navLink} nav-link-desktop`}
+          data-active={isActive('/ask')}
+        >
+          <Icon name="sparkles" size={14} />
+          <span className="nav-label">Ask AI</span>
+        </Link>
+      )}
 
-      <div style={{ width: 1, height: 20, background: 'var(--bd-default)' }} />
+      <div className={styles.divider} />
 
       {/* Theme toggle */}
-      <button
-        onClick={toggleTheme}
-        style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          color: 'var(--tx-2)',
-          padding: 6,
-          borderRadius: 6,
-          display: 'flex',
-          alignItems: 'center',
-          transition: 'color .15s',
-        }}
-      >
+      <button onClick={toggleTheme} className={styles.iconBtn}>
         <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={16} />
       </button>
 
       {/* Admin */}
       {isAdmin && (
-        <Link
-          href="/admin/ai/providers"
-          style={{
-            color: 'var(--tx-2)',
-            padding: 6,
-            borderRadius: 6,
-            display: 'flex',
-            alignItems: 'center',
-            textDecoration: 'none',
-          }}
-        >
+        <Link href="/admin/ai/providers" className={styles.iconBtn}>
           <Icon name="shield" size={16} />
         </Link>
       )}
 
       {/* §V.39: Settings — admin only */}
       {isAdmin && (
-        <Link
-          href="/settings"
-          style={{
-            color: 'var(--tx-2)',
-            padding: 6,
-            borderRadius: 6,
-            display: 'flex',
-            alignItems: 'center',
-            textDecoration: 'none',
-          }}
-        >
+        <Link href="/settings" className={styles.iconBtn}>
           <Icon name="settings" size={16} />
         </Link>
       )}
@@ -246,17 +121,7 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
               .finally(() => { window.location.href = '/login'; });
           }}
           title="Sign out"
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'var(--tx-2)',
-            padding: 6,
-            borderRadius: 6,
-            display: 'flex',
-            alignItems: 'center',
-            transition: 'color .15s',
-          }}
+          className={styles.iconBtn}
         >
           <Icon name="logOut" size={16} />
         </button>
@@ -264,26 +129,8 @@ export function TopNav({ onSearchOpen }: TopNavProps) {
 
       {/* §V.39: New Post — admin only */}
       {isAdmin && (
-        <Link
-          href="/editor"
-          style={{
-            background: 'var(--amber)',
-            border: 'none',
-            cursor: 'pointer',
-            color: '#000',
-            padding: '6px 12px',
-            borderRadius: 6,
-            fontSize: 13,
-            fontWeight: 600,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 5,
-            transition: 'opacity .15s',
-            flexShrink: 0,
-            textDecoration: 'none',
-          }}
-        >
-          <Icon name="plus" size={13} style={{ color: '#000' }} />
+        <Link href="/editor" className={styles.newPostBtn}>
+          <Icon name="plus" size={13} />
           <span className="nav-label">New Post</span>
         </Link>
       )}

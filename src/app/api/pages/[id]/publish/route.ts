@@ -5,6 +5,7 @@ import { pages, pageRevisions } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { runPublishPipeline } from '@/lib/rag/pipeline';
 import { detectDuplicates } from '@/lib/rag/duplicate-detector';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function POST(
   _request: NextRequest,
@@ -16,6 +17,9 @@ export async function POST(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
 
     // Get the current page
     const [page] = await db

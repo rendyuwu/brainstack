@@ -3,6 +3,7 @@ import { getProvider, addManualModel, testModel } from '@/lib/ai/provider-regist
 import type { ProviderConfig } from '@/lib/ai/types';
 import { addModelSchema, validateBody } from '@/lib/validation';
 import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function POST(
   request: Request,
@@ -12,6 +13,9 @@ export async function POST(
   if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const provider = await getProvider(id);

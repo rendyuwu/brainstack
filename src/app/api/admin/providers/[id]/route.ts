@@ -6,6 +6,7 @@ import {
 } from '@/lib/ai/provider-registry';
 import { updateProviderSchema, validateBody } from '@/lib/validation';
 import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function GET(
   _request: Request,
@@ -15,6 +16,9 @@ export async function GET(
   if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const provider = await getProvider(id);
@@ -38,6 +42,9 @@ export async function PUT(
   if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const body = await request.json();
@@ -65,6 +72,9 @@ export async function DELETE(
   if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const deleted = await deleteProvider(id);

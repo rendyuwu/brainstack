@@ -4,6 +4,7 @@ import { db } from '@/db';
 import { pages, pageTags } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { updatePageSchema, validateBody } from '@/lib/validation';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function GET(
   _request: NextRequest,
@@ -11,6 +12,9 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
 
     const [page] = await db
       .select()
@@ -51,6 +55,9 @@ export async function PUT(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
     const body = await request.json();
     const v = validateBody(updatePageSchema, body);
     if (!v.success) return v.response;
@@ -95,6 +102,9 @@ export async function DELETE(
     if (!session) return unauthorizedResponse();
 
     const { id } = await params;
+    if (!isValidUUID(id)) {
+      return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+    }
 
     const [archived] = await db
       .update(pages)

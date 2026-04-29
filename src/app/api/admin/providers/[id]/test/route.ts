@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getProvider, testConnection } from '@/lib/ai/provider-registry';
 import type { ProviderConfig } from '@/lib/ai/types';
 import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
+import { isValidUUID } from '@/lib/uuid';
 
 export async function POST(
   _request: Request,
@@ -11,6 +12,9 @@ export async function POST(
   if (!session) return unauthorizedResponse();
 
   const { id } = await params;
+  if (!isValidUUID(id)) {
+    return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
+  }
 
   try {
     const provider = await getProvider(id);

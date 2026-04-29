@@ -207,10 +207,10 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T33 | . | add CSRF protection — verify SameSite=Lax|Strict on auth cookies (Auth.js default); add Origin header validation middleware for state-mutating routes; ⊥ token-based CSRF | V45,I.api |
 | T34 | . | add security headers — CSP (block inline scripts), X-Content-Type-Options, X-Frame-Options, HSTS via Next.js config | middleware; covers V53 MDX sanitization | V46,V53 |
 | T35 | . | publish pipeline status tracking — add `embeddingStatus` column to pages; update pipeline to set pending→complete→failed; show in editor UI; add retry button | V47,V10,I.api,I.admin |
-| T36 | . | UUID param validation — shared `validateUUID()` helper; apply to all `[id]` route handlers; return 400 on invalid format | V48,I.api |
-| T37 | . | bound chat history query — add `LIMIT 11` (10 displayed + 1 has-more sentinel) + `ORDER BY createdAt DESC` to DB query; reverse in JS; remove unbounded fetch | V49 |
+| T36 | ✓ | UUID param validation — shared `validateUUID()` helper; apply to all `[id]` route handlers; return 400 on invalid format | V48,I.api |
+| T37 | ✓ | bound chat history query — add `LIMIT 11` (10 displayed + 1 has-more sentinel) + `ORDER BY createdAt DESC` to DB query; reverse in JS; remove unbounded fetch | V49 |
 | T38 | ✓ | store actual embedding model ID — replace hardcoded `'default'` with real model ID from provider in pipeline + sync + reset routes | V50 |
-| T39 | . | harden rate limiter — strip/ignore `x-forwarded-for` unless trusted proxy configured; document proxy requirements | V51 |
+| T39 | ✓ | harden rate limiter — strip/ignore `x-forwarded-for` unless trusted proxy configured; document proxy requirements | V51 |
 | T40 | . | embedding reset confirmation — add chunk count display; require explicit confirmation param; add UI confirmation dialog | V52,I.api,I.admin |
 | T41 | . | optimize getProviders() query — JOIN models by provider IDs; ⊥ load entire `ai_models` table into memory; filter at DB level | V54 |
 | T42 | . | migrate inline styles to CSS modules — layout components first (top-nav, sidebar, editor); hover/focus/responsive states ! work; incremental migration | V55 |

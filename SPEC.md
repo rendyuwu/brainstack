@@ -157,7 +157,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V43: `requireAdmin()` ! single canonical impl in `src/lib/auth.ts`; ⊥ local copies in route files
 - V44: `AUTH_SECRET` ! cryptographically random ≥ 32 bytes; seed password ! pass same validation as user-facing password (≥ 8 chars)
 - V45: ∀ state-mutating API route → CSRF protection (SameSite=Lax|Strict on auth cookies + Origin header validation); ⊥ token-based CSRF (unnecessary w/ JWT + SameSite)
-- V46: HTTP responses ! include security headers: `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Strict-Transport-Security`; CSP `script-src` may include `'unsafe-inline'` + `'unsafe-eval'` — required by Next.js hydration + `next-mdx-remote` SSR; nonce-based CSP deferred until framework support matures
+- V46: HTTP responses ! include security headers: `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Strict-Transport-Security`; CSP `script-src` may include `'unsafe-inline'` + `'unsafe-eval'` — required by Next.js hydration + `next-mdx-remote` SSR; `style-src 'unsafe-inline'` required until T42b completes CSS module migration; nonce-based CSP deferred until framework support matures
 - V47: publish pipeline ! track embedding status per page (`pending` | `complete` | `failed`); admin UI ! show status; retry available on failure
 - V48: ∀ `[id]` route param → validate UUID format before DB query; invalid → 400 (not 500)
 - V49: chat history DB query ! `LIMIT ≤ 50` + `ORDER BY createdAt DESC` — ⊥ unbounded fetch; slice in DB not JS
@@ -205,7 +205,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T31 | ✓ | deduplicate `requireAdmin()` — delete all local copies in admin routes; import canonical from `src/lib/auth.ts`; verify tests pass | V43 |
 | T32 | ✓ | rotate secrets + enforce seed validation — boot-time check rejects `AUTH_SECRET` < 32 bytes; seed script enforces ≥ 8 char password; `.env.example` documents requirements; generate crypto-random secret | V44,V22 |
 | T33 | ✓ | add CSRF protection — verify SameSite=Lax|Strict on auth cookies (Auth.js default); add Origin header validation middleware for state-mutating routes; ⊥ token-based CSRF | V45,I.api |
-| T34 | ✓ | add security headers — CSP (block inline scripts), X-Content-Type-Options, X-Frame-Options, HSTS via Next.js config | middleware; covers V53 MDX sanitization | V46,V53 |
+| T34 | ✓ | add security headers — CSP (with unsafe-inline/eval tradeoff per §V.46), X-Content-Type-Options, X-Frame-Options, HSTS via Next.js config | middleware; covers V53 MDX sanitization | V46,V53 |
 | T35 | ✓ | publish pipeline status tracking — add `embeddingStatus` column to pages; update pipeline to set pending→complete→failed; show in editor UI; add retry button | V47,V10,I.api,I.admin |
 | T36 | ✓ | UUID param validation — shared `validateUUID()` helper; apply to all `[id]` route handlers; return 400 on invalid format | V48,I.api |
 | T37 | ✓ | bound chat history query — add `LIMIT 11` (10 displayed + 1 has-more sentinel) + `ORDER BY createdAt DESC` to DB query; reverse in JS; remove unbounded fetch | V49 |

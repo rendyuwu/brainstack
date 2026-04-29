@@ -1,21 +1,11 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import { getProviders, createProvider } from '@/lib/ai/provider-registry';
 import { createProviderSchema, validateBody } from '@/lib/validation';
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 
 export async function GET() {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   try {
     const providers = await getProviders();
@@ -30,9 +20,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   try {
     const body = await request.json();

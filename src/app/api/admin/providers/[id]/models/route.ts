@@ -1,25 +1,15 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import { getProvider, addManualModel, testModel } from '@/lib/ai/provider-registry';
 import type { ProviderConfig } from '@/lib/ai/types';
 import { addModelSchema, validateBody } from '@/lib/validation';
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
 

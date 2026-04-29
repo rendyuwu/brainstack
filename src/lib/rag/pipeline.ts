@@ -56,12 +56,12 @@ export async function runPublishPipeline(
 
   // 5. Try to generate embeddings (optional)
   try {
-    const embeddings = await embedChunks(insertedChunks);
-    if (embeddings) {
+    const result = await embedChunks(insertedChunks);
+    if (result) {
       const embeddingValues = insertedChunks.map((chunk, i) => ({
         chunkId: chunk.id,
-        embeddingModel: 'default',
-        embedding: sql`${`[${embeddings[i].join(',')}]`}::vector`,
+        embeddingModel: result.modelId,
+        embedding: sql`${`[${result.embeddings[i].join(',')}]`}::vector`,
       }));
 
       await db.insert(chunkEmbeddings).values(embeddingValues);

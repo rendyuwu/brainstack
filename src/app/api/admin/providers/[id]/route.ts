@@ -1,28 +1,18 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@/lib/auth';
 import {
   getProvider,
   updateProvider,
   deleteProvider,
 } from '@/lib/ai/provider-registry';
 import { updateProviderSchema, validateBody } from '@/lib/validation';
-
-async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user || (session.user as { role?: string }).role !== 'admin') {
-    return null;
-  }
-  return session;
-}
+import { requireAdmin, unauthorizedResponse } from '@/lib/auth';
 
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
 
@@ -45,9 +35,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
 
@@ -74,9 +62,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await requireAdmin();
-  if (!session) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+  if (!session) return unauthorizedResponse();
 
   const { id } = await params;
 

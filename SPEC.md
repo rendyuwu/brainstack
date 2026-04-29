@@ -157,14 +157,14 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V43: `requireAdmin()` ! single canonical impl in `src/lib/auth.ts`; ⊥ local copies in route files
 - V44: `AUTH_SECRET` ! cryptographically random ≥ 32 bytes; seed password ! pass same validation as user-facing password (≥ 8 chars)
 - V45: ∀ state-mutating API route → CSRF protection (SameSite=Lax|Strict on auth cookies + Origin header validation); ⊥ token-based CSRF (unnecessary w/ JWT + SameSite)
-- V46: HTTP responses ! include security headers: `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Strict-Transport-Security`
+- V46: HTTP responses ! include security headers: `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Strict-Transport-Security`; CSP `script-src` may include `'unsafe-inline'` + `'unsafe-eval'` — required by Next.js hydration + `next-mdx-remote` SSR; nonce-based CSP deferred until framework support matures
 - V47: publish pipeline ! track embedding status per page (`pending` | `complete` | `failed`); admin UI ! show status; retry available on failure
 - V48: ∀ `[id]` route param → validate UUID format before DB query; invalid → 400 (not 500)
 - V49: chat history DB query ! `LIMIT ≤ 50` + `ORDER BY createdAt DESC` — ⊥ unbounded fetch; slice in DB not JS
 - V50: `embeddingModel` column ! store actual model ID from provider; ⊥ hardcoded `'default'`
 - V51: rate limiter ! not trust raw `x-forwarded-for`; require trusted proxy config | strip header at edge
 - V52: `POST /api/admin/embeddings/reset` ! show chunk count + require explicit confirmation param before re-embedding; UI ! confirmation dialog
-- V53: ∀ MDX render → `next-mdx-remote` output sanitized against `<script>` & event handlers; CSP policy (§V.46) ! block inline scripts as defense-in-depth
+- V53: ∀ MDX render → `next-mdx-remote` output sanitized against `<script>` & event handlers; CSP `frame-ancestors 'none'` + `X-Frame-Options: DENY` provide defense-in-depth; `script-src` allows `'unsafe-inline'` per §V.46 tradeoff
 - V54: `getProviders()` ! JOIN or filter models by needed provider IDs; ⊥ load entire `ai_models` table
 - V55: design system ! use CSS modules | CSS custom properties for layout; ⊥ inline `style={{}}` as primary layout mechanism; hover/focus/responsive states ! work
 
@@ -213,7 +213,8 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T39 | ✓ | harden rate limiter — strip/ignore `x-forwarded-for` unless trusted proxy configured; document proxy requirements | V51 |
 | T40 | ✓ | embedding reset confirmation — add chunk count display; require explicit confirmation param; add UI confirmation dialog | V52,I.api,I.admin |
 | T41 | ✓ | optimize getProviders() query — JOIN models by provider IDs; ⊥ load entire `ai_models` table into memory; filter at DB level | V54 |
-| T42 | ✓ | migrate inline styles to CSS modules — layout components first (top-nav, sidebar, editor); hover/focus/responsive states ! work; incremental migration (deferred to separate PR) | V55 |
+| T42a | ✓ | migrate layout component inline styles to CSS modules (top-nav, sidebar, sidebar-toggle, sidebar-tree, editor-layout) | V55 |
+| T42b | . | migrate remaining component inline styles to CSS modules — 192 inline `style={{}}` remain across non-layout components | V55 |
 
 ## §B — Bugs
 
@@ -234,3 +235,4 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | B13 | 2026-04-27 | `/editor` returns 404 — no article list/index page exists; only `/editor/[id]` and `/editor/new` | create `src/app/editor/page.tsx` with article list, status filters (all/draft/published), edit links, new article button | fixed |
 | B14 | 2026-04-27 | embedding model no fallback — `findEmbeddingProvider()` picked first DB model; paywalled models cause silent failure | refactor `embedder.ts` with `findEmbeddingCandidates()` + sequential fallback loop; same pattern as chat fallback | fixed |
 | B15 | 2026-04-27 | chat API returns `"Error: Validation failed"` 400 — `conversationId: null` sent by client; Zod `.uuid().optional()` rejects null | make `conversationId` `.nullable().optional()` in schema; client omits null fields; better error display in chat UI | fixed |
+| B16 | 2026-04-29 | V46/V53 drift — CSP `script-src 'unsafe-inline' 'unsafe-eval'` contradicts spec "block inline scripts"; T42 marked ✓ but 192 inline styles remain | amend V46+V53 to document CSP tradeoff (Next.js + next-mdx-remote require unsafe-inline/eval); split T42 → T42a (done) + T42b (pending) | fixed |

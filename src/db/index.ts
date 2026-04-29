@@ -1,3 +1,4 @@
+import '@/lib/env-check'; // §V.44: validate AUTH_SECRET at boot
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from './schema';

@@ -1510,6 +1510,12 @@ async function seed() {
         'SEED_ADMIN_EMAIL and SEED_ADMIN_PASSWORD must be set in .env.local'
       );
     }
+    // §V.44: seed password must meet same validation as user-facing (≥ 8 chars)
+    if (adminPassword.length < 8) {
+      throw new Error(
+        'SEED_ADMIN_PASSWORD must be at least 8 characters'
+      );
+    }
     const passwordHash = await hash(adminPassword, 12);
     const userResult = await client.query(
       `INSERT INTO users (email, password_hash, name, role)

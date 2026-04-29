@@ -5,7 +5,25 @@ import { getToken } from 'next-auth/jwt';
 // §V.36, §V.37, §V.38, §V.40: /editor/*, /admin/*, /settings, /ask require admin role
 const ADMIN_REQUIRED = ['/editor', '/admin', '/settings', '/ask'];
 
+// §V.45: Methods that mutate state require Origin validation
+const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+
 export async function middleware(request: NextRequest) {
+  // §V.45: CSRF protection — validate Origin header on state-mutating requests
+  if (MUTATING_METHODS.has(request.method)) {
+    const origin = request.headers.get('origin');
+    const expectedOrigin = request.nextUrl.origin;
+
+    // Origin header present but doesn't match → reject
+    // Missing Origin is allowed (same-origin requests from some browsers omit it)
+    if (origin && origin !== expectedOrigin) {
+      return NextResponse.json(
+        { error: 'Forbidden: origin mismatch' },
+        { status: 403 },
+      );
+    }
+  }
+
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,

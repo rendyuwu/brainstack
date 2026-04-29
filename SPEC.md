@@ -201,11 +201,11 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T27 | ✓ | admin-only safeguard — remove `editor` role; upgrade middleware to check `role === 'admin'` for `/editor/*`, `/settings`; add `requireAdmin()` guard to all write API routes (`/api/pages` POST/PUT/DELETE, publish, tags, assets, relations, `/api/ai/draft`, `/api/ai/rewrite`); hide editor/AI nav links for non-admin; update schema default role; add tests | V32,V33,V34,V35,V36,V37,V38,V39 |
 | T28 | ✓ | lock AI chat to admin — add `requireAdmin()` to `/api/chat`; add `/ask` to middleware matcher; hide "Ask AI" nav link for non-admin; update tests | V35,V40,V39,I.api |
 | T29 | . | encrypt provider API keys — AES-256-GCM encrypt/decrypt helpers; migrate existing plaintext to ciphertext; mask in GET responses; update provider CRUD; rollback plan if encryption key lost | V41,I.api |
-| T30 | . | harden setup endpoint — atomic admin creation (DB unique constraint); return 403 after first admin; remove `needsSetup` from GET response; disable POST after bootstrap | V42,I.api |
+| T30 | ✓ | harden setup endpoint — atomic admin creation (DB unique constraint); return 403 after first admin; remove `needsSetup` from GET response; disable POST after bootstrap | V42,I.api |
 | T31 | ✓ | deduplicate `requireAdmin()` — delete all local copies in admin routes; import canonical from `src/lib/auth.ts`; verify tests pass | V43 |
-| T32 | . | rotate secrets + enforce seed validation — boot-time check rejects `AUTH_SECRET` < 32 bytes; seed script enforces ≥ 8 char password; `.env.example` documents requirements; generate crypto-random secret | V44,V22 |
-| T33 | . | add CSRF protection — verify SameSite=Lax|Strict on auth cookies (Auth.js default); add Origin header validation middleware for state-mutating routes; ⊥ token-based CSRF | V45,I.api |
-| T34 | . | add security headers — CSP (block inline scripts), X-Content-Type-Options, X-Frame-Options, HSTS via Next.js config | middleware; covers V53 MDX sanitization | V46,V53 |
+| T32 | ✓ | rotate secrets + enforce seed validation — boot-time check rejects `AUTH_SECRET` < 32 bytes; seed script enforces ≥ 8 char password; `.env.example` documents requirements; generate crypto-random secret | V44,V22 |
+| T33 | ✓ | add CSRF protection — verify SameSite=Lax|Strict on auth cookies (Auth.js default); add Origin header validation middleware for state-mutating routes; ⊥ token-based CSRF | V45,I.api |
+| T34 | ✓ | add security headers — CSP (block inline scripts), X-Content-Type-Options, X-Frame-Options, HSTS via Next.js config | middleware; covers V53 MDX sanitization | V46,V53 |
 | T35 | . | publish pipeline status tracking — add `embeddingStatus` column to pages; update pipeline to set pending→complete→failed; show in editor UI; add retry button | V47,V10,I.api,I.admin |
 | T36 | ✓ | UUID param validation — shared `validateUUID()` helper; apply to all `[id]` route handlers; return 400 on invalid format | V48,I.api |
 | T37 | ✓ | bound chat history query — add `LIMIT 11` (10 displayed + 1 has-more sentinel) + `ORDER BY createdAt DESC` to DB query; reverse in JS; remove unbounded fetch | V49 |

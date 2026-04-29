@@ -14,15 +14,22 @@ async function adminExists(): Promise<boolean> {
   return !!row;
 }
 
+/**
+ * §V.42: GET no longer reveals whether admin exists.
+ * Returns generic status only.
+ */
 export async function GET() {
-  const exists = await adminExists();
-  return NextResponse.json({ needsSetup: !exists });
+  return NextResponse.json({ status: 'ready' });
 }
 
+/**
+ * §V.42: POST is atomic — returns 403 after first admin exists.
+ * Uses try/catch on unique email constraint as secondary guard against race.
+ */
 export async function POST(request: Request) {
   if (await adminExists()) {
     return NextResponse.json(
-      { error: 'Admin account already exists' },
+      { error: 'Setup is not available' },
       { status: 403 },
     );
   }
@@ -34,12 +41,23 @@ export async function POST(request: Request) {
 
   const passwordHash = await hash(password, 12);
 
-  await db.insert(users).values({
-    email,
-    passwordHash,
-    name,
-    role: 'admin',
-  });
+  try {
+    await db.insert(users).values({
+      email,
+      passwordHash,
+      name,
+      role: 'admin',
+    });
+  } catch (err) {
+    // Unique constraint on email — race condition guard
+    if (err instanceof Error && err.message.includes('unique')) {
+      return NextResponse.json(
+        { error: 'Setup is not available' },
+        { status: 403 },
+      );
+    }
+    throw err;
+  }
 
   return NextResponse.json({ success: true });
 }

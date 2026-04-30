@@ -21,14 +21,32 @@ jobs:
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install rtk
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/rtk" --version
+          "$HOME/.local/bin/rtk" init -g --auto-patch
 
       - name: Run Claude Code
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
+
+          plugin_marketplaces: |
+            https://github.com/JuliusBrussee/caveman
+            https://github.com/JuliusBrussee/cavekit
+
+          plugins: |
+            caveman@caveman
+            ck@cavekit
+
           claude_args: "--model enowxai/claude-opus-4.6 --max-turns 100"
         env:
           ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}

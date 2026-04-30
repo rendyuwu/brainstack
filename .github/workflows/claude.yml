@@ -17,18 +17,29 @@ jobs:
   claude:
     if: |
       (
-        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
-        (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
-      ) && (
-        github.event.comment.author_association == 'OWNER' ||
-        github.event.comment.author_association == 'MEMBER' ||
-        github.event.comment.author_association == 'COLLABORATOR' ||
-        (github.event_name == 'issues' && (
+        github.event_name == 'issue_comment' &&
+        contains(github.event.comment.body, '@claude') &&
+        (
+          github.event.comment.author_association == 'OWNER' ||
+          github.event.comment.author_association == 'MEMBER' ||
+          github.event.comment.author_association == 'COLLABORATOR'
+        )
+      ) || (
+        github.event_name == 'pull_request_review_comment' &&
+        contains(github.event.comment.body, '@claude') &&
+        (
+          github.event.comment.author_association == 'OWNER' ||
+          github.event.comment.author_association == 'MEMBER' ||
+          github.event.comment.author_association == 'COLLABORATOR'
+        )
+      ) || (
+        github.event_name == 'issues' &&
+        contains(github.event.issue.body, '@claude') &&
+        (
           github.event.issue.author_association == 'OWNER' ||
           github.event.issue.author_association == 'MEMBER' ||
           github.event.issue.author_association == 'COLLABORATOR'
-        ))
+        )
       )
     runs-on: ubuntu-latest
 
@@ -38,7 +49,8 @@ jobs:
 
       - name: Install rtk
         run: |
-          curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/tags/v0.2.2/install.sh | sh
+          RTK_SHA="4338f029ec43b69eb959748ec02cd7885200c264"
+          curl -fsSL "https://raw.githubusercontent.com/rtk-ai/rtk/${RTK_SHA}/install.sh" | sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/rtk" --version
           "$HOME/.local/bin/rtk" init -g --auto-patch

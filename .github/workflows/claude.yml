@@ -53,6 +53,7 @@ jobs:
           curl -fsSL "https://raw.githubusercontent.com/rtk-ai/rtk/${RTK_SHA}/install.sh" | sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/rtk" --version
+          mkdir -p "$HOME/.claude"
           "$HOME/.local/bin/rtk" init -g --auto-patch
 
       - name: Run Claude Code
@@ -62,12 +63,12 @@ jobs:
           github_token: ${{ github.token }}
 
           plugin_marketplaces: |
-            https://github.com/JuliusBrussee/caveman
-            https://github.com/JuliusBrussee/cavekit
+            https://github.com/JuliusBrussee/caveman.git
+            https://github.com/JuliusBrussee/cavekit.git
 
           plugins: |
             caveman@caveman
-            ck@cavekit
+            ck@cavekit-marketplace
 
           claude_args: "--model enowxai/claude-opus-4.6 --max-turns 100"
         env:

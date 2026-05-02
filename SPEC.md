@@ -95,6 +95,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | `/api/admin/embeddings/reset` | POST | admin | delete all embeddings + re-embed all chunks |
 | `/api/account/password` | PATCH | admin | change own password (current + new) |
 | `/api/auth/[...nextauth]` | GET,POST | — | NextAuth handlers |
+| `/api/health` | GET | no | health check — DB connectivity, uptime (200 ok / 503 degraded) |
 
 ### Setup routes (bootstrap, one-time)
 

@@ -29,10 +29,12 @@ export const chunks = pgTable("chunks", {
 	revisionId: uuid("revision_id"),
 	anchorId: text("anchor_id"),
 	headingPath: text("heading_path").array(),
+	chunkIndex: integer("chunk_index").notNull(),
 	content: text().notNull(),
 	contentType: text("content_type").notNull(),
 	fts: tsvector("fts"),
 }, (table) => [
+	uniqueIndex("chunks_page_chunk_index_idx").using("btree", table.pageId.asc().nullsLast().op("uuid_ops"), table.chunkIndex.asc().nullsLast()),
 	index("chunks_page_idx").using("btree", table.pageId.asc().nullsLast().op("uuid_ops")),
 	foreignKey({
 			columns: [table.pageId],

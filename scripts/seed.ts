@@ -1591,11 +1591,11 @@ async function seed() {
 
       // Insert chunks with FTS
       const chunks = splitIntoChunks(page.mdx);
-      for (const chunk of chunks) {
+      for (const [chunkIndex, chunk] of chunks.entries()) {
         await client.query(
-          `INSERT INTO chunks (page_id, anchor_id, heading_path, content, content_type, fts)
-           VALUES ($1, $2, $3, $4, 'markdown', to_tsvector('english', $4))`,
-          [pageId, slugify(chunk.heading), [chunk.heading], chunk.content]
+          `INSERT INTO chunks (page_id, anchor_id, heading_path, chunk_index, content, content_type, fts)
+           VALUES ($1, $2, $3, $4, $5, 'markdown', to_tsvector('english', $5))`,
+          [pageId, slugify(chunk.heading), [chunk.heading], chunkIndex, chunk.content]
         );
       }
     }

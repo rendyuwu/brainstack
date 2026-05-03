@@ -3,7 +3,7 @@ import { db } from '@/db';
 import { conversations, messages } from '@/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { chatWithFallback } from '@/lib/ai/find-chat-model';
-import { hybridSearch } from '@/lib/rag/search';
+import { getPageChunks, hybridSearch } from '@/lib/rag/search';
 import { checkRateLimit } from '@/lib/rate-limiter';
 import { logAIUsage } from '@/lib/ai/usage-logger';
 import { chatSchema, validateBody } from '@/lib/validation';
@@ -50,6 +50,13 @@ export async function POST(request: NextRequest) {
     if (!v.success) return v.response;
     const { message, conversationId, scopeType, scopeId } = v.data;
 
+    if ((scopeType === 'page' || scopeType === 'collection') && !scopeId) {
+      return NextResponse.json(
+        { error: 'scopeId is required for scoped chat' },
+        { status: 400 }
+      );
+    }
+
     // 1. Create or get conversation
     let convId = conversationId;
     if (!convId) {
@@ -70,12 +77,14 @@ export async function POST(request: NextRequest) {
       content: message,
     });
 
-    // 3. Run hybrid search
-    const searchResults = await hybridSearch(message, {
-      scopeType,
-      scopeId: scopeId ?? undefined,
-      limit: 6,
-    });
+    // 3. Retrieve context
+    const searchResults = scopeType === 'page'
+      ? scopeId ? await getPageChunks(scopeId) : []
+      : await hybridSearch(message, {
+          scopeType,
+          scopeId: scopeId ?? undefined,
+          limit: 6,
+        });
 
     // 4. Build context
     const citations: Citation[] = searchResults.map((r, i) => ({

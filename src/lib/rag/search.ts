@@ -32,6 +32,16 @@ interface RawSemanticRow {
   similarity: number;
 }
 
+interface RawPageChunkRow {
+  id: string;
+  page_id: string;
+  page_title: string;
+  page_slug: string;
+  anchor_id: string | null;
+  heading_path: string[] | null;
+  content: string;
+}
+
 interface PageMeta {
   id: string;
   title: string;
@@ -48,6 +58,29 @@ export function extractRows<T>(result: unknown): T[] {
   if (Array.isArray(result)) return result as T[];
   const obj = result as { rows?: T[] };
   return obj?.rows ?? [];
+}
+
+export async function getPageChunks(pageId: string): Promise<SearchResult[]> {
+  const raw = await db.execute(sql`
+    SELECT c.id, c.page_id, p.title AS page_title, p.slug AS page_slug,
+           c.anchor_id, c.heading_path, c.content
+    FROM chunks c
+    JOIN pages p ON p.id = c.page_id
+    WHERE p.status = 'published'
+      AND c.page_id = ${pageId}::uuid
+    ORDER BY c.chunk_index ASC
+  `);
+
+  return extractRows<RawPageChunkRow>(raw).map((row, idx) => ({
+    chunkId: row.id,
+    pageId: row.page_id,
+    pageTitle: row.page_title,
+    pageSlug: row.page_slug,
+    anchorId: row.anchor_id,
+    headingPath: row.heading_path ?? [],
+    content: row.content,
+    score: 1 / (idx + 1),
+  }));
 }
 
 export async function hybridSearch(

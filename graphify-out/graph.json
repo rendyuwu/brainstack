@@ -54,7 +54,7 @@
       "file_type": "code",
       "source_file": "playwright.config.ts",
       "source_location": "L1",
-      "community": 33,
+      "community": 32,
       "norm_label": "playwright.config.ts",
       "id": "playwright_config_ts"
     },
@@ -63,7 +63,7 @@
       "file_type": "code",
       "source_file": "eslint.config.mjs",
       "source_location": "L1",
-      "community": 34,
+      "community": 33,
       "norm_label": "eslint.config.mjs",
       "id": "eslint_config_mjs"
     },
@@ -72,7 +72,7 @@
       "file_type": "code",
       "source_file": "drizzle.config.ts",
       "source_location": "L1",
-      "community": 35,
+      "community": 34,
       "norm_label": "drizzle.config.ts",
       "id": "drizzle_config_ts"
     },
@@ -81,7 +81,7 @@
       "file_type": "code",
       "source_file": "vitest.config.ts",
       "source_location": "L1",
-      "community": 36,
+      "community": 35,
       "norm_label": "vitest.config.ts",
       "id": "vitest_config_ts"
     },
@@ -90,7 +90,7 @@
       "file_type": "code",
       "source_file": "next.config.ts",
       "source_location": "L1",
-      "community": 37,
+      "community": 36,
       "norm_label": "next.config.ts",
       "id": "next_config_ts"
     },
@@ -99,7 +99,7 @@
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L1",
-      "community": 12,
+      "community": 11,
       "norm_label": "seed.ts",
       "id": "scripts_seed_ts"
     },
@@ -108,7 +108,7 @@
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L10",
-      "community": 12,
+      "community": 11,
       "norm_label": "slugify()",
       "id": "scripts_seed_slugify"
     },
@@ -117,7 +117,7 @@
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L14",
-      "community": 12,
+      "community": 11,
       "norm_label": "splitintochunks()",
       "id": "scripts_seed_splitintochunks"
     },
@@ -126,7 +126,7 @@
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L40",
-      "community": 12,
+      "community": 11,
       "norm_label": "stripmdx()",
       "id": "scripts_seed_stripmdx"
     },
@@ -135,7 +135,7 @@
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L1486",
-      "community": 12,
+      "community": 11,
       "norm_label": "seed()",
       "id": "scripts_seed_seed"
     },
@@ -216,7 +216,7 @@
       "file_type": "code",
       "source_file": "src/lib/content-snippet.ts",
       "source_location": "L1",
-      "community": 18,
+      "community": 3,
       "norm_label": "content-snippet.ts",
       "id": "src_lib_content_snippet_ts"
     },
@@ -225,7 +225,7 @@
       "file_type": "code",
       "source_file": "src/lib/content-snippet.ts",
       "source_location": "L1",
-      "community": 18,
+      "community": 3,
       "norm_label": "contentsnippet()",
       "id": "lib_content_snippet_contentsnippet"
     },
@@ -414,7 +414,7 @@
       "file_type": "code",
       "source_file": "src/lib/rate-limiter.ts",
       "source_location": "L1",
-      "community": 0,
+      "community": 3,
       "norm_label": "rate-limiter.ts",
       "id": "src_lib_rate_limiter_ts"
     },
@@ -423,7 +423,7 @@
       "file_type": "code",
       "source_file": "src/lib/rate-limiter.ts",
       "source_location": "L29",
-      "community": 0,
+      "community": 3,
       "norm_label": "getip()",
       "id": "lib_rate_limiter_getip"
     },
@@ -432,7 +432,7 @@
       "file_type": "code",
       "source_file": "src/lib/rate-limiter.ts",
       "source_location": "L46",
-      "community": 0,
+      "community": 3,
       "norm_label": "checkratelimit()",
       "id": "lib_rate_limiter_checkratelimit"
     },
@@ -441,7 +441,7 @@
       "file_type": "code",
       "source_file": "src/lib/env-check.ts",
       "source_location": "L1",
-      "community": 38,
+      "community": 37,
       "norm_label": "env-check.ts",
       "id": "src_lib_env_check_ts"
     },
@@ -513,7 +513,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/draft.ts",
       "source_location": "L1",
-      "community": 4,
+      "community": 3,
       "norm_label": "draft.ts",
       "id": "src_lib_ai_draft_ts"
     },
@@ -522,7 +522,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/draft.ts",
       "source_location": "L19",
-      "community": 4,
+      "community": 3,
       "norm_label": "generatedraft()",
       "id": "ai_draft_generatedraft"
     },
@@ -558,7 +558,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/find-chat-model.ts",
       "source_location": "L86",
-      "community": 4,
+      "community": 3,
       "norm_label": "chatwithfallback()",
       "id": "ai_find_chat_model_chatwithfallback"
     },
@@ -567,7 +567,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/types.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 4,
       "norm_label": "types.ts",
       "id": "src_lib_ai_types_ts"
     },
@@ -576,7 +576,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/types.ts",
       "source_location": "L7",
-      "community": 5,
+      "community": 4,
       "norm_label": "isproviderkind()",
       "id": "ai_types_isproviderkind"
     },
@@ -585,7 +585,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/types.ts",
       "source_location": "L11",
-      "community": 5,
+      "community": 4,
       "norm_label": "isdiscoverymode()",
       "id": "ai_types_isdiscoverymode"
     },
@@ -594,7 +594,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/client.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 4,
       "norm_label": "client.ts",
       "id": "src_lib_ai_client_ts"
     },
@@ -603,7 +603,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/client.ts",
       "source_location": "L4",
-      "community": 5,
+      "community": 4,
       "norm_label": "createaiclient()",
       "id": "ai_client_createaiclient"
     },
@@ -612,7 +612,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 4,
       "norm_label": "provider-registry.ts",
       "id": "src_lib_ai_provider_registry_ts"
     },
@@ -621,7 +621,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L11",
-      "community": 5,
+      "community": 4,
       "norm_label": "decryptapikey()",
       "id": "ai_provider_registry_decryptapikey"
     },
@@ -630,7 +630,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L22",
-      "community": 5,
+      "community": 4,
       "norm_label": "rowtoproviderconfig()",
       "id": "ai_provider_registry_rowtoproviderconfig"
     },
@@ -648,7 +648,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L55",
-      "community": 5,
+      "community": 0,
       "norm_label": "getprovider()",
       "id": "ai_provider_registry_getprovider"
     },
@@ -657,7 +657,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L75",
-      "community": 5,
+      "community": 4,
       "norm_label": "createprovider()",
       "id": "ai_provider_registry_createprovider"
     },
@@ -666,7 +666,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L107",
-      "community": 5,
+      "community": 4,
       "norm_label": "updateprovider()",
       "id": "ai_provider_registry_updateprovider"
     },
@@ -684,7 +684,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L166",
-      "community": 5,
+      "community": 0,
       "norm_label": "addmanualmodel()",
       "id": "ai_provider_registry_addmanualmodel"
     },
@@ -693,7 +693,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L205",
-      "community": 5,
+      "community": 4,
       "norm_label": "testmodel()",
       "id": "ai_provider_registry_testmodel"
     },
@@ -702,7 +702,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L222",
-      "community": 5,
+      "community": 4,
       "norm_label": "testconnection()",
       "id": "ai_provider_registry_testconnection"
     },
@@ -711,7 +711,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L273",
-      "community": 5,
+      "community": 4,
       "norm_label": "detectcapabilities()",
       "id": "ai_provider_registry_detectcapabilities"
     },
@@ -720,7 +720,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L295",
-      "community": 5,
+      "community": 4,
       "norm_label": "discovermodels()",
       "id": "ai_provider_registry_discovermodels"
     },
@@ -729,7 +729,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/rewrite.ts",
       "source_location": "L1",
-      "community": 4,
+      "community": 3,
       "norm_label": "rewrite.ts",
       "id": "src_lib_ai_rewrite_ts"
     },
@@ -738,7 +738,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/rewrite.ts",
       "source_location": "L40",
-      "community": 0,
+      "community": 3,
       "norm_label": "rewritecontent()",
       "id": "ai_rewrite_rewritecontent"
     },
@@ -747,7 +747,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/usage-logger.ts",
       "source_location": "L1",
-      "community": 4,
+      "community": 3,
       "norm_label": "usage-logger.ts",
       "id": "src_lib_ai_usage_logger_ts"
     },
@@ -756,7 +756,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/usage-logger.ts",
       "source_location": "L4",
-      "community": 4,
+      "community": 3,
       "norm_label": "logaiusage()",
       "id": "ai_usage_logger_logaiusage"
     },
@@ -765,7 +765,7 @@
       "file_type": "code",
       "source_file": "src/lib/ai/__tests__/provider-registry.test.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 4,
       "norm_label": "provider-registry.test.ts",
       "id": "src_lib_ai_tests_provider_registry_test_ts"
     },
@@ -774,7 +774,7 @@
       "file_type": "code",
       "source_file": "src/lib/__tests__/auth.test.ts",
       "source_location": "L1",
-      "community": 39,
+      "community": 38,
       "norm_label": "auth.test.ts",
       "id": "src_lib_tests_auth_test_ts"
     },
@@ -783,7 +783,7 @@
       "file_type": "code",
       "source_file": "src/lib/__tests__/validation.test.ts",
       "source_location": "L1",
-      "community": 40,
+      "community": 39,
       "norm_label": "validation.test.ts",
       "id": "src_lib_tests_validation_test_ts"
     },
@@ -837,7 +837,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/embedder.ts",
       "source_location": "L103",
-      "community": 6,
+      "community": 3,
       "norm_label": "embedquery()",
       "id": "rag_embedder_embedquery"
     },
@@ -846,7 +846,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
       "source_location": "L1",
-      "community": 6,
+      "community": 3,
       "norm_label": "search.ts",
       "id": "src_lib_rag_search_ts"
     },
@@ -854,8 +854,8 @@
       "label": "rrf()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
-      "source_location": "L43",
-      "community": 6,
+      "source_location": "L53",
+      "community": 3,
       "norm_label": "rrf()",
       "id": "rag_search_rrf"
     },
@@ -863,17 +863,26 @@
       "label": "extractRows()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
-      "source_location": "L47",
-      "community": 6,
+      "source_location": "L57",
+      "community": 3,
       "norm_label": "extractrows()",
       "id": "rag_search_extractrows"
+    },
+    {
+      "label": "getPageChunks()",
+      "file_type": "code",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L63",
+      "community": 3,
+      "norm_label": "getpagechunks()",
+      "id": "rag_search_getpagechunks"
     },
     {
       "label": "hybridSearch()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
-      "source_location": "L53",
-      "community": 6,
+      "source_location": "L86",
+      "community": 3,
       "norm_label": "hybridsearch()",
       "id": "rag_search_hybridsearch"
     },
@@ -882,7 +891,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/duplicate-detector.ts",
       "source_location": "L1",
-      "community": 6,
+      "community": 3,
       "norm_label": "duplicate-detector.ts",
       "id": "src_lib_rag_duplicate_detector_ts"
     },
@@ -891,7 +900,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/duplicate-detector.ts",
       "source_location": "L28",
-      "community": 6,
+      "community": 3,
       "norm_label": "detectduplicates()",
       "id": "rag_duplicate_detector_detectduplicates"
     },
@@ -900,7 +909,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L1",
-      "community": 6,
+      "community": 12,
       "norm_label": "reranker.ts",
       "id": "src_lib_rag_reranker_ts"
     },
@@ -909,7 +918,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L23",
-      "community": 6,
+      "community": 12,
       "norm_label": "tokenize()",
       "id": "rag_reranker_tokenize"
     },
@@ -918,7 +927,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L30",
-      "community": 6,
+      "community": 12,
       "norm_label": "idf()",
       "id": "rag_reranker_idf"
     },
@@ -927,7 +936,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L36",
-      "community": 6,
+      "community": 12,
       "norm_label": "bm25score()",
       "id": "rag_reranker_bm25score"
     },
@@ -936,7 +945,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L57",
-      "community": 6,
+      "community": 12,
       "norm_label": "minmaxnormalize()",
       "id": "rag_reranker_minmaxnormalize"
     },
@@ -945,7 +954,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L67",
-      "community": 6,
+      "community": 12,
       "norm_label": "rerankbm25()",
       "id": "rag_reranker_rerankbm25"
     },
@@ -954,7 +963,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L1",
-      "community": 11,
+      "community": 8,
       "norm_label": "chunker.ts",
       "id": "src_lib_rag_chunker_ts"
     },
@@ -963,7 +972,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L10",
-      "community": 11,
+      "community": 8,
       "norm_label": "slugify()",
       "id": "rag_chunker_slugify"
     },
@@ -972,7 +981,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L19",
-      "community": 11,
+      "community": 8,
       "norm_label": "detectcontenttype()",
       "id": "rag_chunker_detectcontenttype"
     },
@@ -981,7 +990,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L32",
-      "community": 11,
+      "community": 8,
       "norm_label": "tokencount()",
       "id": "rag_chunker_tokencount"
     },
@@ -990,7 +999,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L36",
-      "community": 11,
+      "community": 8,
       "norm_label": "splitwords()",
       "id": "rag_chunker_splitwords"
     },
@@ -999,7 +1008,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L45",
-      "community": 11,
+      "community": 8,
       "norm_label": "splitprose()",
       "id": "rag_chunker_splitprose"
     },
@@ -1008,7 +1017,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L81",
-      "community": 11,
+      "community": 8,
       "norm_label": "splitcodeandprose()",
       "id": "rag_chunker_splitcodeandprose"
     },
@@ -1017,7 +1026,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L123",
-      "community": 4,
+      "community": 8,
       "norm_label": "chunkmdx()",
       "id": "rag_chunker_chunkmdx"
     },
@@ -1026,7 +1035,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/pipeline.ts",
       "source_location": "L1",
-      "community": 4,
+      "community": 8,
       "norm_label": "pipeline.ts",
       "id": "src_lib_rag_pipeline_ts"
     },
@@ -1035,7 +1044,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/pipeline.ts",
       "source_location": "L7",
-      "community": 4,
+      "community": 8,
       "norm_label": "stripmarkdown()",
       "id": "rag_pipeline_stripmarkdown"
     },
@@ -1044,7 +1053,7 @@
       "file_type": "code",
       "source_file": "src/lib/rag/pipeline.ts",
       "source_location": "L19",
-      "community": 4,
+      "community": 8,
       "norm_label": "runpublishpipeline()",
       "id": "rag_pipeline_runpublishpipeline"
     },
@@ -1053,18 +1062,36 @@
       "file_type": "code",
       "source_file": "src/lib/rag/__tests__/search.test.ts",
       "source_location": "L1",
-      "community": 6,
+      "community": 3,
       "norm_label": "search.test.ts",
       "id": "src_lib_rag_tests_search_test_ts"
+    },
+    {
+      "label": "sqlText()",
+      "file_type": "code",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L13",
+      "community": 3,
+      "norm_label": "sqltext()",
+      "id": "tests_search_test_sqltext"
     },
     {
       "label": "chunker.test.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/__tests__/chunker.test.ts",
       "source_location": "L1",
-      "community": 4,
+      "community": 8,
       "norm_label": "chunker.test.ts",
       "id": "src_lib_rag_tests_chunker_test_ts"
+    },
+    {
+      "label": "pipeline.test.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/__tests__/pipeline.test.ts",
+      "source_location": "L1",
+      "community": 40,
+      "norm_label": "pipeline.test.ts",
+      "id": "src_lib_rag_tests_pipeline_test_ts"
     },
     {
       "label": "json-ld.tsx",
@@ -1098,7 +1125,7 @@
       "file_type": "code",
       "source_file": "src/components/mdx-components.tsx",
       "source_location": "L1",
-      "community": 20,
+      "community": 19,
       "norm_label": "mdx-components.tsx",
       "id": "src_components_mdx_components_tsx"
     },
@@ -1107,7 +1134,7 @@
       "file_type": "code",
       "source_file": "src/components/mdx-components.tsx",
       "source_location": "L5",
-      "community": 20,
+      "community": 19,
       "norm_label": "makeheading()",
       "id": "components_mdx_components_makeheading"
     },
@@ -1242,7 +1269,7 @@
       "file_type": "code",
       "source_file": "src/components/article-toc.tsx",
       "source_location": "L1",
-      "community": 21,
+      "community": 20,
       "norm_label": "article-toc.tsx",
       "id": "src_components_article_toc_tsx"
     },
@@ -1251,7 +1278,7 @@
       "file_type": "code",
       "source_file": "src/components/article-toc.tsx",
       "source_location": "L14",
-      "community": 21,
+      "community": 20,
       "norm_label": "scrolltosection()",
       "id": "components_article_toc_scrolltosection"
     },
@@ -1359,7 +1386,7 @@
       "file_type": "code",
       "source_file": "src/components/citation-pill.tsx",
       "source_location": "L1",
-      "community": 22,
+      "community": 21,
       "norm_label": "citation-pill.tsx",
       "id": "src_components_citation_pill_tsx"
     },
@@ -1368,7 +1395,7 @@
       "file_type": "code",
       "source_file": "src/components/citation-pill.tsx",
       "source_location": "L7",
-      "community": 22,
+      "community": 21,
       "norm_label": "citationpill()",
       "id": "components_citation_pill_citationpill"
     },
@@ -1431,7 +1458,7 @@
       "file_type": "code",
       "source_file": "src/components/editor/preview-pane.tsx",
       "source_location": "L1",
-      "community": 23,
+      "community": 22,
       "norm_label": "preview-pane.tsx",
       "id": "src_components_editor_preview_pane_tsx"
     },
@@ -1440,7 +1467,7 @@
       "file_type": "code",
       "source_file": "src/components/editor/preview-pane.tsx",
       "source_location": "L3",
-      "community": 23,
+      "community": 22,
       "norm_label": "rendermarkdown()",
       "id": "editor_preview_pane_rendermarkdown"
     },
@@ -1710,7 +1737,7 @@
       "file_type": "code",
       "source_file": "src/app/robots.ts",
       "source_location": "L1",
-      "community": 24,
+      "community": 23,
       "norm_label": "robots.ts",
       "id": "src_app_robots_ts"
     },
@@ -1719,7 +1746,7 @@
       "file_type": "code",
       "source_file": "src/app/robots.ts",
       "source_location": "L5",
-      "community": 24,
+      "community": 23,
       "norm_label": "robots()",
       "id": "app_robots_robots"
     },
@@ -1908,7 +1935,7 @@
       "file_type": "code",
       "source_file": "src/app/setup/page.tsx",
       "source_location": "L1",
-      "community": 25,
+      "community": 24,
       "norm_label": "page.tsx",
       "id": "src_app_setup_page_tsx"
     },
@@ -1917,7 +1944,7 @@
       "file_type": "code",
       "source_file": "src/app/setup/page.tsx",
       "source_location": "L26",
-      "community": 25,
+      "community": 24,
       "norm_label": "handlesubmit()",
       "id": "setup_page_handlesubmit"
     },
@@ -1926,7 +1953,7 @@
       "file_type": "code",
       "source_file": "src/app/editor/layout.tsx",
       "source_location": "L1",
-      "community": 26,
+      "community": 25,
       "norm_label": "layout.tsx",
       "id": "src_app_editor_layout_tsx"
     },
@@ -1935,7 +1962,7 @@
       "file_type": "code",
       "source_file": "src/app/editor/layout.tsx",
       "source_location": "L3",
-      "community": 26,
+      "community": 25,
       "norm_label": "editorlayout()",
       "id": "editor_layout_editorlayout"
     },
@@ -1944,7 +1971,7 @@
       "file_type": "code",
       "source_file": "src/app/editor/page.tsx",
       "source_location": "L1",
-      "community": 27,
+      "community": 26,
       "norm_label": "page.tsx",
       "id": "src_app_editor_page_tsx"
     },
@@ -1953,7 +1980,7 @@
       "file_type": "code",
       "source_file": "src/app/editor/page.tsx",
       "source_location": "L29",
-      "community": 27,
+      "community": 26,
       "norm_label": "loadpages()",
       "id": "editor_page_loadpages"
     },
@@ -1989,7 +2016,7 @@
       "file_type": "code",
       "source_file": "src/app/editor/[id]/page.tsx",
       "source_location": "L1",
-      "community": 28,
+      "community": 27,
       "norm_label": "page.tsx",
       "id": "src_app_editor_id_page_tsx"
     },
@@ -1998,7 +2025,7 @@
       "file_type": "code",
       "source_file": "src/app/editor/[id]/page.tsx",
       "source_location": "L40",
-      "community": 28,
+      "community": 27,
       "norm_label": "loadpage()",
       "id": "id_page_loadpage"
     },
@@ -2223,7 +2250,7 @@
       "file_type": "code",
       "source_file": "src/app/api/ai/rewrite/route.ts",
       "source_location": "L1",
-      "community": 0,
+      "community": 3,
       "norm_label": "route.ts",
       "id": "src_app_api_ai_rewrite_route_ts"
     },
@@ -2232,7 +2259,7 @@
       "file_type": "code",
       "source_file": "src/app/api/ai/rewrite/route.ts",
       "source_location": "L7",
-      "community": 0,
+      "community": 3,
       "norm_label": "post()",
       "id": "rewrite_route_post"
     },
@@ -2259,7 +2286,7 @@
       "file_type": "code",
       "source_file": "src/app/api/search/route.ts",
       "source_location": "L1",
-      "community": 6,
+      "community": 3,
       "norm_label": "route.ts",
       "id": "src_app_api_search_route_ts"
     },
@@ -2268,7 +2295,7 @@
       "file_type": "code",
       "source_file": "src/app/api/search/route.ts",
       "source_location": "L8",
-      "community": 6,
+      "community": 3,
       "norm_label": "get()",
       "id": "search_route_get"
     },
@@ -2313,7 +2340,7 @@
       "file_type": "code",
       "source_file": "src/app/api/collections/route.ts",
       "source_location": "L1",
-      "community": 29,
+      "community": 28,
       "norm_label": "route.ts",
       "id": "src_app_api_collections_route_ts"
     },
@@ -2322,7 +2349,7 @@
       "file_type": "code",
       "source_file": "src/app/api/collections/route.ts",
       "source_location": "L6",
-      "community": 29,
+      "community": 28,
       "norm_label": "get()",
       "id": "collections_route_get"
     },
@@ -2331,7 +2358,7 @@
       "file_type": "code",
       "source_file": "src/app/api/chat/route.ts",
       "source_location": "L1",
-      "community": 0,
+      "community": 3,
       "norm_label": "route.ts",
       "id": "src_app_api_chat_route_ts"
     },
@@ -2340,7 +2367,7 @@
       "file_type": "code",
       "source_file": "src/app/api/chat/route.ts",
       "source_location": "L33",
-      "community": 0,
+      "community": 3,
       "norm_label": "post()",
       "id": "chat_route_post"
     },
@@ -2358,7 +2385,7 @@
       "file_type": "code",
       "source_file": "src/app/api/chat/__tests__/chat-citations.test.ts",
       "source_location": "L1",
-      "community": 18,
+      "community": 3,
       "norm_label": "chat-citations.test.ts",
       "id": "src_app_api_chat_tests_chat_citations_test_ts"
     },
@@ -2367,7 +2394,7 @@
       "file_type": "code",
       "source_file": "src/app/api/health/route.ts",
       "source_location": "L1",
-      "community": 30,
+      "community": 29,
       "norm_label": "route.ts",
       "id": "src_app_api_health_route_ts"
     },
@@ -2376,7 +2403,7 @@
       "file_type": "code",
       "source_file": "src/app/api/health/route.ts",
       "source_location": "L5",
-      "community": 30,
+      "community": 29,
       "norm_label": "get()",
       "id": "health_route_get"
     },
@@ -2484,7 +2511,7 @@
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/test/route.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 0,
       "norm_label": "route.ts",
       "id": "src_app_api_admin_providers_id_test_route_ts"
     },
@@ -2493,7 +2520,7 @@
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/test/route.ts",
       "source_location": "L7",
-      "community": 5,
+      "community": 0,
       "norm_label": "post()",
       "id": "test_route_post"
     },
@@ -2502,7 +2529,7 @@
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/models/route.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 0,
       "norm_label": "route.ts",
       "id": "src_app_api_admin_providers_id_models_route_ts"
     },
@@ -2511,7 +2538,7 @@
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/models/route.ts",
       "source_location": "L8",
-      "community": 5,
+      "community": 0,
       "norm_label": "post()",
       "id": "models_route_post"
     },
@@ -2520,7 +2547,7 @@
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/discover/route.ts",
       "source_location": "L1",
-      "community": 5,
+      "community": 0,
       "norm_label": "route.ts",
       "id": "src_app_api_admin_providers_id_discover_route_ts"
     },
@@ -2529,7 +2556,7 @@
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/discover/route.ts",
       "source_location": "L7",
-      "community": 5,
+      "community": 0,
       "norm_label": "post()",
       "id": "discover_route_post"
     },
@@ -2601,7 +2628,7 @@
       "file_type": "code",
       "source_file": "src/app/login/page.tsx",
       "source_location": "L1",
-      "community": 31,
+      "community": 30,
       "norm_label": "page.tsx",
       "id": "src_app_login_page_tsx"
     },
@@ -2610,7 +2637,7 @@
       "file_type": "code",
       "source_file": "src/app/login/page.tsx",
       "source_location": "L23",
-      "community": 31,
+      "community": 30,
       "norm_label": "handlesubmit()",
       "id": "login_page_handlesubmit"
     },
@@ -2628,7 +2655,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L1",
-      "community": 7,
+      "community": 6,
       "norm_label": "page.tsx",
       "id": "src_app_admin_ai_providers_page_tsx"
     },
@@ -2637,7 +2664,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L120",
-      "community": 7,
+      "community": 6,
       "norm_label": "capbadge()",
       "id": "providers_page_capbadge"
     },
@@ -2646,7 +2673,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L141",
-      "community": 7,
+      "community": 6,
       "norm_label": "spinner()",
       "id": "providers_page_spinner"
     },
@@ -2655,7 +2682,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L236",
-      "community": 7,
+      "community": 6,
       "norm_label": "fetchembeddingstats()",
       "id": "providers_page_fetchembeddingstats"
     },
@@ -2664,7 +2691,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L251",
-      "community": 7,
+      "community": 6,
       "norm_label": "handleembeddingaction()",
       "id": "providers_page_handleembeddingaction"
     },
@@ -2673,7 +2700,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L309",
-      "community": 7,
+      "community": 6,
       "norm_label": "openaddform()",
       "id": "providers_page_openaddform"
     },
@@ -2682,7 +2709,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L316",
-      "community": 7,
+      "community": 6,
       "norm_label": "openeditform()",
       "id": "providers_page_openeditform"
     },
@@ -2691,7 +2718,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L333",
-      "community": 7,
+      "community": 6,
       "norm_label": "closeform()",
       "id": "providers_page_closeform"
     },
@@ -2700,7 +2727,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L339",
-      "community": 7,
+      "community": 6,
       "norm_label": "handlesave()",
       "id": "providers_page_handlesave"
     },
@@ -2709,7 +2736,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L393",
-      "community": 7,
+      "community": 6,
       "norm_label": "handledelete()",
       "id": "providers_page_handledelete"
     },
@@ -2718,7 +2745,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L407",
-      "community": 7,
+      "community": 6,
       "norm_label": "openaddmodel()",
       "id": "providers_page_openaddmodel"
     },
@@ -2727,7 +2754,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L416",
-      "community": 7,
+      "community": 6,
       "norm_label": "closeaddmodel()",
       "id": "providers_page_closeaddmodel"
     },
@@ -2736,7 +2763,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L421",
-      "community": 7,
+      "community": 6,
       "norm_label": "updateaddmodelform()",
       "id": "providers_page_updateaddmodelform"
     },
@@ -2745,7 +2772,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L428",
-      "community": 7,
+      "community": 6,
       "norm_label": "handleaddmodel()",
       "id": "providers_page_handleaddmodel"
     },
@@ -2754,7 +2781,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L460",
-      "community": 7,
+      "community": 6,
       "norm_label": "handletest()",
       "id": "providers_page_handletest"
     },
@@ -2763,7 +2790,7 @@
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L489",
-      "community": 7,
+      "community": 6,
       "norm_label": "handlediscover()",
       "id": "providers_page_handlediscover"
     },
@@ -2849,7 +2876,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Knowledge-first IT publishing platform: one canonical page renders as article, stack/docs, or cheatsheet. AI-assisted authoring (Noa). RAG chat over published content with citations. OpenAI-compatible provider registry. Chosen over normal blog-with-chatbot because tutorials/tips/cheatsheets are naturally related and structured pages beat isolated posts.",
-      "community": 3,
+      "community": 5,
       "norm_label": "brainstack platform",
       "id": "brainstack_platform"
     },
@@ -2862,7 +2889,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 32,
+      "community": 31,
       "norm_label": "tech stack",
       "id": "architecture_tech_stack"
     },
@@ -2875,7 +2902,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "knowledge-first it publishing platform",
       "rationale": "One canonical page \u2192 3 views (article, stack/docs, cheatsheet). AI-assisted authoring (Noa). RAG chat over published content w/ citations. OpenAI-compatible provider registry.",
       "id": "spec_goal"
@@ -2889,7 +2916,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 32,
+      "community": 31,
       "norm_label": "spec constraints",
       "id": "spec_constraints"
     },
@@ -2915,7 +2942,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "spec invariants",
       "id": "spec_invariants"
     },
@@ -2928,7 +2955,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "spec tasks",
       "id": "spec_tasks"
     },
@@ -2941,7 +2968,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "spec bugs",
       "id": "spec_bugs"
     },
@@ -2967,7 +2994,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "users table",
       "id": "0000_lovely_sir_ram_users"
     },
@@ -3032,7 +3059,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "conversations table",
       "id": "0000_lovely_sir_ram_conversations"
     },
@@ -3045,7 +3072,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "messages table",
       "id": "0000_lovely_sir_ram_messages"
     },
@@ -3084,7 +3111,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "ai_providers table",
       "id": "0000_lovely_sir_ram_ai_providers"
     },
@@ -3097,7 +3124,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "ai_models table",
       "id": "0000_lovely_sir_ram_ai_models"
     },
@@ -3149,7 +3176,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "ai_providers_kind_check constraint",
       "id": "0001_enum_checks_ai_providers_kind"
     },
@@ -3162,7 +3189,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 8,
+      "community": 7,
       "norm_label": "ai_providers_discovery_mode_check constraint",
       "id": "0001_enum_checks_ai_providers_discovery_mode"
     },
@@ -3176,7 +3203,7 @@
       "author": null,
       "contributor": null,
       "rationale": "T27 admin-only safeguard per V32: editor role removed, all users must be admin. Migration changes default from editor to admin and normalizes existing editor rows.",
-      "community": 8,
+      "community": 7,
       "norm_label": "admin role default migration",
       "id": "0002_admin_role_default_migration"
     },
@@ -3189,7 +3216,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 18,
       "norm_label": "db extensions init",
       "id": "init_db_extensions"
     },
@@ -3217,7 +3244,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Provider-neutral design: Chat Completions required baseline, Responses API optional adapter. Generation and embedding providers configurable separately. Provider registry DB-backed with OpenAI SDK using custom baseURL per provider. No hardcoded vendor.",
-      "community": 8,
+      "community": 7,
       "norm_label": "ai architecture",
       "id": "ai_architecture"
     },
@@ -3231,7 +3258,7 @@
       "author": null,
       "contributor": null,
       "rationale": "First-run setup creates admin if none exists. Credentials provider with bcrypt hash. JWT session strategy. Middleware protects editor/admin routes. Admin-only role after T27 migration.",
-      "community": 8,
+      "community": 7,
       "norm_label": "auth flow",
       "id": "auth_flow"
     },
@@ -3244,7 +3271,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 18,
       "norm_label": "docker compose production",
       "id": "docker_compose_prod"
     },
@@ -3257,7 +3284,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 19,
+      "community": 18,
       "norm_label": "docker compose development",
       "id": "docker_compose_dev"
     },
@@ -3270,7 +3297,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "spec format (caveman encoding)",
       "id": "format_spec_format"
     },
@@ -3284,7 +3311,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Build public IT knowledge library where every page is both human-readable and AI-operable. BookStack structure + blog distribution + AI workspace. Three public surfaces on one content model. Provider registry with custom OpenAI-compatible URLs as first-class feature. Hybrid Postgres RAG for MVP, upgrade to Qdrant later.",
-      "community": 3,
+      "community": 5,
       "norm_label": "product research and vision",
       "id": "research_product_vision"
     },
@@ -3297,7 +3324,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "contributing guide",
       "id": "contributing_guide"
     },
@@ -3402,7 +3429,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Structural precedent for BrainStack: books/chapters/pages hierarchy, paragraph linking, search. Validates treating knowledge as structured pages instead of isolated posts.",
-      "community": 3,
+      "community": 5,
       "norm_label": "bookstack",
       "id": "bookstack"
     },
@@ -3430,7 +3457,7 @@
       "author": null,
       "contributor": null,
       "rationale": "DB-backed provider registry with kind (openai_compatible, openrouter, litellm_proxy), custom baseURL, API key, headers, discovery mode. OpenAI SDK as universal client with configurable base URL. Supports OpenRouter and LiteLLM proxy patterns. Chat Completions required, Responses API optional.",
-      "community": 8,
+      "community": 7,
       "norm_label": "provider registry",
       "id": "provider_registry"
     },
@@ -3444,7 +3471,7 @@
       "author": null,
       "contributor": null,
       "rationale": "AES-256-GCM encryption for provider API keys. CSP with unsafe-inline/eval tradeoff for Next.js + next-mdx-remote. CSRF via SameSite cookies + Origin validation. MDX sanitization against script/event handler injection. Rate limiter hardened against x-forwarded-for spoofing. UUID param validation on all routes.",
-      "community": 8,
+      "community": 7,
       "norm_label": "security model",
       "id": "security_model"
     },
@@ -3457,7 +3484,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "brainstack platform spec",
       "id": "spec_brainstack"
     },
@@ -3471,7 +3498,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Core framework constraint \u2014 server-side rendering with App Router pattern",
-      "community": 3,
+      "community": 5,
       "norm_label": "next.js 16 app router + react 19 + typescript",
       "id": "spec_nextjs_app_router"
     },
@@ -3485,7 +3512,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Vector database for RAG semantic search; embedding dimension fixed at 1536",
-      "community": 3,
+      "community": 5,
       "norm_label": "postgresql 16 + pgvector (1536-dim embeddings)",
       "id": "spec_postgresql_pgvector"
     },
@@ -3498,7 +3525,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "drizzle orm + drizzle-kit migrations",
       "id": "spec_drizzle_orm"
     },
@@ -3512,7 +3539,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Credentials provider, JWT sessions, bcryptjs hashing, admin-only write access",
-      "community": 3,
+      "community": 5,
       "norm_label": "auth.js v5 (credentials, jwt, bcryptjs, admin-only)",
       "id": "spec_authjs_v5"
     },
@@ -3526,7 +3553,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Custom baseURL enables provider-neutral internal format; Chat Completions required, Responses API optional",
-      "community": 3,
+      "community": 5,
       "norm_label": "openai sdk as client for all providers",
       "id": "spec_openai_sdk"
     },
@@ -3540,7 +3567,7 @@
       "author": null,
       "contributor": null,
       "rationale": "V55: CSS modules / CSS custom properties for layout; no inline style={{}} as primary mechanism",
-      "community": 3,
+      "community": 5,
       "norm_label": "custom css design system (ibm plex, amber/teal, no tailwind)",
       "id": "spec_css_design_system"
     },
@@ -3554,7 +3581,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Server-side MDX rendering; sanitized against XSS per V53",
-      "community": 3,
+      "community": 5,
       "norm_label": "mdx stored in db, rendered via next-mdx-remote",
       "id": "spec_mdx_rendering"
     },
@@ -3568,7 +3595,7 @@
       "author": null,
       "contributor": null,
       "rationale": "All AI endpoints stream: draft, rewrite, chat (V20)",
-      "community": 3,
+      "community": 5,
       "norm_label": "streaming chat completions (text/event-stream)",
       "id": "spec_streaming"
     },
@@ -3582,7 +3609,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Provider kinds: openai_compatible, openrouter, litellm_proxy. Discovery modes: v1-models, openrouter-models, litellm-model-info, static. Only enabled providers used.",
-      "community": 3,
+      "community": 5,
       "norm_label": "provider registry (openai_compatible, openrouter, litellm_proxy)",
       "id": "spec_provider_registry"
     },
@@ -3596,7 +3623,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Lexical (FTS tsvector) + semantic (pgvector cosine) + reciprocal rank fusion (K=60); BM25 reranking layer (T15)",
-      "community": 3,
+      "community": 5,
       "norm_label": "hybrid search (lexical fts + semantic pgvector + rrf k=60)",
       "id": "spec_hybrid_search"
     },
@@ -3610,7 +3637,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Publish creates page_revision + triggers async chunk+embed. Chunks split by H1-H3 headings then token window; code blocks separate. Existing chunks deleted before re-chunking. Embedding status tracked per page (pending/complete/failed).",
-      "community": 3,
+      "community": 5,
       "norm_label": "publish \u2192 chunk \u2192 embed pipeline",
       "id": "spec_publish_pipeline"
     },
@@ -3624,7 +3651,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Chat scopes: page, collection, site. Citations include title, slug, anchor, snippet. Must include citations or state insufficient evidence. Conversation state in app DB.",
-      "community": 3,
+      "community": 5,
       "norm_label": "rag chat with citations (multi-turn, streaming, scopes)",
       "id": "spec_rag_chat"
     },
@@ -3638,7 +3665,7 @@
       "author": null,
       "contributor": null,
       "rationale": "AES-256-GCM key encryption, CSRF via SameSite+Origin, CSP with unsafe-inline/eval tradeoff for Next.js, MDX XSS sanitization, rate limiting, UUID validation",
-      "community": 3,
+      "community": 5,
       "norm_label": "security invariants (encryption, csrf, csp, headers)",
       "id": "spec_security"
     },
@@ -3652,7 +3679,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Only admin role exists; editor role removed. All write APIs require admin. Unauthenticated = read-only published content only. AI features admin-only.",
-      "community": 3,
+      "community": 5,
       "norm_label": "admin-only access model (single role)",
       "id": "spec_admin_only_auth"
     },
@@ -3666,7 +3693,7 @@
       "author": null,
       "contributor": null,
       "rationale": "AI-assisted authoring capability; generates drafts from ideas \u00b1 images, rewrites for style",
-      "community": 3,
+      "community": 5,
       "norm_label": "noa (ai authoring assistant)",
       "id": "spec_noa"
     },
@@ -3679,7 +3706,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "public routes (blog, stack, cheatsheets, discover)",
       "id": "spec_public_routes"
     },
@@ -3692,7 +3719,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "editor routes (admin-only article management)",
       "id": "spec_editor_routes"
     },
@@ -3705,7 +3732,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "api routes (pages, search, chat, ai, admin, auth)",
       "id": "spec_api_routes"
     },
@@ -3719,7 +3746,7 @@
       "author": null,
       "contributor": null,
       "rationale": "Page slug unique (DB constraint). Status: draft/published/archived. Types: tutorial, tip, cheatsheet, note. Only published in public views.",
-      "community": 3,
+      "community": 5,
       "norm_label": "content model (page types: tutorial, tip, cheatsheet, note)",
       "id": "spec_content_model"
     },
@@ -3745,9 +3772,81 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 3,
+      "community": 5,
       "norm_label": "graphify knowledge graph integration",
       "id": "claude_graphify_integration"
+    },
+    {
+      "label": "seed.ts",
+      "file_type": "code",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "community": 11,
+      "norm_label": "seed.ts"
+    },
+    {
+      "label": "chat-admin-guard.test.ts",
+      "file_type": "code",
+      "source_file": "src/app/api/chat/__tests__/chat-admin-guard.test.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_app_api_chat_tests_chat_admin_guard_test_ts",
+      "community": 78,
+      "norm_label": "chat-admin-guard.test.ts"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "community": 3,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "schema.ts",
+      "file_type": "code",
+      "source_file": "src/db/schema.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_db_schema_ts",
+      "community": 79,
+      "norm_label": "schema.ts"
+    },
+    {
+      "label": "pipeline.test.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/__tests__/pipeline.test.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_pipeline_test_ts",
+      "community": 80,
+      "norm_label": "pipeline.test.ts"
+    },
+    {
+      "label": "search.test.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "community": 3,
+      "norm_label": "search.test.ts"
+    },
+    {
+      "label": "pipeline.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/pipeline.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_pipeline_ts",
+      "community": 8,
+      "norm_label": "pipeline.ts"
+    },
+    {
+      "label": "search.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "community": 3,
+      "norm_label": "search.ts"
     }
   ],
   "links": [
@@ -3799,8 +3898,18 @@
       "source_location": "L1564",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "scripts_seed_slugify",
-      "target": "scripts_seed_seed"
+      "source": "scripts_seed_seed",
+      "target": "scripts_seed_slugify"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_slugify",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -3810,8 +3919,18 @@
       "source_location": "L1593",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "scripts_seed_splitintochunks",
-      "target": "scripts_seed_seed"
+      "source": "scripts_seed_seed",
+      "target": "scripts_seed_splitintochunks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_splitintochunks",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -3821,8 +3940,28 @@
       "source_location": "L1577",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "scripts_seed_stripmdx",
-      "target": "scripts_seed_seed"
+      "source": "scripts_seed_seed",
+      "target": "scripts_seed_stripmdx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_stripmdx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L1486",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_seed",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -7698,6 +7837,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/rag/search.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_rag_search_ts",
+      "target": "rag_search_getpagechunks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
       "source_location": "L53",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -7716,15 +7865,47 @@
       "target": "src_lib_rag_tests_search_test_ts"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "rag_search_rrf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_rrf",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/rag/search.ts",
-      "source_location": "L121",
+      "source_location": "L74",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "rag_search_extractrows",
-      "target": "rag_search_hybridsearch"
+      "source": "rag_search_getpagechunks",
+      "target": "rag_search_extractrows"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L154",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "rag_search_hybridsearch",
+      "target": "rag_search_extractrows"
     },
     {
       "relation": "imports",
@@ -7758,6 +7939,92 @@
       "weight": 1.0,
       "source": "rag_search_extractrows",
       "target": "rag_duplicate_detector_detectduplicates"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "rag_search_extractrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_extractrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "rag_search_getpagechunks",
+      "target": "src_lib_rag_tests_search_test_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "rag_search_getpagechunks",
+      "target": "src_app_api_chat_route_ts"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "chat_route_post",
+      "target": "rag_search_getpagechunks"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "target": "rag_search_getpagechunks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "rag_search_getpagechunks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_getpagechunks",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -7809,10 +8076,31 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/app/api/chat/route.ts",
-      "source_location": "L74",
+      "source_location": "L83",
       "weight": 1.0,
-      "source": "rag_search_hybridsearch",
-      "target": "chat_route_post"
+      "source": "chat_route_post",
+      "target": "rag_search_hybridsearch"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "target": "rag_search_hybridsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_hybridsearch",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -8075,6 +8363,16 @@
       "target": "rag_pipeline_runpublishpipeline"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/pipeline.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_pipeline_ts",
+      "target": "rag_pipeline_stripmarkdown",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -8095,6 +8393,36 @@
       "weight": 1.0,
       "source": "rag_pipeline_runpublishpipeline",
       "target": "publish_route_post"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/pipeline.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_pipeline_ts",
+      "target": "rag_pipeline_runpublishpipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_rag_tests_search_test_ts",
+      "target": "tests_search_test_sqltext"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "tests_search_test_sqltext",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9277,6 +9605,16 @@
       "confidence_score": 1.0,
       "source": "src_app_api_chat_route_ts",
       "target": "chat_route_post"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "target": "chat_route_post",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",

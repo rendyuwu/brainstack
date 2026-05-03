@@ -1,43 +1,41 @@
-# Graph Report - .  (2026-05-03)
+# Graph Report - brainstack  (2026-05-03)
 
 ## Corpus Check
-- 158 files · ~80,000 words
+- 143 files · ~65,660 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 378 nodes · 620 edges · 28 communities detected
-- Extraction: 75% EXTRACTED · 25% INFERRED · 0% AMBIGUOUS · INFERRED: 155 edges (avg confidence: 0.81)
-- Token cost: 36,802 input · 0 output
+- 381 nodes · 626 edges · 26 communities detected
+- Extraction: 75% EXTRACTED · 25% INFERRED · 0% AMBIGUOUS · INFERRED: 156 edges (avg confidence: 0.81)
+- Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- [[_COMMUNITY_API Routes & Provider CRUD|API Routes & Provider CRUD]]
-- [[_COMMUNITY_UI Components & Chat|UI Components & Chat]]
-- [[_COMMUNITY_Public Pages & MDX|Public Pages & MDX]]
-- [[_COMMUNITY_Project Documentation|Project Documentation]]
-- [[_COMMUNITY_AI Chat & Fallback|AI Chat & Fallback]]
-- [[_COMMUNITY_AI Provider Discovery|AI Provider Discovery]]
-- [[_COMMUNITY_RAG Search & Reranker|RAG Search & Reranker]]
-- [[_COMMUNITY_Admin Provider Management|Admin Provider Management]]
-- [[_COMMUNITY_Database Migrations (Core)|Database Migrations (Core)]]
-- [[_COMMUNITY_Content Data Model|Content Data Model]]
-- [[_COMMUNITY_Pages API & Slugify|Pages API & Slugify]]
-- [[_COMMUNITY_RAG Chunker|RAG Chunker]]
-- [[_COMMUNITY_Seed Script|Seed Script]]
-- [[_COMMUNITY_Editor AI Assist|Editor AI Assist]]
-- [[_COMMUNITY_Middleware & Auth|Middleware & Auth]]
-- [[_COMMUNITY_Docker Infrastructure|Docker Infrastructure]]
-- [[_COMMUNITY_MDX Heading Components|MDX Heading Components]]
-- [[_COMMUNITY_Article TOC|Article TOC]]
-- [[_COMMUNITY_ESLint Config|ESLint Config]]
-- [[_COMMUNITY_PNPM Workspace|PNPM Workspace]]
-- [[_COMMUNITY_Window Icon|Window Icon]]
-- [[_COMMUNITY_Vercel Icon|Vercel Icon]]
-- [[_COMMUNITY_File Icon|File Icon]]
-- [[_COMMUNITY_Next.js Icon|Next.js Icon]]
-- [[_COMMUNITY_Globe Icon|Globe Icon]]
-- [[_COMMUNITY_DB Migrations (Enum)|DB Migrations (Enum)]]
-- [[_COMMUNITY_DB Migrations (Admin)|DB Migrations (Admin)]]
-- [[_COMMUNITY_Init DB Extensions|Init DB Extensions]]
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 68|Community 68]]
+- [[_COMMUNITY_Community 69|Community 69]]
+- [[_COMMUNITY_Community 70|Community 70]]
+- [[_COMMUNITY_Community 71|Community 71]]
+- [[_COMMUNITY_Community 72|Community 72]]
+- [[_COMMUNITY_Community 73|Community 73]]
+- [[_COMMUNITY_Community 74|Community 74]]
+- [[_COMMUNITY_Community 75|Community 75]]
+- [[_COMMUNITY_Community 76|Community 76]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `requireAdmin()` - 42 edges
@@ -70,156 +68,146 @@
 
 ## Communities
 
-### Community 0 - "API Routes & Provider CRUD"
-Cohesion: 0.12
-Nodes (31): deleteProvider(), getProviders(), rewriteContent(), DELETE(), GET(), POST(), POST(), POST() (+23 more)
+### Community 0 - "Community 0"
+Cohesion: 0.13
+Nodes (29): addManualModel(), deleteProvider(), getProviders(), testModel(), rewriteContent(), DELETE(), GET(), POST() (+21 more)
 
-### Community 1 - "UI Components & Chat"
+### Community 1 - "Community 1"
 Cohesion: 0.06
 Nodes (9): Icon(), PublicShell(), SidebarToggle(), ThemeProvider(), useTheme(), useChat(), useKeyboardShortcuts(), applyAppearanceCss() (+1 more)
 
-### Community 2 - "Public Pages & MDX"
+### Community 2 - "Community 2"
 Cohesion: 0.13
 Nodes (19): sitemap(), BlogPage(), CheatsheetsPage(), JsonLd(), Tag(), DiscoverPage(), estimateReadTime(), extractHeadings() (+11 more)
 
-### Community 3 - "Project Documentation"
+### Community 3 - "Community 3"
+Cohesion: 0.15
+Nodes (22): createAIClient(), decryptApiKey(), findChatCandidates(), createProvider(), decryptApiKey(), detectCapabilities(), discoverModels(), getProvider() (+14 more)
+
+### Community 4 - "Community 4"
+Cohesion: 0.11
+Nodes (19): generateDraft(), chatWithFallback(), logAIUsage(), POST(), contentSnippet(), checkRateLimit(), getIP(), detectDuplicates() (+11 more)
+
+### Community 5 - "Community 5"
 Cohesion: 0.11
 Nodes (27): BookStack, BrainStack Platform, Graphify knowledge graph integration, Contributing Guide, Spec Format (Caveman Encoding), Product Research and Vision, Admin-only access model (single role), API routes (pages, search, chat, AI, admin, auth) (+19 more)
 
-### Community 4 - "AI Chat & Fallback"
-Cohesion: 0.16
-Nodes (14): generateDraft(), chatWithFallback(), decryptApiKey(), findChatCandidates(), logAIUsage(), decrypt(), encrypt(), getEncryptionKey() (+6 more)
-
-### Community 5 - "AI Provider Discovery"
-Cohesion: 0.19
-Nodes (16): createAIClient(), addManualModel(), createProvider(), decryptApiKey(), detectCapabilities(), discoverModels(), getProvider(), rowToProviderConfig() (+8 more)
-
-### Community 6 - "RAG Search & Reranker"
-Cohesion: 0.22
-Nodes (11): detectDuplicates(), embedQuery(), bm25Score(), idf(), minMaxNormalize(), rerankBM25(), tokenize(), extractRows() (+3 more)
-
-### Community 7 - "Admin Provider Management"
+### Community 6 - "Community 6"
 Cohesion: 0.14
 Nodes (4): closeForm(), fetchEmbeddingStats(), handleEmbeddingAction(), handleSave()
 
-### Community 8 - "Database Migrations (Core)"
+### Community 7 - "Community 7"
 Cohesion: 0.14
 Nodes (15): ai_models Table, ai_providers Table, conversations Table, messages Table, users Table, ai_providers_discovery_mode_check Constraint, ai_providers_kind_check Constraint, Admin Role Default Migration (+7 more)
 
-### Community 9 - "Content Data Model"
+### Community 8 - "Community 8"
+Cohesion: 0.19
+Nodes (6): POST(), chunkMDX(), splitProse(), splitWords(), tokenCount(), runPublishPipeline()
+
+### Community 9 - "Community 9"
 Cohesion: 0.2
 Nodes (12): assets Table, chunk_embeddings Table, chunks Table, collections Table, page_relations Table, page_revisions Table, page_tags Table, pages Table (+4 more)
 
-### Community 10 - "Pages API & Slugify"
-Cohesion: 0.36
-Nodes (5): isPageStatus(), isPageType(), toSlug(), uniqueSlug(), GET()
+### Community 10 - "Community 10"
+Cohesion: 0.33
+Nodes (6): isPageStatus(), isPageType(), toSlug(), uniqueSlug(), GET(), POST()
 
-### Community 11 - "RAG Chunker"
-Cohesion: 0.38
-Nodes (3): splitProse(), splitWords(), tokenCount()
-
-### Community 12 - "Seed Script"
+### Community 11 - "Community 11"
 Cohesion: 0.7
 Nodes (4): seed(), slugify(), splitIntoChunks(), stripMdx()
 
-### Community 13 - "Editor AI Assist"
+### Community 12 - "Community 12"
 Cohesion: 0.6
 Nodes (3): handleDraft(), handleRewrite(), readStream()
 
-### Community 14 - "Middleware & Auth"
+### Community 13 - "Community 13"
 Cohesion: 0.5
 Nodes (1): middleware()
 
-### Community 17 - "Docker Infrastructure"
+### Community 16 - "Community 16"
 Cohesion: 0.67
 Nodes (2): adminExists(), POST()
 
-### Community 18 - "MDX Heading Components"
-Cohesion: 0.67
-Nodes (1): contentSnippet()
-
-### Community 19 - "Article TOC"
+### Community 17 - "Community 17"
 Cohesion: 1.0
 Nodes (3): Docker Compose Development, Docker Compose Production, DB Extensions Init
 
-### Community 32 - "ESLint Config"
+### Community 30 - "Community 30"
 Cohesion: 1.0
 Nodes (2): Tech Stack, Spec Constraints
 
-### Community 69 - "PNPM Workspace"
+### Community 68 - "Community 68"
 Cohesion: 1.0
 Nodes (1): Spec Interfaces
 
-### Community 70 - "Window Icon"
+### Community 69 - "Community 69"
 Cohesion: 1.0
 Nodes (1): Code of Conduct
 
-### Community 71 - "Vercel Icon"
+### Community 70 - "Community 70"
 Cohesion: 1.0
 Nodes (1): pnpm Workspace Config
 
-### Community 72 - "File Icon"
+### Community 71 - "Community 71"
 Cohesion: 1.0
 Nodes (1): Window Icon SVG
 
-### Community 73 - "Next.js Icon"
+### Community 72 - "Community 72"
 Cohesion: 1.0
 Nodes (1): Vercel Logo SVG
 
-### Community 74 - "Globe Icon"
+### Community 73 - "Community 73"
 Cohesion: 1.0
 Nodes (1): File Icon SVG
 
-### Community 75 - "DB Migrations (Enum)"
+### Community 74 - "Community 74"
 Cohesion: 1.0
 Nodes (1): Next.js Logo SVG
 
-### Community 76 - "DB Migrations (Admin)"
+### Community 75 - "Community 75"
 Cohesion: 1.0
 Nodes (1): Globe Icon SVG
 
-### Community 77 - "Init DB Extensions"
+### Community 76 - "Community 76"
 Cohesion: 1.0
 Nodes (1): Caveman communication style directive
 
 ## Knowledge Gaps
 - **30 isolated node(s):** `Tech Stack`, `Spec Constraints`, `Spec Interfaces`, `Spec Tasks`, `Spec Bugs` (+25 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Middleware & Auth`** (4 nodes): `middleware()`, `middleware.ts`, `middleware.test.ts`, `makeRequest()`
+- **Thin community `Community 13`** (4 nodes): `middleware()`, `middleware.ts`, `middleware.test.ts`, `makeRequest()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Docker Infrastructure`** (4 nodes): `adminExists()`, `GET()`, `POST()`, `route.ts`
+- **Thin community `Community 16`** (4 nodes): `adminExists()`, `GET()`, `POST()`, `route.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `MDX Heading Components`** (3 nodes): `contentSnippet()`, `chat-citations.test.ts`, `content-snippet.ts`
+- **Thin community `Community 30`** (2 nodes): `Tech Stack`, `Spec Constraints`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `ESLint Config`** (2 nodes): `Tech Stack`, `Spec Constraints`
+- **Thin community `Community 68`** (1 nodes): `Spec Interfaces`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `PNPM Workspace`** (1 nodes): `Spec Interfaces`
+- **Thin community `Community 69`** (1 nodes): `Code of Conduct`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Window Icon`** (1 nodes): `Code of Conduct`
+- **Thin community `Community 70`** (1 nodes): `pnpm Workspace Config`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Vercel Icon`** (1 nodes): `pnpm Workspace Config`
+- **Thin community `Community 71`** (1 nodes): `Window Icon SVG`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `File Icon`** (1 nodes): `Window Icon SVG`
+- **Thin community `Community 72`** (1 nodes): `Vercel Logo SVG`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Next.js Icon`** (1 nodes): `Vercel Logo SVG`
+- **Thin community `Community 73`** (1 nodes): `File Icon SVG`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Globe Icon`** (1 nodes): `File Icon SVG`
+- **Thin community `Community 74`** (1 nodes): `Next.js Logo SVG`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `DB Migrations (Enum)`** (1 nodes): `Next.js Logo SVG`
+- **Thin community `Community 75`** (1 nodes): `Globe Icon SVG`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `DB Migrations (Admin)`** (1 nodes): `Globe Icon SVG`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Init DB Extensions`** (1 nodes): `Caveman communication style directive`
+- **Thin community `Community 76`** (1 nodes): `Caveman communication style directive`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Icon()` connect `UI Components & Chat` to `Public Pages & MDX`?**
+- **Why does `Icon()` connect `Community 1` to `Community 2`?**
   _High betweenness centrality (0.107) - this node is a cross-community bridge._
-- **Why does `requireAdmin()` connect `API Routes & Provider CRUD` to `Pages API & Slugify`, `AI Provider Discovery`?**
+- **Why does `requireAdmin()` connect `Community 0` to `Community 8`, `Community 10`, `Community 3`, `Community 4`?**
   _High betweenness centrality (0.077) - this node is a cross-community bridge._
-- **Why does `unauthorizedResponse()` connect `API Routes & Provider CRUD` to `Pages API & Slugify`, `AI Provider Discovery`?**
+- **Why does `unauthorizedResponse()` connect `Community 0` to `Community 8`, `Community 10`, `Community 3`, `Community 4`?**
   _High betweenness centrality (0.074) - this node is a cross-community bridge._
 - **Are the 23 inferred relationships involving `requireAdmin()` (e.g. with `PATCH()` and `POST()`) actually correct?**
   _`requireAdmin()` has 23 INFERRED edges - model-reasoned connections that need verification._

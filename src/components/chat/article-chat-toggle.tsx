@@ -16,6 +16,8 @@ export function ArticleChatToggle({ pageId }: ArticleChatToggleProps) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
+          position: 'relative',
+          zIndex: 101,
           padding: '5px 12px',
           borderRadius: 6,
           background: isOpen ? 'var(--teal-bg)' : 'var(--bg-2)',

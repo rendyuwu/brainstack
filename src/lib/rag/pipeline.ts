@@ -38,7 +38,7 @@ export async function runPublishPipeline(
 
   // 3. Filter and prepare chunk values
   const chunkValues = mdxChunks
-    .map((chunk) => {
+    .map((chunk, chunkIndex) => {
       const plainText = stripMarkdown(chunk.content);
       if (!plainText.trim()) return null;
       return {
@@ -46,6 +46,7 @@ export async function runPublishPipeline(
         revisionId,
         anchorId: chunk.anchorId,
         headingPath: chunk.headingPath,
+        chunkIndex,
         content: chunk.content,
         contentType: chunk.contentType,
         fts: sql`to_tsvector('english', ${plainText})`,

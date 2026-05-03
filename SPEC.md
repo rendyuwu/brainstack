@@ -168,6 +168,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V53: ∀ MDX render → `next-mdx-remote` output sanitized against `<script>`, event handlers, dangerous raw HTML, and executable `javascript:`/`data:` URLs before rendering; because `script-src` allows `'unsafe-inline'` per §V.46 tradeoff, CSP is not relied on for MDX XSS mitigation; CSP `frame-ancestors 'none'` + `X-Frame-Options: DENY` provide clickjacking defense only
 - V54: `getProviders()` ! JOIN or filter models by needed provider IDs; ⊥ load entire `ai_models` table
 - V55: design system ! use CSS modules | CSS custom properties for layout; ⊥ inline `style={{}}` as primary layout mechanism; hover/focus/responsive states ! work
+- V56: chat `scopeType === 'page'` ! load all published chunks for `scopeId` directly in persisted document order; ⊥ relevance-gated hybrid search; generic/stop-word query ! still provide page context when chunks exist
 
 ## §T — Tasks
 
@@ -216,6 +217,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T41 | ✓ | optimize getProviders() query — JOIN models by provider IDs; ⊥ load entire `ai_models` table into memory; filter at DB level | V54 |
 | T42a | ✓ | migrate layout component inline styles to CSS modules (top-nav, sidebar, sidebar-toggle, sidebar-tree, editor-layout) | V55 |
 | T42b | . | migrate remaining component inline styles to CSS modules — 192 inline `style={{}}` remain across non-layout components | V55 |
+| T43 | ✓ | fix issue #24 — add persisted chunk order, direct page-scope chunk loader, route branch, regression test for generic "Ask this post" query | V16,V17,V18,V56,I.api |
 
 ## §B — Bugs
 
@@ -237,3 +239,4 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | B14 | 2026-04-27 | embedding model no fallback — `findEmbeddingProvider()` picked first DB model; paywalled models cause silent failure | refactor `embedder.ts` with `findEmbeddingCandidates()` + sequential fallback loop; same pattern as chat fallback | fixed |
 | B15 | 2026-04-27 | chat API returns `"Error: Validation failed"` 400 — `conversationId: null` sent by client; Zod `.uuid().optional()` rejects null | make `conversationId` `.nullable().optional()` in schema; client omits null fields; better error display in chat UI | fixed |
 | B16 | 2026-04-29 | V46/V53 drift — CSP `script-src 'unsafe-inline' 'unsafe-eval'` contradicts spec "block inline scripts"; T42 marked ✓ but 192 inline styles remain | amend V46+V53 to document CSP tradeoff (Next.js + next-mdx-remote require unsafe-inline/eval); split T42 → T42a (done) + T42b (pending) | fixed |
+| B17 | 2026-05-03 | issue #24 — page-scoped chat used hybrid search relevance gate; generic stop-word query → 0 chunks → `"No relevant context was found"` | add V56; build T43 | open |

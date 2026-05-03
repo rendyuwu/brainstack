@@ -3457,9 +3457,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "spec_brainstack",
       "community": 3,
-      "norm_label": "brainstack platform spec"
+      "norm_label": "brainstack platform spec",
+      "id": "spec_brainstack"
     },
     {
       "label": "Next.js 16 App Router + React 19 + TypeScript",
@@ -3471,9 +3471,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Core framework constraint \u2014 server-side rendering with App Router pattern",
-      "id": "spec_nextjs_app_router",
       "community": 3,
-      "norm_label": "next.js 16 app router + react 19 + typescript"
+      "norm_label": "next.js 16 app router + react 19 + typescript",
+      "id": "spec_nextjs_app_router"
     },
     {
       "label": "PostgreSQL 16 + pgvector (1536-dim embeddings)",
@@ -3485,9 +3485,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Vector database for RAG semantic search; embedding dimension fixed at 1536",
-      "id": "spec_postgresql_pgvector",
       "community": 3,
-      "norm_label": "postgresql 16 + pgvector (1536-dim embeddings)"
+      "norm_label": "postgresql 16 + pgvector (1536-dim embeddings)",
+      "id": "spec_postgresql_pgvector"
     },
     {
       "label": "Drizzle ORM + drizzle-kit migrations",
@@ -3498,9 +3498,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "spec_drizzle_orm",
       "community": 3,
-      "norm_label": "drizzle orm + drizzle-kit migrations"
+      "norm_label": "drizzle orm + drizzle-kit migrations",
+      "id": "spec_drizzle_orm"
     },
     {
       "label": "Auth.js v5 (credentials, JWT, bcryptjs, admin-only)",
@@ -3512,9 +3512,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Credentials provider, JWT sessions, bcryptjs hashing, admin-only write access",
-      "id": "spec_authjs_v5",
       "community": 3,
-      "norm_label": "auth.js v5 (credentials, jwt, bcryptjs, admin-only)"
+      "norm_label": "auth.js v5 (credentials, jwt, bcryptjs, admin-only)",
+      "id": "spec_authjs_v5"
     },
     {
       "label": "OpenAI SDK as client for all providers",
@@ -3526,9 +3526,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Custom baseURL enables provider-neutral internal format; Chat Completions required, Responses API optional",
-      "id": "spec_openai_sdk",
       "community": 3,
-      "norm_label": "openai sdk as client for all providers"
+      "norm_label": "openai sdk as client for all providers",
+      "id": "spec_openai_sdk"
     },
     {
       "label": "Custom CSS design system (IBM Plex, amber/teal, NO Tailwind)",
@@ -3540,9 +3540,9 @@
       "author": null,
       "contributor": null,
       "rationale": "V55: CSS modules / CSS custom properties for layout; no inline style={{}} as primary mechanism",
-      "id": "spec_css_design_system",
       "community": 3,
-      "norm_label": "custom css design system (ibm plex, amber/teal, no tailwind)"
+      "norm_label": "custom css design system (ibm plex, amber/teal, no tailwind)",
+      "id": "spec_css_design_system"
     },
     {
       "label": "MDX stored in DB, rendered via next-mdx-remote",
@@ -3554,9 +3554,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Server-side MDX rendering; sanitized against XSS per V53",
-      "id": "spec_mdx_rendering",
       "community": 3,
-      "norm_label": "mdx stored in db, rendered via next-mdx-remote"
+      "norm_label": "mdx stored in db, rendered via next-mdx-remote",
+      "id": "spec_mdx_rendering"
     },
     {
       "label": "Streaming chat completions (text/event-stream)",
@@ -3568,9 +3568,9 @@
       "author": null,
       "contributor": null,
       "rationale": "All AI endpoints stream: draft, rewrite, chat (V20)",
-      "id": "spec_streaming",
       "community": 3,
-      "norm_label": "streaming chat completions (text/event-stream)"
+      "norm_label": "streaming chat completions (text/event-stream)",
+      "id": "spec_streaming"
     },
     {
       "label": "Provider registry (openai_compatible, openrouter, litellm_proxy)",
@@ -3582,9 +3582,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Provider kinds: openai_compatible, openrouter, litellm_proxy. Discovery modes: v1-models, openrouter-models, litellm-model-info, static. Only enabled providers used.",
-      "id": "spec_provider_registry",
       "community": 3,
-      "norm_label": "provider registry (openai_compatible, openrouter, litellm_proxy)"
+      "norm_label": "provider registry (openai_compatible, openrouter, litellm_proxy)",
+      "id": "spec_provider_registry"
     },
     {
       "label": "Hybrid search (lexical FTS + semantic pgvector + RRF K=60)",
@@ -3596,9 +3596,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Lexical (FTS tsvector) + semantic (pgvector cosine) + reciprocal rank fusion (K=60); BM25 reranking layer (T15)",
-      "id": "spec_hybrid_search",
       "community": 3,
-      "norm_label": "hybrid search (lexical fts + semantic pgvector + rrf k=60)"
+      "norm_label": "hybrid search (lexical fts + semantic pgvector + rrf k=60)",
+      "id": "spec_hybrid_search"
     },
     {
       "label": "Publish \u2192 chunk \u2192 embed pipeline",
@@ -3610,9 +3610,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Publish creates page_revision + triggers async chunk+embed. Chunks split by H1-H3 headings then token window; code blocks separate. Existing chunks deleted before re-chunking. Embedding status tracked per page (pending/complete/failed).",
-      "id": "spec_publish_pipeline",
       "community": 3,
-      "norm_label": "publish \u2192 chunk \u2192 embed pipeline"
+      "norm_label": "publish \u2192 chunk \u2192 embed pipeline",
+      "id": "spec_publish_pipeline"
     },
     {
       "label": "RAG chat with citations (multi-turn, streaming, scopes)",
@@ -3624,9 +3624,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Chat scopes: page, collection, site. Citations include title, slug, anchor, snippet. Must include citations or state insufficient evidence. Conversation state in app DB.",
-      "id": "spec_rag_chat",
       "community": 3,
-      "norm_label": "rag chat with citations (multi-turn, streaming, scopes)"
+      "norm_label": "rag chat with citations (multi-turn, streaming, scopes)",
+      "id": "spec_rag_chat"
     },
     {
       "label": "Security invariants (encryption, CSRF, CSP, headers)",
@@ -3638,9 +3638,9 @@
       "author": null,
       "contributor": null,
       "rationale": "AES-256-GCM key encryption, CSRF via SameSite+Origin, CSP with unsafe-inline/eval tradeoff for Next.js, MDX XSS sanitization, rate limiting, UUID validation",
-      "id": "spec_security",
       "community": 3,
-      "norm_label": "security invariants (encryption, csrf, csp, headers)"
+      "norm_label": "security invariants (encryption, csrf, csp, headers)",
+      "id": "spec_security"
     },
     {
       "label": "Admin-only access model (single role)",
@@ -3652,9 +3652,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Only admin role exists; editor role removed. All write APIs require admin. Unauthenticated = read-only published content only. AI features admin-only.",
-      "id": "spec_admin_only_auth",
       "community": 3,
-      "norm_label": "admin-only access model (single role)"
+      "norm_label": "admin-only access model (single role)",
+      "id": "spec_admin_only_auth"
     },
     {
       "label": "Noa (AI authoring assistant)",
@@ -3666,9 +3666,9 @@
       "author": null,
       "contributor": null,
       "rationale": "AI-assisted authoring capability; generates drafts from ideas \u00b1 images, rewrites for style",
-      "id": "spec_noa",
       "community": 3,
-      "norm_label": "noa (ai authoring assistant)"
+      "norm_label": "noa (ai authoring assistant)",
+      "id": "spec_noa"
     },
     {
       "label": "Public routes (blog, stack, cheatsheets, discover)",
@@ -3679,9 +3679,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "spec_public_routes",
       "community": 3,
-      "norm_label": "public routes (blog, stack, cheatsheets, discover)"
+      "norm_label": "public routes (blog, stack, cheatsheets, discover)",
+      "id": "spec_public_routes"
     },
     {
       "label": "Editor routes (admin-only article management)",
@@ -3692,9 +3692,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "spec_editor_routes",
       "community": 3,
-      "norm_label": "editor routes (admin-only article management)"
+      "norm_label": "editor routes (admin-only article management)",
+      "id": "spec_editor_routes"
     },
     {
       "label": "API routes (pages, search, chat, AI, admin, auth)",
@@ -3705,9 +3705,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "spec_api_routes",
       "community": 3,
-      "norm_label": "api routes (pages, search, chat, ai, admin, auth)"
+      "norm_label": "api routes (pages, search, chat, ai, admin, auth)",
+      "id": "spec_api_routes"
     },
     {
       "label": "Content model (page types: tutorial, tip, cheatsheet, note)",
@@ -3719,9 +3719,9 @@
       "author": null,
       "contributor": null,
       "rationale": "Page slug unique (DB constraint). Status: draft/published/archived. Types: tutorial, tip, cheatsheet, note. Only published in public views.",
-      "id": "spec_content_model",
       "community": 3,
-      "norm_label": "content model (page types: tutorial, tip, cheatsheet, note)"
+      "norm_label": "content model (page types: tutorial, tip, cheatsheet, note)",
+      "id": "spec_content_model"
     },
     {
       "label": "Caveman communication style directive",
@@ -3732,9 +3732,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "claude_communication_style",
       "community": 77,
-      "norm_label": "caveman communication style directive"
+      "norm_label": "caveman communication style directive",
+      "id": "claude_communication_style"
     },
     {
       "label": "Graphify knowledge graph integration",
@@ -3745,9 +3745,9 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "id": "claude_graphify_integration",
       "community": 3,
-      "norm_label": "graphify knowledge graph integration"
+      "norm_label": "graphify knowledge graph integration",
+      "id": "claude_graphify_integration"
     }
   ],
   "links": [

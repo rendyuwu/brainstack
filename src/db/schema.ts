@@ -166,7 +166,7 @@ export const pageTags = pgTable("page_tags", {
 	tag: text().notNull(),
 }, (table) => [
 	index("page_tags_tag_idx").using("btree", table.tag.asc().nullsLast().op("text_ops")),
-	uniqueIndex("page_tags_unique_idx").using("btree", table.pageId.asc().nullsLast().op("text_ops"), table.tag.asc().nullsLast().op("text_ops")),
+	uniqueIndex("page_tags_unique_idx").using("btree", table.pageId.asc().nullsLast().op("uuid_ops"), table.tag.asc().nullsLast().op("text_ops")),
 	foreignKey({
 			columns: [table.pageId],
 			foreignColumns: [pages.id],
@@ -185,7 +185,7 @@ export const aiModels = pgTable("ai_models", {
 	supportsVision: boolean("supports_vision").default(false).notNull(),
 	contextLength: integer("context_length"),
 }, (table) => [
-	uniqueIndex("ai_models_provider_model_idx").using("btree", table.providerId.asc().nullsLast().op("text_ops"), table.modelId.asc().nullsLast().op("text_ops")),
+	uniqueIndex("ai_models_provider_model_idx").using("btree", table.providerId.asc().nullsLast().op("uuid_ops"), table.modelId.asc().nullsLast().op("text_ops")),
 	foreignKey({
 			columns: [table.providerId],
 			foreignColumns: [aiProviders.id],

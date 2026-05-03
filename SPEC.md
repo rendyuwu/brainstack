@@ -219,7 +219,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T42a | ✓ | migrate layout component inline styles to CSS modules (top-nav, sidebar, sidebar-toggle, sidebar-tree, editor-layout) | V55 |
 | T42b | ~ | migrate remaining component inline styles to CSS modules — 192 inline `style={{}}` remain; include mobile responsive fixes from issue #27 (homepage grid, admin/settings/editor/ask padding, provider buttons wrap, settings tabs, admin nav, editor bar, usage stat cards) | V55,V57 |
 | T43 | ✓ | fix issue #24 — add persisted chunk order, direct page-scope chunk loader, route branch, regression test for generic "Ask this post" query | V16,V17,V18,V56,I.api |
-| T44 | ~ | fix sidebar toggle visibility on mobile — add `@media (max-width: 768px) { .toggleBtn { display: none } }` to `sidebar-toggle.module.css`; sidebar already hidden via `globals.css` but toggle orphaned | V57 |
+| T44 | ✓ | fix sidebar toggle visibility on mobile — add `@media (max-width: 768px) { .toggleBtn { display: none } }` to `sidebar-toggle.module.css`; sidebar already hidden via `globals.css` but toggle orphaned | V57 |
 | T45 | . | fix ask/chat virtual keyboard — replace `100vh` w/ `dvh` units + `env(safe-area-inset-bottom)` in `ask-client.tsx` + public layout | V57 |
 
 ## §B — Bugs

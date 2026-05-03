@@ -1,19 +1,10 @@
 import Link from 'next/link';
+import styles from './admin-layout.module.css';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <nav
-        style={{
-          height: 52,
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 20px',
-          borderBottom: '1px solid var(--bd-default)',
-          background: 'var(--bg-1)',
-          gap: 12,
-        }}
-      >
+    <div className={styles.shell}>
+      <nav className={styles.nav}>
         <Link
           href="/"
           style={{
@@ -39,7 +30,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         >
           Admin
         </span>
-        <div style={{ flex: 1 }} />
+        <div className={styles.spacer} />
         <Link
           href="/admin/ai/providers"
           style={{
@@ -65,7 +56,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           AI Usage
         </Link>
       </nav>
-      <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
+      <div className={styles.content}>{children}</div>
     </div>
   );
 }

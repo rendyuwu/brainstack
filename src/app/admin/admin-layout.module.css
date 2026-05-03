@@ -1,0 +1,42 @@
+/* ── Admin Layout ─────────────────────────────── */
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--bd-default);
+  background: var(--bg-1);
+  gap: 12px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 768px) {
+  .nav {
+    height: auto;
+    min-height: 52px;
+    padding: 8px 16px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .spacer {
+    display: none;
+  }
+}

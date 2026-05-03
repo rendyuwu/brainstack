@@ -4,6 +4,7 @@ import { Icon } from '@/components/icons';
 import { Tag } from '@/components/tag';
 import { getPublishedPages, getCollections, getAllTags } from '@/lib/pages';
 import { estimateReadTime } from '@/lib/mdx';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Knowledge Base',
@@ -45,8 +46,8 @@ export default async function HomePage() {
   const recentPages = publishedPages.slice(0, 6);
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '36px 32px' }}>
+    <div className={styles.pageScroller}>
+      <div className={styles.pageContent}>
         {/* Page header */}
         <div style={{ marginBottom: 40 }}>
           <h1
@@ -103,14 +104,7 @@ export default async function HomePage() {
         </div>
 
         {/* Two-column layout */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 300px',
-            gap: 40,
-            alignItems: 'start',
-          }}
-        >
+        <div className={styles.grid}>
           {/* Recent articles */}
           <div>
             <div

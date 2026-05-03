@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { Icon } from '@/components/icons';
 import { ChatMessages } from '@/components/chat/chat-messages';
+import styles from './ask-client.module.css';
 import { useChat } from '@/hooks/use-chat';
 
 interface AskPageClientProps {
@@ -26,12 +27,7 @@ export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
       {/* Messages */}
       <div
         ref={scrollRef}
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '24px 32px',
-          minHeight: 0,
-        }}
+        className={styles.messagesArea}
       >
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
         {messages.length === 0 && (
@@ -114,13 +110,7 @@ export function AskPageClient({ suggestedQuestions }: AskPageClientProps) {
       </div>
 
       {/* Input */}
-      <div
-        style={{
-          borderTop: '1px solid var(--bd-default)',
-          padding: '14px 32px',
-          background: 'var(--bg-2)',
-        }}
-      >
+      <div className={styles.inputBar}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', maxWidth: 700, margin: '0 auto' }}>
           <textarea
             ref={inputRef}

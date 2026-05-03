@@ -169,6 +169,7 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 - V54: `getProviders()` ! JOIN or filter models by needed provider IDs; ⊥ load entire `ai_models` table
 - V55: design system ! use CSS modules | CSS custom properties for layout; ⊥ inline `style={{}}` as primary layout mechanism; hover/focus/responsive states ! work
 - V56: chat `scopeType === 'page'` ! load all published chunks for `scopeId` directly in persisted document order; ⊥ relevance-gated hybrid search; generic/stop-word query ! still provide page context when chunks exist
+- V57: ∀ page layout → ! function at 375px viewport; grid/flex containers ! collapse to single column ≤ 768px; page padding ! ≤ 16px below 640px; interactive elements ! not overflow container; sidebar toggle ! hidden when sidebar force-hidden
 
 ## §T — Tasks
 
@@ -216,8 +217,10 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | T40 | ✓ | embedding reset confirmation — add chunk count display; require explicit confirmation param; add UI confirmation dialog | V52,I.api,I.admin |
 | T41 | ✓ | optimize getProviders() query — JOIN models by provider IDs; ⊥ load entire `ai_models` table into memory; filter at DB level | V54 |
 | T42a | ✓ | migrate layout component inline styles to CSS modules (top-nav, sidebar, sidebar-toggle, sidebar-tree, editor-layout) | V55 |
-| T42b | . | migrate remaining component inline styles to CSS modules — 192 inline `style={{}}` remain across non-layout components | V55 |
+| T42b | ~ | migrate remaining component inline styles to CSS modules — 192 inline `style={{}}` remain; include mobile responsive fixes from issue #27 (homepage grid, admin/settings/editor/ask padding, provider buttons wrap, settings tabs, admin nav, editor bar, usage stat cards) | V55,V57 |
 | T43 | ✓ | fix issue #24 — add persisted chunk order, direct page-scope chunk loader, route branch, regression test for generic "Ask this post" query | V16,V17,V18,V56,I.api |
+| T44 | ~ | fix sidebar toggle visibility on mobile — add `@media (max-width: 768px) { .toggleBtn { display: none } }` to `sidebar-toggle.module.css`; sidebar already hidden via `globals.css` but toggle orphaned | V57 |
+| T45 | . | fix ask/chat virtual keyboard — replace `100vh` w/ `dvh` units + `env(safe-area-inset-bottom)` in `ask-client.tsx` + public layout | V57 |
 
 ## §B — Bugs
 
@@ -240,3 +243,4 @@ Knowledge-first IT publishing platform. One canonical page → 3 views (article,
 | B15 | 2026-04-27 | chat API returns `"Error: Validation failed"` 400 — `conversationId: null` sent by client; Zod `.uuid().optional()` rejects null | make `conversationId` `.nullable().optional()` in schema; client omits null fields; better error display in chat UI | fixed |
 | B16 | 2026-04-29 | V46/V53 drift — CSP `script-src 'unsafe-inline' 'unsafe-eval'` contradicts spec "block inline scripts"; T42 marked ✓ but 192 inline styles remain | amend V46+V53 to document CSP tradeoff (Next.js + next-mdx-remote require unsafe-inline/eval); split T42 → T42a (done) + T42b (pending) | fixed |
 | B17 | 2026-05-03 | issue #24 — page-scoped chat used hybrid search relevance gate; generic stop-word query → 0 chunks → `"No relevant context was found"` | add V56; build T43 | open |
+| B18 | 2026-05-03 | issue #27 — inline `style={{}}` layout ⊥ responsive; homepage grid `1fr 300px` no breakpoint; 40px padding wastes 21% mobile viewport; flex containers no wrap; sidebar toggle visible when sidebar hidden; settings tabs overflow; admin nav no collapse | V57; expand T42b scope; add T44 (sidebar toggle), T45 (dvh units) | open |

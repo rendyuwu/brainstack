@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from './page.module.css';
 
 interface PageItem {
   id: string;
@@ -60,17 +61,7 @@ export default function EditorIndexPage() {
       }}
     >
       {/* Top bar */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          padding: '14px 24px',
-          borderBottom: '1px solid var(--bd-default)',
-          background: 'var(--bg-1)',
-          flexShrink: 0,
-        }}
-      >
+      <div className={styles.topBar}>
         <h1
           style={{
             fontSize: 18,
@@ -130,13 +121,7 @@ export default function EditorIndexPage() {
       </div>
 
       {/* Article list */}
-      <div
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '16px 24px',
-        }}
-      >
+      <div className={styles.listArea}>
         {loading ? (
           <div style={{ color: 'var(--tx-3)', fontSize: 14, padding: 20, textAlign: 'center' }}>
             Loading articles...

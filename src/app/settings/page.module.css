@@ -1,0 +1,35 @@
+/* ── Settings Layout ──────────────────────────── */
+
+.pageContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 40px;
+}
+
+.tabBar {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--bd-default);
+  margin-bottom: 32px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 768px) {
+  .pageContent {
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pageContent {
+    padding: 16px 12px;
+  }
+}

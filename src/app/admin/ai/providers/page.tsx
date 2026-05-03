@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import styles from './page.module.css';
 
 /* ── Types ─────────────────────────────────────────────── */
 
@@ -539,7 +540,7 @@ export default function ProvidersPage() {
   }
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+    <div className={styles.pageContent}>
       <div style={{ maxWidth: 860, margin: '0 auto' }}>
         {/* Header */}
         <div
@@ -1075,9 +1076,7 @@ export default function ProvidersPage() {
                     </div>
 
                     {/* Actions */}
-                    <div
-                      style={{ display: 'flex', gap: 6, flexShrink: 0 }}
-                    >
+                    <div className={styles.providerActions}>
                       <button
                         onClick={() => handleTest(provider.id)}
                         disabled={ts.status === 'testing'}

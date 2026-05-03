@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Icon } from '@/components/icons';
+import styles from './page.module.css';
 import { useTheme } from '@/components/theme-provider';
 
 interface Model {
@@ -216,7 +217,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+    <div className={styles.pageContent}>
       <div style={{ maxWidth: 720, margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
           <Link
@@ -234,7 +235,7 @@ export default function SettingsPage() {
         </div>
         <p style={{ fontSize: 14, color: 'var(--tx-2)', margin: '0 0 28px', paddingLeft: 28 }}>Configure AI providers, editor preferences, and appearance.</p>
 
-        <div style={{ display: 'flex', gap: 2, borderBottom: '1px solid var(--bd-default)', marginBottom: 32 }}>
+        <div className={styles.tabBar}>
           {TABS.map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
               padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer',

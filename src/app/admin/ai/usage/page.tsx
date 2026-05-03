@@ -1,6 +1,7 @@
 import { db } from '@/db';
 import { aiUsageLogs, aiProviders } from '@/db/schema';
 import { desc, sql, eq } from 'drizzle-orm';
+import styles from './page.module.css';
 
 interface UsageRow {
   id: string;
@@ -34,13 +35,6 @@ const cardStyle: React.CSSProperties = {
   border: '1px solid var(--bd-default)',
   borderRadius: 10,
   overflow: 'hidden',
-};
-
-const statCardStyle: React.CSSProperties = {
-  ...cardStyle,
-  padding: '18px 20px',
-  flex: 1,
-  minWidth: 160,
 };
 
 const thStyle: React.CSSProperties = {
@@ -109,7 +103,7 @@ export default async function UsagePage() {
   const totalOutput = endpointStats.reduce((s, e) => s + e.totalOutput, 0);
 
   return (
-    <div style={{ flex: 1, overflowY: 'auto', padding: '32px 40px' }}>
+    <div className={styles.pageContent}>
       <div style={{ maxWidth: 960, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ marginBottom: 28 }}>
@@ -131,7 +125,7 @@ export default async function UsagePage() {
 
         {/* Summary stats */}
         <div style={{ display: 'flex', gap: 14, marginBottom: 24, flexWrap: 'wrap' }}>
-          <div style={statCardStyle}>
+          <div className={styles.statCard}>
             <div style={{ fontSize: 12, color: 'var(--tx-3)', fontWeight: 500, marginBottom: 4 }}>
               Total Calls
             </div>
@@ -139,7 +133,7 @@ export default async function UsagePage() {
               {totalCalls.toLocaleString()}
             </div>
           </div>
-          <div style={statCardStyle}>
+          <div className={styles.statCard}>
             <div style={{ fontSize: 12, color: 'var(--tx-3)', fontWeight: 500, marginBottom: 4 }}>
               Input Tokens
             </div>
@@ -147,7 +141,7 @@ export default async function UsagePage() {
               {totalInput.toLocaleString()}
             </div>
           </div>
-          <div style={statCardStyle}>
+          <div className={styles.statCard}>
             <div style={{ fontSize: 12, color: 'var(--tx-3)', fontWeight: 500, marginBottom: 4 }}>
               Output Tokens
             </div>
@@ -160,7 +154,7 @@ export default async function UsagePage() {
         {/* Breakdown tables */}
         <div style={{ display: 'flex', gap: 14, marginBottom: 24, flexWrap: 'wrap' }}>
           {/* By endpoint */}
-          <div style={{ ...cardStyle, flex: 1, minWidth: 300 }}>
+          <div className={styles.breakdownCard}>
             <div
               style={{
                 padding: '12px 18px',
@@ -217,7 +211,7 @@ export default async function UsagePage() {
           </div>
 
           {/* By provider */}
-          <div style={{ ...cardStyle, flex: 1, minWidth: 300 }}>
+          <div className={styles.breakdownCard}>
             <div
               style={{
                 padding: '12px 18px',

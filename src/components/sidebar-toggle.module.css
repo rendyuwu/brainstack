@@ -60,3 +60,16 @@
   outline: 2px solid var(--amber);
   outline-offset: 2px;
 }
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 768px) {
+  .toggleBtn {
+    display: none;
+  }
+
+  .sidebarContainer {
+    width: 0;
+    min-width: 0;
+  }
+}

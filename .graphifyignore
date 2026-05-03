@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -41,14 +39,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 test-results/
-
-# keep graph outputs, skip heavy/local-only files
-
-# optional: commit for shared extraction speed, skip to keep repo small
-graphify-out/cache/
-
-# mtime-based, invalid after git clone - always gitignore this
-graphify-out/manifest.json
-
-# local token tracking, not useful to share
-graphify-out/cost.json
+.git

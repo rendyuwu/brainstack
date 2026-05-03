@@ -54,2817 +54,2817 @@
       "file_type": "code",
       "source_file": "playwright.config.ts",
       "source_location": "L1",
-      "id": "playwright_config_ts",
-      "community": 31,
-      "norm_label": "playwright.config.ts"
+      "community": 32,
+      "norm_label": "playwright.config.ts",
+      "id": "playwright_config_ts"
     },
     {
       "label": "eslint.config.mjs",
       "file_type": "code",
       "source_file": "eslint.config.mjs",
       "source_location": "L1",
-      "id": "eslint_config_mjs",
-      "community": 32,
-      "norm_label": "eslint.config.mjs"
+      "community": 33,
+      "norm_label": "eslint.config.mjs",
+      "id": "eslint_config_mjs"
     },
     {
       "label": "drizzle.config.ts",
       "file_type": "code",
       "source_file": "drizzle.config.ts",
       "source_location": "L1",
-      "id": "drizzle_config_ts",
-      "community": 33,
-      "norm_label": "drizzle.config.ts"
+      "community": 34,
+      "norm_label": "drizzle.config.ts",
+      "id": "drizzle_config_ts"
     },
     {
       "label": "vitest.config.ts",
       "file_type": "code",
       "source_file": "vitest.config.ts",
       "source_location": "L1",
-      "id": "vitest_config_ts",
-      "community": 34,
-      "norm_label": "vitest.config.ts"
+      "community": 35,
+      "norm_label": "vitest.config.ts",
+      "id": "vitest_config_ts"
     },
     {
       "label": "next.config.ts",
       "file_type": "code",
       "source_file": "next.config.ts",
       "source_location": "L1",
-      "id": "next_config_ts",
-      "community": 35,
-      "norm_label": "next.config.ts"
+      "community": 36,
+      "norm_label": "next.config.ts",
+      "id": "next_config_ts"
     },
     {
       "label": "seed.ts",
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L1",
-      "id": "scripts_seed_ts",
       "community": 11,
-      "norm_label": "seed.ts"
+      "norm_label": "seed.ts",
+      "id": "scripts_seed_ts"
     },
     {
       "label": "slugify()",
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L10",
-      "id": "scripts_seed_slugify",
       "community": 11,
-      "norm_label": "slugify()"
+      "norm_label": "slugify()",
+      "id": "scripts_seed_slugify"
     },
     {
       "label": "splitIntoChunks()",
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L14",
-      "id": "scripts_seed_splitintochunks",
       "community": 11,
-      "norm_label": "splitintochunks()"
+      "norm_label": "splitintochunks()",
+      "id": "scripts_seed_splitintochunks"
     },
     {
       "label": "stripMdx()",
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L40",
-      "id": "scripts_seed_stripmdx",
       "community": 11,
-      "norm_label": "stripmdx()"
+      "norm_label": "stripmdx()",
+      "id": "scripts_seed_stripmdx"
     },
     {
       "label": "seed()",
       "file_type": "code",
       "source_file": "scripts/seed.ts",
       "source_location": "L1486",
-      "id": "scripts_seed_seed",
       "community": 11,
-      "norm_label": "seed()"
+      "norm_label": "seed()",
+      "id": "scripts_seed_seed"
     },
     {
       "label": "middleware.ts",
       "file_type": "code",
       "source_file": "src/middleware.ts",
       "source_location": "L1",
-      "id": "src_middleware_ts",
-      "community": 13,
-      "norm_label": "middleware.ts"
+      "community": 14,
+      "norm_label": "middleware.ts",
+      "id": "src_middleware_ts"
     },
     {
       "label": "middleware()",
       "file_type": "code",
       "source_file": "src/middleware.ts",
       "source_location": "L14",
-      "id": "src_middleware_middleware",
-      "community": 13,
-      "norm_label": "middleware()"
+      "community": 14,
+      "norm_label": "middleware()",
+      "id": "src_middleware_middleware"
     },
     {
       "label": "crypto.ts",
       "file_type": "code",
       "source_file": "src/lib/crypto.ts",
       "source_location": "L1",
-      "id": "src_lib_crypto_ts",
-      "community": 3,
-      "norm_label": "crypto.ts"
+      "community": 4,
+      "norm_label": "crypto.ts",
+      "id": "src_lib_crypto_ts"
     },
     {
       "label": "getEncryptionKey()",
       "file_type": "code",
       "source_file": "src/lib/crypto.ts",
       "source_location": "L13",
-      "id": "lib_crypto_getencryptionkey",
-      "community": 3,
-      "norm_label": "getencryptionkey()"
+      "community": 4,
+      "norm_label": "getencryptionkey()",
+      "id": "lib_crypto_getencryptionkey"
     },
     {
       "label": "isEncrypted()",
       "file_type": "code",
       "source_file": "src/lib/crypto.ts",
       "source_location": "L30",
-      "id": "lib_crypto_isencrypted",
-      "community": 3,
-      "norm_label": "isencrypted()"
+      "community": 4,
+      "norm_label": "isencrypted()",
+      "id": "lib_crypto_isencrypted"
     },
     {
       "label": "encrypt()",
       "file_type": "code",
       "source_file": "src/lib/crypto.ts",
       "source_location": "L44",
-      "id": "lib_crypto_encrypt",
-      "community": 3,
-      "norm_label": "encrypt()"
+      "community": 4,
+      "norm_label": "encrypt()",
+      "id": "lib_crypto_encrypt"
     },
     {
       "label": "decrypt()",
       "file_type": "code",
       "source_file": "src/lib/crypto.ts",
       "source_location": "L58",
-      "id": "lib_crypto_decrypt",
-      "community": 3,
-      "norm_label": "decrypt()"
+      "community": 4,
+      "norm_label": "decrypt()",
+      "id": "lib_crypto_decrypt"
     },
     {
       "label": "maskKey()",
       "file_type": "code",
       "source_file": "src/lib/crypto.ts",
       "source_location": "L83",
-      "id": "lib_crypto_maskkey",
       "community": 0,
-      "norm_label": "maskkey()"
+      "norm_label": "maskkey()",
+      "id": "lib_crypto_maskkey"
     },
     {
       "label": "content-snippet.ts",
       "file_type": "code",
       "source_file": "src/lib/content-snippet.ts",
       "source_location": "L1",
-      "id": "src_lib_content_snippet_ts",
-      "community": 4,
-      "norm_label": "content-snippet.ts"
+      "community": 3,
+      "norm_label": "content-snippet.ts",
+      "id": "src_lib_content_snippet_ts"
     },
     {
       "label": "contentSnippet()",
       "file_type": "code",
       "source_file": "src/lib/content-snippet.ts",
       "source_location": "L1",
-      "id": "lib_content_snippet_contentsnippet",
-      "community": 4,
-      "norm_label": "contentsnippet()"
+      "community": 3,
+      "norm_label": "contentsnippet()",
+      "id": "lib_content_snippet_contentsnippet"
     },
     {
       "label": "slugify.ts",
       "file_type": "code",
       "source_file": "src/lib/slugify.ts",
       "source_location": "L1",
-      "id": "src_lib_slugify_ts",
       "community": 10,
-      "norm_label": "slugify.ts"
+      "norm_label": "slugify.ts",
+      "id": "src_lib_slugify_ts"
     },
     {
       "label": "toSlug()",
       "file_type": "code",
       "source_file": "src/lib/slugify.ts",
       "source_location": "L5",
-      "id": "lib_slugify_toslug",
       "community": 10,
-      "norm_label": "toslug()"
+      "norm_label": "toslug()",
+      "id": "lib_slugify_toslug"
     },
     {
       "label": "uniqueSlug()",
       "file_type": "code",
       "source_file": "src/lib/slugify.ts",
       "source_location": "L26",
-      "id": "lib_slugify_uniqueslug",
       "community": 10,
-      "norm_label": "uniqueslug()"
+      "norm_label": "uniqueslug()",
+      "id": "lib_slugify_uniqueslug"
     },
     {
       "label": "auth.ts",
       "file_type": "code",
       "source_file": "src/lib/auth.ts",
       "source_location": "L1",
-      "id": "src_lib_auth_ts",
       "community": 0,
-      "norm_label": "auth.ts"
+      "norm_label": "auth.ts",
+      "id": "src_lib_auth_ts"
     },
     {
       "label": "requireAdmin()",
       "file_type": "code",
       "source_file": "src/lib/auth.ts",
       "source_location": "L76",
-      "id": "lib_auth_requireadmin",
       "community": 0,
-      "norm_label": "requireadmin()"
+      "norm_label": "requireadmin()",
+      "id": "lib_auth_requireadmin"
     },
     {
       "label": "unauthorizedResponse()",
       "file_type": "code",
       "source_file": "src/lib/auth.ts",
       "source_location": "L88",
-      "id": "lib_auth_unauthorizedresponse",
       "community": 0,
-      "norm_label": "unauthorizedresponse()"
+      "norm_label": "unauthorizedresponse()",
+      "id": "lib_auth_unauthorizedresponse"
     },
     {
       "label": "pages.ts",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L1",
-      "id": "src_lib_pages_ts",
       "community": 2,
-      "norm_label": "pages.ts"
+      "norm_label": "pages.ts",
+      "id": "src_lib_pages_ts"
     },
     {
       "label": "isPageStatus()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L11",
-      "id": "lib_pages_ispagestatus",
       "community": 10,
-      "norm_label": "ispagestatus()"
+      "norm_label": "ispagestatus()",
+      "id": "lib_pages_ispagestatus"
     },
     {
       "label": "isPageType()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L15",
-      "id": "lib_pages_ispagetype",
       "community": 10,
-      "norm_label": "ispagetype()"
+      "norm_label": "ispagetype()",
+      "id": "lib_pages_ispagetype"
     },
     {
       "label": "getPublishedPages()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L19",
-      "id": "lib_pages_getpublishedpages",
       "community": 2,
-      "norm_label": "getpublishedpages()"
+      "norm_label": "getpublishedpages()",
+      "id": "lib_pages_getpublishedpages"
     },
     {
       "label": "getPageBySlug()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L39",
-      "id": "lib_pages_getpagebyslug",
       "community": 2,
-      "norm_label": "getpagebyslug()"
+      "norm_label": "getpagebyslug()",
+      "id": "lib_pages_getpagebyslug"
     },
     {
       "label": "getPagesByCollection()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L48",
-      "id": "lib_pages_getpagesbycollection",
       "community": 2,
-      "norm_label": "getpagesbycollection()"
+      "norm_label": "getpagesbycollection()",
+      "id": "lib_pages_getpagesbycollection"
     },
     {
       "label": "getCollections()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L69",
-      "id": "lib_pages_getcollections",
       "community": 2,
-      "norm_label": "getcollections()"
+      "norm_label": "getcollections()",
+      "id": "lib_pages_getcollections"
     },
     {
       "label": "getCollectionBySlug()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L124",
-      "id": "lib_pages_getcollectionbyslug",
       "community": 2,
-      "norm_label": "getcollectionbyslug()"
+      "norm_label": "getcollectionbyslug()",
+      "id": "lib_pages_getcollectionbyslug"
     },
     {
       "label": "getPageTags()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L141",
-      "id": "lib_pages_getpagetags",
       "community": 2,
-      "norm_label": "getpagetags()"
+      "norm_label": "getpagetags()",
+      "id": "lib_pages_getpagetags"
     },
     {
       "label": "getAllTags()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L149",
-      "id": "lib_pages_getalltags",
       "community": 2,
-      "norm_label": "getalltags()"
+      "norm_label": "getalltags()",
+      "id": "lib_pages_getalltags"
     },
     {
       "label": "searchPages()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L159",
-      "id": "lib_pages_searchpages",
       "community": 2,
-      "norm_label": "searchpages()"
+      "norm_label": "searchpages()",
+      "id": "lib_pages_searchpages"
     },
     {
       "label": "getPageWithCollection()",
       "file_type": "code",
       "source_file": "src/lib/pages.ts",
       "source_location": "L181",
-      "id": "lib_pages_getpagewithcollection",
       "community": 2,
-      "norm_label": "getpagewithcollection()"
+      "norm_label": "getpagewithcollection()",
+      "id": "lib_pages_getpagewithcollection"
     },
     {
       "label": "uuid.ts",
       "file_type": "code",
       "source_file": "src/lib/uuid.ts",
       "source_location": "L1",
-      "id": "src_lib_uuid_ts",
       "community": 0,
-      "norm_label": "uuid.ts"
+      "norm_label": "uuid.ts",
+      "id": "src_lib_uuid_ts"
     },
     {
       "label": "isValidUUID()",
       "file_type": "code",
       "source_file": "src/lib/uuid.ts",
       "source_location": "L3",
-      "id": "lib_uuid_isvaliduuid",
       "community": 0,
-      "norm_label": "isvaliduuid()"
+      "norm_label": "isvaliduuid()",
+      "id": "lib_uuid_isvaliduuid"
     },
     {
       "label": "rate-limiter.ts",
       "file_type": "code",
       "source_file": "src/lib/rate-limiter.ts",
       "source_location": "L1",
-      "id": "src_lib_rate_limiter_ts",
-      "community": 4,
-      "norm_label": "rate-limiter.ts"
+      "community": 3,
+      "norm_label": "rate-limiter.ts",
+      "id": "src_lib_rate_limiter_ts"
     },
     {
       "label": "getIP()",
       "file_type": "code",
       "source_file": "src/lib/rate-limiter.ts",
       "source_location": "L29",
-      "id": "lib_rate_limiter_getip",
-      "community": 4,
-      "norm_label": "getip()"
+      "community": 3,
+      "norm_label": "getip()",
+      "id": "lib_rate_limiter_getip"
     },
     {
       "label": "checkRateLimit()",
       "file_type": "code",
       "source_file": "src/lib/rate-limiter.ts",
       "source_location": "L46",
-      "id": "lib_rate_limiter_checkratelimit",
-      "community": 4,
-      "norm_label": "checkratelimit()"
+      "community": 3,
+      "norm_label": "checkratelimit()",
+      "id": "lib_rate_limiter_checkratelimit"
     },
     {
       "label": "env-check.ts",
       "file_type": "code",
       "source_file": "src/lib/env-check.ts",
       "source_location": "L1",
-      "id": "src_lib_env_check_ts",
-      "community": 36,
-      "norm_label": "env-check.ts"
+      "community": 37,
+      "norm_label": "env-check.ts",
+      "id": "src_lib_env_check_ts"
     },
     {
       "label": "mdx.ts",
       "file_type": "code",
       "source_file": "src/lib/mdx.ts",
       "source_location": "L1",
-      "id": "src_lib_mdx_ts",
       "community": 2,
-      "norm_label": "mdx.ts"
+      "norm_label": "mdx.ts",
+      "id": "src_lib_mdx_ts"
     },
     {
       "label": "renderMDX()",
       "file_type": "code",
       "source_file": "src/lib/mdx.ts",
       "source_location": "L4",
-      "id": "lib_mdx_rendermdx",
       "community": 2,
-      "norm_label": "rendermdx()"
+      "norm_label": "rendermdx()",
+      "id": "lib_mdx_rendermdx"
     },
     {
       "label": "extractHeadings()",
       "file_type": "code",
       "source_file": "src/lib/mdx.ts",
       "source_location": "L19",
-      "id": "lib_mdx_extractheadings",
       "community": 2,
-      "norm_label": "extractheadings()"
+      "norm_label": "extractheadings()",
+      "id": "lib_mdx_extractheadings"
     },
     {
       "label": "estimateReadTime()",
       "file_type": "code",
       "source_file": "src/lib/mdx.ts",
       "source_location": "L40",
-      "id": "lib_mdx_estimatereadtime",
       "community": 2,
-      "norm_label": "estimatereadtime()"
+      "norm_label": "estimatereadtime()",
+      "id": "lib_mdx_estimatereadtime"
     },
     {
       "label": "validation.ts",
       "file_type": "code",
       "source_file": "src/lib/validation.ts",
       "source_location": "L1",
-      "id": "src_lib_validation_ts",
       "community": 0,
-      "norm_label": "validation.ts"
+      "norm_label": "validation.ts",
+      "id": "src_lib_validation_ts"
     },
     {
       "label": "validateBody()",
       "file_type": "code",
       "source_file": "src/lib/validation.ts",
       "source_location": "L8",
-      "id": "lib_validation_validatebody",
       "community": 0,
-      "norm_label": "validatebody()"
+      "norm_label": "validatebody()",
+      "id": "lib_validation_validatebody"
     },
     {
       "label": "validateQuery()",
       "file_type": "code",
       "source_file": "src/lib/validation.ts",
       "source_location": "L28",
-      "id": "lib_validation_validatequery",
       "community": 0,
-      "norm_label": "validatequery()"
+      "norm_label": "validatequery()",
+      "id": "lib_validation_validatequery"
     },
     {
       "label": "draft.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/draft.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_draft_ts",
-      "community": 4,
-      "norm_label": "draft.ts"
+      "community": 3,
+      "norm_label": "draft.ts",
+      "id": "src_lib_ai_draft_ts"
     },
     {
       "label": "generateDraft()",
       "file_type": "code",
       "source_file": "src/lib/ai/draft.ts",
       "source_location": "L19",
-      "id": "ai_draft_generatedraft",
-      "community": 4,
-      "norm_label": "generatedraft()"
+      "community": 3,
+      "norm_label": "generatedraft()",
+      "id": "ai_draft_generatedraft"
     },
     {
       "label": "find-chat-model.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/find-chat-model.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_find_chat_model_ts",
-      "community": 3,
-      "norm_label": "find-chat-model.ts"
+      "community": 4,
+      "norm_label": "find-chat-model.ts",
+      "id": "src_lib_ai_find_chat_model_ts"
     },
     {
       "label": "decryptApiKey()",
       "file_type": "code",
       "source_file": "src/lib/ai/find-chat-model.ts",
       "source_location": "L15",
-      "id": "ai_find_chat_model_decryptapikey",
-      "community": 3,
-      "norm_label": "decryptapikey()"
+      "community": 4,
+      "norm_label": "decryptapikey()",
+      "id": "ai_find_chat_model_decryptapikey"
     },
     {
       "label": "findChatCandidates()",
       "file_type": "code",
       "source_file": "src/lib/ai/find-chat-model.ts",
       "source_location": "L31",
-      "id": "ai_find_chat_model_findchatcandidates",
-      "community": 3,
-      "norm_label": "findchatcandidates()"
+      "community": 4,
+      "norm_label": "findchatcandidates()",
+      "id": "ai_find_chat_model_findchatcandidates"
     },
     {
       "label": "chatWithFallback()",
       "file_type": "code",
       "source_file": "src/lib/ai/find-chat-model.ts",
       "source_location": "L86",
-      "id": "ai_find_chat_model_chatwithfallback",
-      "community": 4,
-      "norm_label": "chatwithfallback()"
+      "community": 3,
+      "norm_label": "chatwithfallback()",
+      "id": "ai_find_chat_model_chatwithfallback"
     },
     {
       "label": "types.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/types.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_types_ts",
-      "community": 3,
-      "norm_label": "types.ts"
+      "community": 4,
+      "norm_label": "types.ts",
+      "id": "src_lib_ai_types_ts"
     },
     {
       "label": "isProviderKind()",
       "file_type": "code",
       "source_file": "src/lib/ai/types.ts",
       "source_location": "L7",
-      "id": "ai_types_isproviderkind",
-      "community": 3,
-      "norm_label": "isproviderkind()"
+      "community": 4,
+      "norm_label": "isproviderkind()",
+      "id": "ai_types_isproviderkind"
     },
     {
       "label": "isDiscoveryMode()",
       "file_type": "code",
       "source_file": "src/lib/ai/types.ts",
       "source_location": "L11",
-      "id": "ai_types_isdiscoverymode",
-      "community": 3,
-      "norm_label": "isdiscoverymode()"
+      "community": 4,
+      "norm_label": "isdiscoverymode()",
+      "id": "ai_types_isdiscoverymode"
     },
     {
       "label": "client.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/client.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_client_ts",
-      "community": 3,
-      "norm_label": "client.ts"
+      "community": 4,
+      "norm_label": "client.ts",
+      "id": "src_lib_ai_client_ts"
     },
     {
       "label": "createAIClient()",
       "file_type": "code",
       "source_file": "src/lib/ai/client.ts",
       "source_location": "L4",
-      "id": "ai_client_createaiclient",
-      "community": 3,
-      "norm_label": "createaiclient()"
+      "community": 4,
+      "norm_label": "createaiclient()",
+      "id": "ai_client_createaiclient"
     },
     {
       "label": "provider-registry.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_provider_registry_ts",
-      "community": 3,
-      "norm_label": "provider-registry.ts"
+      "community": 4,
+      "norm_label": "provider-registry.ts",
+      "id": "src_lib_ai_provider_registry_ts"
     },
     {
       "label": "decryptApiKey()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L11",
-      "id": "ai_provider_registry_decryptapikey",
-      "community": 3,
-      "norm_label": "decryptapikey()"
+      "community": 4,
+      "norm_label": "decryptapikey()",
+      "id": "ai_provider_registry_decryptapikey"
     },
     {
       "label": "rowToProviderConfig()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L22",
-      "id": "ai_provider_registry_rowtoproviderconfig",
-      "community": 3,
-      "norm_label": "rowtoproviderconfig()"
+      "community": 4,
+      "norm_label": "rowtoproviderconfig()",
+      "id": "ai_provider_registry_rowtoproviderconfig"
     },
     {
       "label": "getProviders()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L37",
-      "id": "ai_provider_registry_getproviders",
       "community": 0,
-      "norm_label": "getproviders()"
+      "norm_label": "getproviders()",
+      "id": "ai_provider_registry_getproviders"
     },
     {
       "label": "getProvider()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L55",
-      "id": "ai_provider_registry_getprovider",
-      "community": 3,
-      "norm_label": "getprovider()"
+      "community": 0,
+      "norm_label": "getprovider()",
+      "id": "ai_provider_registry_getprovider"
     },
     {
       "label": "createProvider()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L75",
-      "id": "ai_provider_registry_createprovider",
-      "community": 3,
-      "norm_label": "createprovider()"
+      "community": 4,
+      "norm_label": "createprovider()",
+      "id": "ai_provider_registry_createprovider"
     },
     {
       "label": "updateProvider()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L107",
-      "id": "ai_provider_registry_updateprovider",
-      "community": 3,
-      "norm_label": "updateprovider()"
+      "community": 4,
+      "norm_label": "updateprovider()",
+      "id": "ai_provider_registry_updateprovider"
     },
     {
       "label": "deleteProvider()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L156",
-      "id": "ai_provider_registry_deleteprovider",
       "community": 0,
-      "norm_label": "deleteprovider()"
+      "norm_label": "deleteprovider()",
+      "id": "ai_provider_registry_deleteprovider"
     },
     {
       "label": "addManualModel()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L166",
-      "id": "ai_provider_registry_addmanualmodel",
       "community": 0,
-      "norm_label": "addmanualmodel()"
+      "norm_label": "addmanualmodel()",
+      "id": "ai_provider_registry_addmanualmodel"
     },
     {
       "label": "testModel()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L205",
-      "id": "ai_provider_registry_testmodel",
-      "community": 0,
-      "norm_label": "testmodel()"
+      "community": 4,
+      "norm_label": "testmodel()",
+      "id": "ai_provider_registry_testmodel"
     },
     {
       "label": "testConnection()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L222",
-      "id": "ai_provider_registry_testconnection",
-      "community": 3,
-      "norm_label": "testconnection()"
+      "community": 4,
+      "norm_label": "testconnection()",
+      "id": "ai_provider_registry_testconnection"
     },
     {
       "label": "detectCapabilities()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L273",
-      "id": "ai_provider_registry_detectcapabilities",
-      "community": 3,
-      "norm_label": "detectcapabilities()"
+      "community": 4,
+      "norm_label": "detectcapabilities()",
+      "id": "ai_provider_registry_detectcapabilities"
     },
     {
       "label": "discoverModels()",
       "file_type": "code",
       "source_file": "src/lib/ai/provider-registry.ts",
       "source_location": "L295",
-      "id": "ai_provider_registry_discovermodels",
-      "community": 3,
-      "norm_label": "discovermodels()"
+      "community": 4,
+      "norm_label": "discovermodels()",
+      "id": "ai_provider_registry_discovermodels"
     },
     {
       "label": "rewrite.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/rewrite.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_rewrite_ts",
-      "community": 4,
-      "norm_label": "rewrite.ts"
+      "community": 3,
+      "norm_label": "rewrite.ts",
+      "id": "src_lib_ai_rewrite_ts"
     },
     {
       "label": "rewriteContent()",
       "file_type": "code",
       "source_file": "src/lib/ai/rewrite.ts",
       "source_location": "L40",
-      "id": "ai_rewrite_rewritecontent",
-      "community": 0,
-      "norm_label": "rewritecontent()"
+      "community": 3,
+      "norm_label": "rewritecontent()",
+      "id": "ai_rewrite_rewritecontent"
     },
     {
       "label": "usage-logger.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/usage-logger.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_usage_logger_ts",
-      "community": 4,
-      "norm_label": "usage-logger.ts"
+      "community": 3,
+      "norm_label": "usage-logger.ts",
+      "id": "src_lib_ai_usage_logger_ts"
     },
     {
       "label": "logAIUsage()",
       "file_type": "code",
       "source_file": "src/lib/ai/usage-logger.ts",
       "source_location": "L4",
-      "id": "ai_usage_logger_logaiusage",
-      "community": 4,
-      "norm_label": "logaiusage()"
+      "community": 3,
+      "norm_label": "logaiusage()",
+      "id": "ai_usage_logger_logaiusage"
     },
     {
       "label": "provider-registry.test.ts",
       "file_type": "code",
       "source_file": "src/lib/ai/__tests__/provider-registry.test.ts",
       "source_location": "L1",
-      "id": "src_lib_ai_tests_provider_registry_test_ts",
-      "community": 3,
-      "norm_label": "provider-registry.test.ts"
+      "community": 4,
+      "norm_label": "provider-registry.test.ts",
+      "id": "src_lib_ai_tests_provider_registry_test_ts"
     },
     {
       "label": "auth.test.ts",
       "file_type": "code",
       "source_file": "src/lib/__tests__/auth.test.ts",
       "source_location": "L1",
-      "id": "src_lib_tests_auth_test_ts",
-      "community": 37,
-      "norm_label": "auth.test.ts"
+      "community": 38,
+      "norm_label": "auth.test.ts",
+      "id": "src_lib_tests_auth_test_ts"
     },
     {
       "label": "validation.test.ts",
       "file_type": "code",
       "source_file": "src/lib/__tests__/validation.test.ts",
       "source_location": "L1",
-      "id": "src_lib_tests_validation_test_ts",
-      "community": 38,
-      "norm_label": "validation.test.ts"
+      "community": 39,
+      "norm_label": "validation.test.ts",
+      "id": "src_lib_tests_validation_test_ts"
     },
     {
       "label": "slugify.test.ts",
       "file_type": "code",
       "source_file": "src/lib/__tests__/slugify.test.ts",
       "source_location": "L1",
-      "id": "src_lib_tests_slugify_test_ts",
       "community": 10,
-      "norm_label": "slugify.test.ts"
+      "norm_label": "slugify.test.ts",
+      "id": "src_lib_tests_slugify_test_ts"
     },
     {
       "label": "embedder.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/embedder.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_embedder_ts",
-      "community": 3,
-      "norm_label": "embedder.ts"
+      "community": 4,
+      "norm_label": "embedder.ts",
+      "id": "src_lib_rag_embedder_ts"
     },
     {
       "label": "decryptApiKey()",
       "file_type": "code",
       "source_file": "src/lib/rag/embedder.ts",
       "source_location": "L13",
-      "id": "rag_embedder_decryptapikey",
-      "community": 3,
-      "norm_label": "decryptapikey()"
+      "community": 4,
+      "norm_label": "decryptapikey()",
+      "id": "rag_embedder_decryptapikey"
     },
     {
       "label": "findEmbeddingCandidates()",
       "file_type": "code",
       "source_file": "src/lib/rag/embedder.ts",
       "source_location": "L27",
-      "id": "rag_embedder_findembeddingcandidates",
-      "community": 3,
-      "norm_label": "findembeddingcandidates()"
+      "community": 4,
+      "norm_label": "findembeddingcandidates()",
+      "id": "rag_embedder_findembeddingcandidates"
     },
     {
       "label": "embedChunks()",
       "file_type": "code",
       "source_file": "src/lib/rag/embedder.ts",
       "source_location": "L66",
-      "id": "rag_embedder_embedchunks",
-      "community": 3,
-      "norm_label": "embedchunks()"
+      "community": 4,
+      "norm_label": "embedchunks()",
+      "id": "rag_embedder_embedchunks"
     },
     {
       "label": "embedQuery()",
       "file_type": "code",
       "source_file": "src/lib/rag/embedder.ts",
       "source_location": "L103",
-      "id": "rag_embedder_embedquery",
-      "community": 4,
-      "norm_label": "embedquery()"
+      "community": 3,
+      "norm_label": "embedquery()",
+      "id": "rag_embedder_embedquery"
     },
     {
       "label": "search.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_search_ts",
-      "community": 4,
-      "norm_label": "search.ts"
+      "community": 3,
+      "norm_label": "search.ts",
+      "id": "src_lib_rag_search_ts"
     },
     {
       "label": "rrf()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
       "source_location": "L53",
-      "id": "rag_search_rrf",
-      "community": 4,
-      "norm_label": "rrf()"
+      "community": 3,
+      "norm_label": "rrf()",
+      "id": "rag_search_rrf"
     },
     {
       "label": "extractRows()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
       "source_location": "L57",
-      "id": "rag_search_extractrows",
-      "community": 4,
-      "norm_label": "extractrows()"
+      "community": 3,
+      "norm_label": "extractrows()",
+      "id": "rag_search_extractrows"
     },
     {
       "label": "getPageChunks()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
       "source_location": "L63",
-      "id": "rag_search_getpagechunks",
-      "community": 4,
-      "norm_label": "getpagechunks()"
+      "community": 3,
+      "norm_label": "getpagechunks()",
+      "id": "rag_search_getpagechunks"
     },
     {
       "label": "hybridSearch()",
       "file_type": "code",
       "source_file": "src/lib/rag/search.ts",
       "source_location": "L86",
-      "id": "rag_search_hybridsearch",
-      "community": 4,
-      "norm_label": "hybridsearch()"
+      "community": 3,
+      "norm_label": "hybridsearch()",
+      "id": "rag_search_hybridsearch"
     },
     {
       "label": "duplicate-detector.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/duplicate-detector.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_duplicate_detector_ts",
-      "community": 4,
-      "norm_label": "duplicate-detector.ts"
+      "community": 3,
+      "norm_label": "duplicate-detector.ts",
+      "id": "src_lib_rag_duplicate_detector_ts"
     },
     {
       "label": "detectDuplicates()",
       "file_type": "code",
       "source_file": "src/lib/rag/duplicate-detector.ts",
       "source_location": "L28",
-      "id": "rag_duplicate_detector_detectduplicates",
-      "community": 4,
-      "norm_label": "detectduplicates()"
+      "community": 3,
+      "norm_label": "detectduplicates()",
+      "id": "rag_duplicate_detector_detectduplicates"
     },
     {
       "label": "reranker.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_reranker_ts",
-      "community": 4,
-      "norm_label": "reranker.ts"
+      "community": 12,
+      "norm_label": "reranker.ts",
+      "id": "src_lib_rag_reranker_ts"
     },
     {
       "label": "tokenize()",
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L23",
-      "id": "rag_reranker_tokenize",
-      "community": 4,
-      "norm_label": "tokenize()"
+      "community": 12,
+      "norm_label": "tokenize()",
+      "id": "rag_reranker_tokenize"
     },
     {
       "label": "idf()",
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L30",
-      "id": "rag_reranker_idf",
-      "community": 4,
-      "norm_label": "idf()"
+      "community": 12,
+      "norm_label": "idf()",
+      "id": "rag_reranker_idf"
     },
     {
       "label": "bm25Score()",
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L36",
-      "id": "rag_reranker_bm25score",
-      "community": 4,
-      "norm_label": "bm25score()"
+      "community": 12,
+      "norm_label": "bm25score()",
+      "id": "rag_reranker_bm25score"
     },
     {
       "label": "minMaxNormalize()",
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L57",
-      "id": "rag_reranker_minmaxnormalize",
-      "community": 4,
-      "norm_label": "minmaxnormalize()"
+      "community": 12,
+      "norm_label": "minmaxnormalize()",
+      "id": "rag_reranker_minmaxnormalize"
     },
     {
       "label": "rerankBM25()",
       "file_type": "code",
       "source_file": "src/lib/rag/reranker.ts",
       "source_location": "L67",
-      "id": "rag_reranker_rerankbm25",
-      "community": 4,
-      "norm_label": "rerankbm25()"
+      "community": 12,
+      "norm_label": "rerankbm25()",
+      "id": "rag_reranker_rerankbm25"
     },
     {
       "label": "chunker.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_chunker_ts",
       "community": 8,
-      "norm_label": "chunker.ts"
+      "norm_label": "chunker.ts",
+      "id": "src_lib_rag_chunker_ts"
     },
     {
       "label": "slugify()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L10",
-      "id": "rag_chunker_slugify",
       "community": 8,
-      "norm_label": "slugify()"
+      "norm_label": "slugify()",
+      "id": "rag_chunker_slugify"
     },
     {
       "label": "detectContentType()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L19",
-      "id": "rag_chunker_detectcontenttype",
       "community": 8,
-      "norm_label": "detectcontenttype()"
+      "norm_label": "detectcontenttype()",
+      "id": "rag_chunker_detectcontenttype"
     },
     {
       "label": "tokenCount()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L32",
-      "id": "rag_chunker_tokencount",
       "community": 8,
-      "norm_label": "tokencount()"
+      "norm_label": "tokencount()",
+      "id": "rag_chunker_tokencount"
     },
     {
       "label": "splitWords()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L36",
-      "id": "rag_chunker_splitwords",
       "community": 8,
-      "norm_label": "splitwords()"
+      "norm_label": "splitwords()",
+      "id": "rag_chunker_splitwords"
     },
     {
       "label": "splitProse()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L45",
-      "id": "rag_chunker_splitprose",
       "community": 8,
-      "norm_label": "splitprose()"
+      "norm_label": "splitprose()",
+      "id": "rag_chunker_splitprose"
     },
     {
       "label": "splitCodeAndProse()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L81",
-      "id": "rag_chunker_splitcodeandprose",
       "community": 8,
-      "norm_label": "splitcodeandprose()"
+      "norm_label": "splitcodeandprose()",
+      "id": "rag_chunker_splitcodeandprose"
     },
     {
       "label": "chunkMDX()",
       "file_type": "code",
       "source_file": "src/lib/rag/chunker.ts",
       "source_location": "L123",
-      "id": "rag_chunker_chunkmdx",
       "community": 8,
-      "norm_label": "chunkmdx()"
+      "norm_label": "chunkmdx()",
+      "id": "rag_chunker_chunkmdx"
     },
     {
       "label": "pipeline.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/pipeline.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_pipeline_ts",
       "community": 8,
-      "norm_label": "pipeline.ts"
+      "norm_label": "pipeline.ts",
+      "id": "src_lib_rag_pipeline_ts"
     },
     {
       "label": "stripMarkdown()",
       "file_type": "code",
       "source_file": "src/lib/rag/pipeline.ts",
       "source_location": "L7",
-      "id": "rag_pipeline_stripmarkdown",
       "community": 8,
-      "norm_label": "stripmarkdown()"
+      "norm_label": "stripmarkdown()",
+      "id": "rag_pipeline_stripmarkdown"
     },
     {
       "label": "runPublishPipeline()",
       "file_type": "code",
       "source_file": "src/lib/rag/pipeline.ts",
       "source_location": "L19",
-      "id": "rag_pipeline_runpublishpipeline",
       "community": 8,
-      "norm_label": "runpublishpipeline()"
+      "norm_label": "runpublishpipeline()",
+      "id": "rag_pipeline_runpublishpipeline"
     },
     {
       "label": "search.test.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/__tests__/search.test.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_tests_search_test_ts",
-      "community": 4,
-      "norm_label": "search.test.ts"
+      "community": 3,
+      "norm_label": "search.test.ts",
+      "id": "src_lib_rag_tests_search_test_ts"
     },
     {
       "label": "sqlText()",
       "file_type": "code",
       "source_file": "src/lib/rag/__tests__/search.test.ts",
       "source_location": "L13",
-      "id": "tests_search_test_sqltext",
-      "community": 4,
-      "norm_label": "sqltext()"
+      "community": 3,
+      "norm_label": "sqltext()",
+      "id": "tests_search_test_sqltext"
     },
     {
       "label": "chunker.test.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/__tests__/chunker.test.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_tests_chunker_test_ts",
       "community": 8,
-      "norm_label": "chunker.test.ts"
+      "norm_label": "chunker.test.ts",
+      "id": "src_lib_rag_tests_chunker_test_ts"
     },
     {
       "label": "pipeline.test.ts",
       "file_type": "code",
       "source_file": "src/lib/rag/__tests__/pipeline.test.ts",
       "source_location": "L1",
-      "id": "src_lib_rag_tests_pipeline_test_ts",
-      "community": 39,
-      "norm_label": "pipeline.test.ts"
+      "community": 40,
+      "norm_label": "pipeline.test.ts",
+      "id": "src_lib_rag_tests_pipeline_test_ts"
     },
     {
       "label": "json-ld.tsx",
       "file_type": "code",
       "source_file": "src/components/json-ld.tsx",
       "source_location": "L1",
-      "id": "src_components_json_ld_tsx",
       "community": 2,
-      "norm_label": "json-ld.tsx"
+      "norm_label": "json-ld.tsx",
+      "id": "src_components_json_ld_tsx"
     },
     {
       "label": "JsonLd()",
       "file_type": "code",
       "source_file": "src/components/json-ld.tsx",
       "source_location": "L5",
-      "id": "components_json_ld_jsonld",
       "community": 2,
-      "norm_label": "jsonld()"
+      "norm_label": "jsonld()",
+      "id": "components_json_ld_jsonld"
     },
     {
       "label": "breadcrumb.tsx",
       "file_type": "code",
       "source_file": "src/components/breadcrumb.tsx",
       "source_location": "L1",
-      "id": "src_components_breadcrumb_tsx",
       "community": 1,
-      "norm_label": "breadcrumb.tsx"
+      "norm_label": "breadcrumb.tsx",
+      "id": "src_components_breadcrumb_tsx"
     },
     {
       "label": "mdx-components.tsx",
       "file_type": "code",
       "source_file": "src/components/mdx-components.tsx",
       "source_location": "L1",
-      "id": "src_components_mdx_components_tsx",
-      "community": 18,
-      "norm_label": "mdx-components.tsx"
+      "community": 19,
+      "norm_label": "mdx-components.tsx",
+      "id": "src_components_mdx_components_tsx"
     },
     {
       "label": "makeHeading()",
       "file_type": "code",
       "source_file": "src/components/mdx-components.tsx",
       "source_location": "L5",
-      "id": "components_mdx_components_makeheading",
-      "community": 18,
-      "norm_label": "makeheading()"
+      "community": 19,
+      "norm_label": "makeheading()",
+      "id": "components_mdx_components_makeheading"
     },
     {
       "label": "icons.tsx",
       "file_type": "code",
       "source_file": "src/components/icons.tsx",
       "source_location": "L1",
-      "id": "src_components_icons_tsx",
       "community": 1,
-      "norm_label": "icons.tsx"
+      "norm_label": "icons.tsx",
+      "id": "src_components_icons_tsx"
     },
     {
       "label": "Icon()",
       "file_type": "code",
       "source_file": "src/components/icons.tsx",
       "source_location": "L52",
-      "id": "components_icons_icon",
       "community": 1,
-      "norm_label": "icon()"
+      "norm_label": "icon()",
+      "id": "components_icons_icon"
     },
     {
       "label": "sidebar-toggle.tsx",
       "file_type": "code",
       "source_file": "src/components/sidebar-toggle.tsx",
       "source_location": "L1",
-      "id": "src_components_sidebar_toggle_tsx",
       "community": 1,
-      "norm_label": "sidebar-toggle.tsx"
+      "norm_label": "sidebar-toggle.tsx",
+      "id": "src_components_sidebar_toggle_tsx"
     },
     {
       "label": "SidebarToggle()",
       "file_type": "code",
       "source_file": "src/components/sidebar-toggle.tsx",
       "source_location": "L9",
-      "id": "components_sidebar_toggle_sidebartoggle",
       "community": 1,
-      "norm_label": "sidebartoggle()"
+      "norm_label": "sidebartoggle()",
+      "id": "components_sidebar_toggle_sidebartoggle"
     },
     {
       "label": "tag.tsx",
       "file_type": "code",
       "source_file": "src/components/tag.tsx",
       "source_location": "L1",
-      "id": "src_components_tag_tsx",
       "community": 2,
-      "norm_label": "tag.tsx"
+      "norm_label": "tag.tsx",
+      "id": "src_components_tag_tsx"
     },
     {
       "label": "Tag()",
       "file_type": "code",
       "source_file": "src/components/tag.tsx",
       "source_location": "L19",
-      "id": "components_tag_tag",
       "community": 2,
-      "norm_label": "tag()"
+      "norm_label": "tag()",
+      "id": "components_tag_tag"
     },
     {
       "label": "sidebar.tsx",
       "file_type": "code",
       "source_file": "src/components/sidebar.tsx",
       "source_location": "L1",
-      "id": "src_components_sidebar_tsx",
       "community": 2,
-      "norm_label": "sidebar.tsx"
+      "norm_label": "sidebar.tsx",
+      "id": "src_components_sidebar_tsx"
     },
     {
       "label": "theme-provider.tsx",
       "file_type": "code",
       "source_file": "src/components/theme-provider.tsx",
       "source_location": "L1",
-      "id": "src_components_theme_provider_tsx",
       "community": 1,
-      "norm_label": "theme-provider.tsx"
+      "norm_label": "theme-provider.tsx",
+      "id": "src_components_theme_provider_tsx"
     },
     {
       "label": "useTheme()",
       "file_type": "code",
       "source_file": "src/components/theme-provider.tsx",
       "source_location": "L19",
-      "id": "components_theme_provider_usetheme",
       "community": 1,
-      "norm_label": "usetheme()"
+      "norm_label": "usetheme()",
+      "id": "components_theme_provider_usetheme"
     },
     {
       "label": "ThemeProvider()",
       "file_type": "code",
       "source_file": "src/components/theme-provider.tsx",
       "source_location": "L23",
-      "id": "components_theme_provider_themeprovider",
       "community": 1,
-      "norm_label": "themeprovider()"
+      "norm_label": "themeprovider()",
+      "id": "components_theme_provider_themeprovider"
     },
     {
       "label": "related-pages.tsx",
       "file_type": "code",
       "source_file": "src/components/related-pages.tsx",
       "source_location": "L1",
-      "id": "src_components_related_pages_tsx",
-      "community": 40,
-      "norm_label": "related-pages.tsx"
+      "community": 41,
+      "norm_label": "related-pages.tsx",
+      "id": "src_components_related_pages_tsx"
     },
     {
       "label": "callout.tsx",
       "file_type": "code",
       "source_file": "src/components/callout.tsx",
       "source_location": "L1",
-      "id": "src_components_callout_tsx",
       "community": 1,
-      "norm_label": "callout.tsx"
+      "norm_label": "callout.tsx",
+      "id": "src_components_callout_tsx"
     },
     {
       "label": "top-nav.tsx",
       "file_type": "code",
       "source_file": "src/components/top-nav.tsx",
       "source_location": "L1",
-      "id": "src_components_top_nav_tsx",
       "community": 1,
-      "norm_label": "top-nav.tsx"
+      "norm_label": "top-nav.tsx",
+      "id": "src_components_top_nav_tsx"
     },
     {
       "label": "isActive()",
       "file_type": "code",
       "source_file": "src/components/top-nav.tsx",
       "source_location": "L36",
-      "id": "components_top_nav_isactive",
       "community": 1,
-      "norm_label": "isactive()"
+      "norm_label": "isactive()",
+      "id": "components_top_nav_isactive"
     },
     {
       "label": "article-toc.tsx",
       "file_type": "code",
       "source_file": "src/components/article-toc.tsx",
       "source_location": "L1",
-      "id": "src_components_article_toc_tsx",
-      "community": 19,
-      "norm_label": "article-toc.tsx"
+      "community": 20,
+      "norm_label": "article-toc.tsx",
+      "id": "src_components_article_toc_tsx"
     },
     {
       "label": "scrollToSection()",
       "file_type": "code",
       "source_file": "src/components/article-toc.tsx",
       "source_location": "L14",
-      "id": "components_article_toc_scrolltosection",
-      "community": 19,
-      "norm_label": "scrolltosection()"
+      "community": 20,
+      "norm_label": "scrolltosection()",
+      "id": "components_article_toc_scrolltosection"
     },
     {
       "label": "code-block.tsx",
       "file_type": "code",
       "source_file": "src/components/code-block.tsx",
       "source_location": "L1",
-      "id": "src_components_code_block_tsx",
       "community": 1,
-      "norm_label": "code-block.tsx"
+      "norm_label": "code-block.tsx",
+      "id": "src_components_code_block_tsx"
     },
     {
       "label": "highlight()",
       "file_type": "code",
       "source_file": "src/components/code-block.tsx",
       "source_location": "L13",
-      "id": "components_code_block_highlight",
       "community": 1,
-      "norm_label": "highlight()"
+      "norm_label": "highlight()",
+      "id": "components_code_block_highlight"
     },
     {
       "label": "copy()",
       "file_type": "code",
       "source_file": "src/components/code-block.tsx",
       "source_location": "L36",
-      "id": "components_code_block_copy",
       "community": 1,
-      "norm_label": "copy()"
+      "norm_label": "copy()",
+      "id": "components_code_block_copy"
     },
     {
       "label": "site-footer.tsx",
       "file_type": "code",
       "source_file": "src/components/site-footer.tsx",
       "source_location": "L1",
-      "id": "src_components_site_footer_tsx",
-      "community": 41,
-      "norm_label": "site-footer.tsx"
+      "community": 42,
+      "norm_label": "site-footer.tsx",
+      "id": "src_components_site_footer_tsx"
     },
     {
       "label": "public-shell.tsx",
       "file_type": "code",
       "source_file": "src/components/public-shell.tsx",
       "source_location": "L1",
-      "id": "src_components_public_shell_tsx",
       "community": 1,
-      "norm_label": "public-shell.tsx"
+      "norm_label": "public-shell.tsx",
+      "id": "src_components_public_shell_tsx"
     },
     {
       "label": "PublicShell()",
       "file_type": "code",
       "source_file": "src/components/public-shell.tsx",
       "source_location": "L8",
-      "id": "components_public_shell_publicshell",
       "community": 1,
-      "norm_label": "publicshell()"
+      "norm_label": "publicshell()",
+      "id": "components_public_shell_publicshell"
     },
     {
       "label": "page-list-client.tsx",
       "file_type": "code",
       "source_file": "src/components/page-list-client.tsx",
       "source_location": "L1",
-      "id": "src_components_page_list_client_tsx",
       "community": 2,
-      "norm_label": "page-list-client.tsx"
+      "norm_label": "page-list-client.tsx",
+      "id": "src_components_page_list_client_tsx"
     },
     {
       "label": "error-boundary.tsx",
       "file_type": "code",
       "source_file": "src/components/error-boundary.tsx",
       "source_location": "L1",
-      "id": "src_components_error_boundary_tsx",
-      "community": 14,
-      "norm_label": "error-boundary.tsx"
+      "community": 15,
+      "norm_label": "error-boundary.tsx",
+      "id": "src_components_error_boundary_tsx"
     },
     {
       "label": "constructor()",
       "file_type": "code",
       "source_file": "src/components/error-boundary.tsx",
       "source_location": "L15",
-      "id": "components_error_boundary_constructor",
-      "community": 14,
-      "norm_label": "constructor()"
+      "community": 15,
+      "norm_label": "constructor()",
+      "id": "components_error_boundary_constructor"
     },
     {
       "label": "getDerivedStateFromError()",
       "file_type": "code",
       "source_file": "src/components/error-boundary.tsx",
       "source_location": "L20",
-      "id": "components_error_boundary_getderivedstatefromerror",
-      "community": 14,
-      "norm_label": "getderivedstatefromerror()"
+      "community": 15,
+      "norm_label": "getderivedstatefromerror()",
+      "id": "components_error_boundary_getderivedstatefromerror"
     },
     {
       "label": "componentDidCatch()",
       "file_type": "code",
       "source_file": "src/components/error-boundary.tsx",
       "source_location": "L24",
-      "id": "components_error_boundary_componentdidcatch",
-      "community": 14,
-      "norm_label": "componentdidcatch()"
+      "community": 15,
+      "norm_label": "componentdidcatch()",
+      "id": "components_error_boundary_componentdidcatch"
     },
     {
       "label": "citation-pill.tsx",
       "file_type": "code",
       "source_file": "src/components/citation-pill.tsx",
       "source_location": "L1",
-      "id": "src_components_citation_pill_tsx",
-      "community": 20,
-      "norm_label": "citation-pill.tsx"
+      "community": 21,
+      "norm_label": "citation-pill.tsx",
+      "id": "src_components_citation_pill_tsx"
     },
     {
       "label": "CitationPill()",
       "file_type": "code",
       "source_file": "src/components/citation-pill.tsx",
       "source_location": "L7",
-      "id": "components_citation_pill_citationpill",
-      "community": 20,
-      "norm_label": "citationpill()"
+      "community": 21,
+      "norm_label": "citationpill()",
+      "id": "components_citation_pill_citationpill"
     },
     {
       "label": "command-palette.tsx",
       "file_type": "code",
       "source_file": "src/components/command-palette.tsx",
       "source_location": "L1",
-      "id": "src_components_command_palette_tsx",
       "community": 1,
-      "norm_label": "command-palette.tsx"
+      "norm_label": "command-palette.tsx",
+      "id": "src_components_command_palette_tsx"
     },
     {
       "label": "fuzzyMatch()",
       "file_type": "code",
       "source_file": "src/components/command-palette.tsx",
       "source_location": "L32",
-      "id": "components_command_palette_fuzzymatch",
       "community": 1,
-      "norm_label": "fuzzymatch()"
+      "norm_label": "fuzzymatch()",
+      "id": "components_command_palette_fuzzymatch"
     },
     {
       "label": "handler()",
       "file_type": "code",
       "source_file": "src/components/command-palette.tsx",
       "source_location": "L144",
-      "id": "components_command_palette_handler",
       "community": 1,
-      "norm_label": "handler()"
+      "norm_label": "handler()",
+      "id": "components_command_palette_handler"
     },
     {
       "label": "navigateResult()",
       "file_type": "code",
       "source_file": "src/components/command-palette.tsx",
       "source_location": "L218",
-      "id": "components_command_palette_navigateresult",
       "community": 1,
-      "norm_label": "navigateresult()"
+      "norm_label": "navigateresult()",
+      "id": "components_command_palette_navigateresult"
     },
     {
       "label": "sidebar-tree.tsx",
       "file_type": "code",
       "source_file": "src/components/sidebar-tree.tsx",
       "source_location": "L1",
-      "id": "src_components_sidebar_tree_tsx",
       "community": 1,
-      "norm_label": "sidebar-tree.tsx"
+      "norm_label": "sidebar-tree.tsx",
+      "id": "src_components_sidebar_tree_tsx"
     },
     {
       "label": "toggle()",
       "file_type": "code",
       "source_file": "src/components/sidebar-tree.tsx",
       "source_location": "L39",
-      "id": "components_sidebar_tree_toggle",
       "community": 1,
-      "norm_label": "toggle()"
+      "norm_label": "toggle()",
+      "id": "components_sidebar_tree_toggle"
     },
     {
       "label": "preview-pane.tsx",
       "file_type": "code",
       "source_file": "src/components/editor/preview-pane.tsx",
       "source_location": "L1",
-      "id": "src_components_editor_preview_pane_tsx",
-      "community": 21,
-      "norm_label": "preview-pane.tsx"
+      "community": 22,
+      "norm_label": "preview-pane.tsx",
+      "id": "src_components_editor_preview_pane_tsx"
     },
     {
       "label": "renderMarkdown()",
       "file_type": "code",
       "source_file": "src/components/editor/preview-pane.tsx",
       "source_location": "L3",
-      "id": "editor_preview_pane_rendermarkdown",
-      "community": 21,
-      "norm_label": "rendermarkdown()"
+      "community": 22,
+      "norm_label": "rendermarkdown()",
+      "id": "editor_preview_pane_rendermarkdown"
     },
     {
       "label": "metadata-bar.tsx",
       "file_type": "code",
       "source_file": "src/components/editor/metadata-bar.tsx",
       "source_location": "L1",
-      "id": "src_components_editor_metadata_bar_tsx",
-      "community": 15,
-      "norm_label": "metadata-bar.tsx"
+      "community": 16,
+      "norm_label": "metadata-bar.tsx",
+      "id": "src_components_editor_metadata_bar_tsx"
     },
     {
       "label": "handler()",
       "file_type": "code",
       "source_file": "src/components/editor/metadata-bar.tsx",
       "source_location": "L54",
-      "id": "editor_metadata_bar_handler",
-      "community": 15,
-      "norm_label": "handler()"
+      "community": 16,
+      "norm_label": "handler()",
+      "id": "editor_metadata_bar_handler"
     },
     {
       "label": "addTag()",
       "file_type": "code",
       "source_file": "src/components/editor/metadata-bar.tsx",
       "source_location": "L69",
-      "id": "editor_metadata_bar_addtag",
-      "community": 15,
-      "norm_label": "addtag()"
+      "community": 16,
+      "norm_label": "addtag()",
+      "id": "editor_metadata_bar_addtag"
     },
     {
       "label": "removeTag()",
       "file_type": "code",
       "source_file": "src/components/editor/metadata-bar.tsx",
       "source_location": "L80",
-      "id": "editor_metadata_bar_removetag",
-      "community": 15,
-      "norm_label": "removetag()"
+      "community": 16,
+      "norm_label": "removetag()",
+      "id": "editor_metadata_bar_removetag"
     },
     {
       "label": "ai-assist-panel.tsx",
       "file_type": "code",
       "source_file": "src/components/editor/ai-assist-panel.tsx",
       "source_location": "L1",
-      "id": "src_components_editor_ai_assist_panel_tsx",
-      "community": 12,
-      "norm_label": "ai-assist-panel.tsx"
+      "community": 13,
+      "norm_label": "ai-assist-panel.tsx",
+      "id": "src_components_editor_ai_assist_panel_tsx"
     },
     {
       "label": "readStream()",
       "file_type": "code",
       "source_file": "src/components/editor/ai-assist-panel.tsx",
       "source_location": "L18",
-      "id": "editor_ai_assist_panel_readstream",
-      "community": 12,
-      "norm_label": "readstream()"
+      "community": 13,
+      "norm_label": "readstream()",
+      "id": "editor_ai_assist_panel_readstream"
     },
     {
       "label": "cancel()",
       "file_type": "code",
       "source_file": "src/components/editor/ai-assist-panel.tsx",
       "source_location": "L45",
-      "id": "editor_ai_assist_panel_cancel",
-      "community": 12,
-      "norm_label": "cancel()"
+      "community": 13,
+      "norm_label": "cancel()",
+      "id": "editor_ai_assist_panel_cancel"
     },
     {
       "label": "handleDraft()",
       "file_type": "code",
       "source_file": "src/components/editor/ai-assist-panel.tsx",
       "source_location": "L51",
-      "id": "editor_ai_assist_panel_handledraft",
-      "community": 12,
-      "norm_label": "handledraft()"
+      "community": 13,
+      "norm_label": "handledraft()",
+      "id": "editor_ai_assist_panel_handledraft"
     },
     {
       "label": "handleRewrite()",
       "file_type": "code",
       "source_file": "src/components/editor/ai-assist-panel.tsx",
       "source_location": "L84",
-      "id": "editor_ai_assist_panel_handlerewrite",
-      "community": 12,
-      "norm_label": "handlerewrite()"
+      "community": 13,
+      "norm_label": "handlerewrite()",
+      "id": "editor_ai_assist_panel_handlerewrite"
     },
     {
       "label": "markdown-editor.tsx",
       "file_type": "code",
       "source_file": "src/components/editor/markdown-editor.tsx",
       "source_location": "L1",
-      "id": "src_components_editor_markdown_editor_tsx",
-      "community": 42,
-      "norm_label": "markdown-editor.tsx"
+      "community": 43,
+      "norm_label": "markdown-editor.tsx",
+      "id": "src_components_editor_markdown_editor_tsx"
     },
     {
       "label": "chat-messages.tsx",
       "file_type": "code",
       "source_file": "src/components/chat/chat-messages.tsx",
       "source_location": "L1",
-      "id": "src_components_chat_chat_messages_tsx",
-      "community": 43,
-      "norm_label": "chat-messages.tsx"
+      "community": 44,
+      "norm_label": "chat-messages.tsx",
+      "id": "src_components_chat_chat_messages_tsx"
     },
     {
       "label": "article-chat-toggle.tsx",
       "file_type": "code",
       "source_file": "src/components/chat/article-chat-toggle.tsx",
       "source_location": "L1",
-      "id": "src_components_chat_article_chat_toggle_tsx",
       "community": 1,
-      "norm_label": "article-chat-toggle.tsx"
+      "norm_label": "article-chat-toggle.tsx",
+      "id": "src_components_chat_article_chat_toggle_tsx"
     },
     {
       "label": "message-bubble.tsx",
       "file_type": "code",
       "source_file": "src/components/chat/message-bubble.tsx",
       "source_location": "L1",
-      "id": "src_components_chat_message_bubble_tsx",
       "community": 1,
-      "norm_label": "message-bubble.tsx"
+      "norm_label": "message-bubble.tsx",
+      "id": "src_components_chat_message_bubble_tsx"
     },
     {
       "label": "renderContent()",
       "file_type": "code",
       "source_file": "src/components/chat/message-bubble.tsx",
       "source_location": "L11",
-      "id": "chat_message_bubble_rendercontent",
       "community": 1,
-      "norm_label": "rendercontent()"
+      "norm_label": "rendercontent()",
+      "id": "chat_message_bubble_rendercontent"
     },
     {
       "label": "processInlineFormatting()",
       "file_type": "code",
       "source_file": "src/components/chat/message-bubble.tsx",
       "source_location": "L65",
-      "id": "chat_message_bubble_processinlineformatting",
       "community": 1,
-      "norm_label": "processinlineformatting()"
+      "norm_label": "processinlineformatting()",
+      "id": "chat_message_bubble_processinlineformatting"
     },
     {
       "label": "citation-list.tsx",
       "file_type": "code",
       "source_file": "src/components/chat/citation-list.tsx",
       "source_location": "L1",
-      "id": "src_components_chat_citation_list_tsx",
-      "community": 44,
-      "norm_label": "citation-list.tsx"
+      "community": 45,
+      "norm_label": "citation-list.tsx",
+      "id": "src_components_chat_citation_list_tsx"
     },
     {
       "label": "chat-panel.tsx",
       "file_type": "code",
       "source_file": "src/components/chat/chat-panel.tsx",
       "source_location": "L1",
-      "id": "src_components_chat_chat_panel_tsx",
       "community": 1,
-      "norm_label": "chat-panel.tsx"
+      "norm_label": "chat-panel.tsx",
+      "id": "src_components_chat_chat_panel_tsx"
     },
     {
       "label": "use-chat.ts",
       "file_type": "code",
       "source_file": "src/hooks/use-chat.ts",
       "source_location": "L1",
-      "id": "src_hooks_use_chat_ts",
       "community": 1,
-      "norm_label": "use-chat.ts"
+      "norm_label": "use-chat.ts",
+      "id": "src_hooks_use_chat_ts"
     },
     {
       "label": "useChat()",
       "file_type": "code",
       "source_file": "src/hooks/use-chat.ts",
       "source_location": "L18",
-      "id": "hooks_use_chat_usechat",
       "community": 1,
-      "norm_label": "usechat()"
+      "norm_label": "usechat()",
+      "id": "hooks_use_chat_usechat"
     },
     {
       "label": "use-keyboard-shortcuts.ts",
       "file_type": "code",
       "source_file": "src/hooks/use-keyboard-shortcuts.ts",
       "source_location": "L1",
-      "id": "src_hooks_use_keyboard_shortcuts_ts",
       "community": 1,
-      "norm_label": "use-keyboard-shortcuts.ts"
+      "norm_label": "use-keyboard-shortcuts.ts",
+      "id": "src_hooks_use_keyboard_shortcuts_ts"
     },
     {
       "label": "useKeyboardShortcuts()",
       "file_type": "code",
       "source_file": "src/hooks/use-keyboard-shortcuts.ts",
       "source_location": "L16",
-      "id": "hooks_use_keyboard_shortcuts_usekeyboardshortcuts",
       "community": 1,
-      "norm_label": "usekeyboardshortcuts()"
+      "norm_label": "usekeyboardshortcuts()",
+      "id": "hooks_use_keyboard_shortcuts_usekeyboardshortcuts"
     },
     {
       "label": "relations.ts",
       "file_type": "code",
       "source_file": "src/db/relations.ts",
       "source_location": "L1",
-      "id": "src_db_relations_ts",
-      "community": 45,
-      "norm_label": "relations.ts"
+      "community": 46,
+      "norm_label": "relations.ts",
+      "id": "src_db_relations_ts"
     },
     {
       "label": "schema.ts",
       "file_type": "code",
       "source_file": "src/db/schema.ts",
       "source_location": "L1",
-      "id": "src_db_schema_ts",
-      "community": 46,
-      "norm_label": "schema.ts"
+      "community": 47,
+      "norm_label": "schema.ts",
+      "id": "src_db_schema_ts"
     },
     {
       "label": "index.ts",
       "file_type": "code",
       "source_file": "src/db/index.ts",
       "source_location": "L1",
-      "id": "src_db_index_ts",
-      "community": 47,
-      "norm_label": "index.ts"
+      "community": 48,
+      "norm_label": "index.ts",
+      "id": "src_db_index_ts"
     },
     {
       "label": "layout.tsx",
       "file_type": "code",
       "source_file": "src/app/layout.tsx",
       "source_location": "L1",
-      "id": "src_app_layout_tsx",
-      "community": 48,
-      "norm_label": "layout.tsx"
+      "community": 49,
+      "norm_label": "layout.tsx",
+      "id": "src_app_layout_tsx"
     },
     {
       "label": "error.tsx",
       "file_type": "code",
       "source_file": "src/app/error.tsx",
       "source_location": "L1",
-      "id": "src_app_error_tsx",
-      "community": 49,
-      "norm_label": "error.tsx"
+      "community": 50,
+      "norm_label": "error.tsx",
+      "id": "src_app_error_tsx"
     },
     {
       "label": "not-found.tsx",
       "file_type": "code",
       "source_file": "src/app/not-found.tsx",
       "source_location": "L1",
-      "id": "src_app_not_found_tsx",
-      "community": 50,
-      "norm_label": "not-found.tsx"
+      "community": 51,
+      "norm_label": "not-found.tsx",
+      "id": "src_app_not_found_tsx"
     },
     {
       "label": "sitemap.ts",
       "file_type": "code",
       "source_file": "src/app/sitemap.ts",
       "source_location": "L1",
-      "id": "src_app_sitemap_ts",
       "community": 2,
-      "norm_label": "sitemap.ts"
+      "norm_label": "sitemap.ts",
+      "id": "src_app_sitemap_ts"
     },
     {
       "label": "sitemap()",
       "file_type": "code",
       "source_file": "src/app/sitemap.ts",
       "source_location": "L8",
-      "id": "app_sitemap_sitemap",
       "community": 2,
-      "norm_label": "sitemap()"
+      "norm_label": "sitemap()",
+      "id": "app_sitemap_sitemap"
     },
     {
       "label": "robots.ts",
       "file_type": "code",
       "source_file": "src/app/robots.ts",
       "source_location": "L1",
-      "id": "src_app_robots_ts",
-      "community": 22,
-      "norm_label": "robots.ts"
+      "community": 23,
+      "norm_label": "robots.ts",
+      "id": "src_app_robots_ts"
     },
     {
       "label": "robots()",
       "file_type": "code",
       "source_file": "src/app/robots.ts",
       "source_location": "L5",
-      "id": "app_robots_robots",
-      "community": 22,
-      "norm_label": "robots()"
+      "community": 23,
+      "norm_label": "robots()",
+      "id": "app_robots_robots"
     },
     {
       "label": "layout.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/layout.tsx",
       "source_location": "L1",
-      "id": "src_app_public_layout_tsx",
       "community": 1,
-      "norm_label": "layout.tsx"
+      "norm_label": "layout.tsx",
+      "id": "src_app_public_layout_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_page_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/cheatsheets/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_cheatsheets_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_cheatsheets_page_tsx"
     },
     {
       "label": "CheatsheetsPage()",
       "file_type": "code",
       "source_file": "src/app/(public)/cheatsheets/page.tsx",
       "source_location": "L27",
-      "id": "cheatsheets_page_cheatsheetspage",
       "community": 2,
-      "norm_label": "cheatsheetspage()"
+      "norm_label": "cheatsheetspage()",
+      "id": "cheatsheets_page_cheatsheetspage"
     },
     {
       "label": "loading.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/cheatsheets/loading.tsx",
       "source_location": "L1",
-      "id": "src_app_public_cheatsheets_loading_tsx",
-      "community": 51,
-      "norm_label": "loading.tsx"
+      "community": 52,
+      "norm_label": "loading.tsx",
+      "id": "src_app_public_cheatsheets_loading_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/cheatsheets/[slug]/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_cheatsheets_slug_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_cheatsheets_slug_page_tsx"
     },
     {
       "label": "generateMetadata()",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/[slug]/page.tsx",
       "source_location": "L27",
-      "id": "slug_page_generatemetadata",
       "community": 2,
-      "norm_label": "generatemetadata()"
+      "norm_label": "generatemetadata()",
+      "id": "slug_page_generatemetadata"
     },
     {
       "label": "generateStaticParams()",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/[slug]/page.tsx",
       "source_location": "L52",
-      "id": "slug_page_generatestaticparams",
       "community": 2,
-      "norm_label": "generatestaticparams()"
+      "norm_label": "generatestaticparams()",
+      "id": "slug_page_generatestaticparams"
     },
     {
       "label": "not-found.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/cheatsheets/[slug]/not-found.tsx",
       "source_location": "L1",
-      "id": "src_app_public_cheatsheets_slug_not_found_tsx",
-      "community": 52,
-      "norm_label": "not-found.tsx"
+      "community": 53,
+      "norm_label": "not-found.tsx",
+      "id": "src_app_public_cheatsheets_slug_not_found_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/stack/[collection]/[slug]/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_stack_collection_slug_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_stack_collection_slug_page_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_blog_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_blog_page_tsx"
     },
     {
       "label": "BlogPage()",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/page.tsx",
       "source_location": "L27",
-      "id": "blog_page_blogpage",
       "community": 2,
-      "norm_label": "blogpage()"
+      "norm_label": "blogpage()",
+      "id": "blog_page_blogpage"
     },
     {
       "label": "loading.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/loading.tsx",
       "source_location": "L1",
-      "id": "src_app_public_blog_loading_tsx",
-      "community": 53,
-      "norm_label": "loading.tsx"
+      "community": 54,
+      "norm_label": "loading.tsx",
+      "id": "src_app_public_blog_loading_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/[slug]/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_blog_slug_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_blog_slug_page_tsx"
     },
     {
       "label": "not-found.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/blog/[slug]/not-found.tsx",
       "source_location": "L1",
-      "id": "src_app_public_blog_slug_not_found_tsx",
-      "community": 54,
-      "norm_label": "not-found.tsx"
+      "community": 55,
+      "norm_label": "not-found.tsx",
+      "id": "src_app_public_blog_slug_not_found_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/discover/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_discover_page_tsx",
       "community": 2,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_discover_page_tsx"
     },
     {
       "label": "DiscoverPage()",
       "file_type": "code",
       "source_file": "src/app/(public)/discover/page.tsx",
       "source_location": "L27",
-      "id": "discover_page_discoverpage",
       "community": 2,
-      "norm_label": "discoverpage()"
+      "norm_label": "discoverpage()",
+      "id": "discover_page_discoverpage"
     },
     {
       "label": "discover-client.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/discover/discover-client.tsx",
       "source_location": "L1",
-      "id": "src_app_public_discover_discover_client_tsx",
       "community": 2,
-      "norm_label": "discover-client.tsx"
+      "norm_label": "discover-client.tsx",
+      "id": "src_app_public_discover_discover_client_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/ask/page.tsx",
       "source_location": "L1",
-      "id": "src_app_public_ask_page_tsx",
       "community": 1,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_public_ask_page_tsx"
     },
     {
       "label": "ask-client.tsx",
       "file_type": "code",
       "source_file": "src/app/(public)/ask/ask-client.tsx",
       "source_location": "L1",
-      "id": "src_app_public_ask_ask_client_tsx",
       "community": 1,
-      "norm_label": "ask-client.tsx"
+      "norm_label": "ask-client.tsx",
+      "id": "src_app_public_ask_ask_client_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/setup/page.tsx",
       "source_location": "L1",
-      "id": "src_app_setup_page_tsx",
-      "community": 23,
-      "norm_label": "page.tsx"
+      "community": 24,
+      "norm_label": "page.tsx",
+      "id": "src_app_setup_page_tsx"
     },
     {
       "label": "handleSubmit()",
       "file_type": "code",
       "source_file": "src/app/setup/page.tsx",
       "source_location": "L26",
-      "id": "setup_page_handlesubmit",
-      "community": 23,
-      "norm_label": "handlesubmit()"
+      "community": 24,
+      "norm_label": "handlesubmit()",
+      "id": "setup_page_handlesubmit"
     },
     {
       "label": "layout.tsx",
       "file_type": "code",
       "source_file": "src/app/editor/layout.tsx",
       "source_location": "L1",
-      "id": "src_app_editor_layout_tsx",
-      "community": 24,
-      "norm_label": "layout.tsx"
+      "community": 25,
+      "norm_label": "layout.tsx",
+      "id": "src_app_editor_layout_tsx"
     },
     {
       "label": "EditorLayout()",
       "file_type": "code",
       "source_file": "src/app/editor/layout.tsx",
       "source_location": "L3",
-      "id": "editor_layout_editorlayout",
-      "community": 24,
-      "norm_label": "editorlayout()"
+      "community": 25,
+      "norm_label": "editorlayout()",
+      "id": "editor_layout_editorlayout"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/editor/page.tsx",
       "source_location": "L1",
-      "id": "src_app_editor_page_tsx",
-      "community": 25,
-      "norm_label": "page.tsx"
+      "community": 26,
+      "norm_label": "page.tsx",
+      "id": "src_app_editor_page_tsx"
     },
     {
       "label": "loadPages()",
       "file_type": "code",
       "source_file": "src/app/editor/page.tsx",
       "source_location": "L29",
-      "id": "editor_page_loadpages",
-      "community": 25,
-      "norm_label": "loadpages()"
+      "community": 26,
+      "norm_label": "loadpages()",
+      "id": "editor_page_loadpages"
     },
     {
       "label": "loading.tsx",
       "file_type": "code",
       "source_file": "src/app/editor/loading.tsx",
       "source_location": "L1",
-      "id": "src_app_editor_loading_tsx",
-      "community": 55,
-      "norm_label": "loading.tsx"
+      "community": 56,
+      "norm_label": "loading.tsx",
+      "id": "src_app_editor_loading_tsx"
     },
     {
       "label": "error.tsx",
       "file_type": "code",
       "source_file": "src/app/editor/error.tsx",
       "source_location": "L1",
-      "id": "src_app_editor_error_tsx",
-      "community": 56,
-      "norm_label": "error.tsx"
+      "community": 57,
+      "norm_label": "error.tsx",
+      "id": "src_app_editor_error_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/editor/new/page.tsx",
       "source_location": "L1",
-      "id": "src_app_editor_new_page_tsx",
-      "community": 57,
-      "norm_label": "page.tsx"
+      "community": 58,
+      "norm_label": "page.tsx",
+      "id": "src_app_editor_new_page_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/editor/[id]/page.tsx",
       "source_location": "L1",
-      "id": "src_app_editor_id_page_tsx",
-      "community": 26,
-      "norm_label": "page.tsx"
+      "community": 27,
+      "norm_label": "page.tsx",
+      "id": "src_app_editor_id_page_tsx"
     },
     {
       "label": "loadPage()",
       "file_type": "code",
       "source_file": "src/app/editor/[id]/page.tsx",
       "source_location": "L40",
-      "id": "id_page_loadpage",
-      "community": 26,
-      "norm_label": "loadpage()"
+      "community": 27,
+      "norm_label": "loadpage()",
+      "id": "id_page_loadpage"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/account/password/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_account_password_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_account_password_route_ts"
     },
     {
       "label": "PATCH()",
       "file_type": "code",
       "source_file": "src/app/api/account/password/route.ts",
       "source_location": "L9",
-      "id": "password_route_patch",
       "community": 0,
-      "norm_label": "patch()"
+      "norm_label": "patch()",
+      "id": "password_route_patch"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_route_ts",
       "community": 10,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_pages_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/pages/route.ts",
       "source_location": "L10",
-      "id": "pages_route_get",
       "community": 10,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "pages_route_get"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/pages/route.ts",
       "source_location": "L108",
-      "id": "pages_route_post",
-      "community": 10,
-      "norm_label": "post()"
+      "community": 0,
+      "norm_label": "post()",
+      "id": "pages_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_id_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_pages_id_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/route.ts",
       "source_location": "L12",
-      "id": "id_route_get",
       "community": 0,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "id_route_get"
     },
     {
       "label": "PUT()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/route.ts",
       "source_location": "L39",
-      "id": "id_route_put",
       "community": 0,
-      "norm_label": "put()"
+      "norm_label": "put()",
+      "id": "id_route_put"
     },
     {
       "label": "DELETE()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/route.ts",
       "source_location": "L69",
-      "id": "id_route_delete",
       "community": 0,
-      "norm_label": "delete()"
+      "norm_label": "delete()",
+      "id": "id_route_delete"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/publish/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_id_publish_route_ts",
-      "community": 8,
-      "norm_label": "route.ts"
+      "community": 0,
+      "norm_label": "route.ts",
+      "id": "src_app_api_pages_id_publish_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/publish/route.ts",
       "source_location": "L10",
-      "id": "publish_route_post",
-      "community": 8,
-      "norm_label": "post()"
+      "community": 0,
+      "norm_label": "post()",
+      "id": "publish_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/assets/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_id_assets_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_pages_id_assets_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/assets/route.ts",
       "source_location": "L32",
-      "id": "assets_route_get",
       "community": 0,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "assets_route_get"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/assets/route.ts",
       "source_location": "L61",
-      "id": "assets_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "assets_route_post"
     },
     {
       "label": "DELETE()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/assets/route.ts",
       "source_location": "L126",
-      "id": "assets_route_delete",
       "community": 0,
-      "norm_label": "delete()"
+      "norm_label": "delete()",
+      "id": "assets_route_delete"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/tags/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_id_tags_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_pages_id_tags_route_ts"
     },
     {
       "label": "PUT()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/tags/route.ts",
       "source_location": "L9",
-      "id": "tags_route_put",
       "community": 0,
-      "norm_label": "put()"
+      "norm_label": "put()",
+      "id": "tags_route_put"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/relations/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_id_relations_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_pages_id_relations_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/relations/route.ts",
       "source_location": "L11",
-      "id": "relations_route_get",
       "community": 0,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "relations_route_get"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/relations/route.ts",
       "source_location": "L85",
-      "id": "relations_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "relations_route_post"
     },
     {
       "label": "DELETE()",
       "file_type": "code",
       "source_file": "src/app/api/pages/[id]/relations/route.ts",
       "source_location": "L129",
-      "id": "relations_route_delete",
       "community": 0,
-      "norm_label": "delete()"
+      "norm_label": "delete()",
+      "id": "relations_route_delete"
     },
     {
       "label": "pages-auth.test.ts",
       "file_type": "code",
       "source_file": "src/app/api/pages/__tests__/pages-auth.test.ts",
       "source_location": "L1",
-      "id": "src_app_api_pages_tests_pages_auth_test_ts",
-      "community": 58,
-      "norm_label": "pages-auth.test.ts"
+      "community": 59,
+      "norm_label": "pages-auth.test.ts",
+      "id": "src_app_api_pages_tests_pages_auth_test_ts"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/ai/draft/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_ai_draft_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_ai_draft_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/ai/draft/route.ts",
       "source_location": "L7",
-      "id": "draft_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "draft_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/ai/rewrite/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_ai_rewrite_route_ts",
-      "community": 0,
-      "norm_label": "route.ts"
+      "community": 3,
+      "norm_label": "route.ts",
+      "id": "src_app_api_ai_rewrite_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/ai/rewrite/route.ts",
       "source_location": "L7",
-      "id": "rewrite_route_post",
-      "community": 0,
-      "norm_label": "post()"
+      "community": 3,
+      "norm_label": "post()",
+      "id": "rewrite_route_post"
     },
     {
       "label": "ai-admin-guard.test.ts",
       "file_type": "code",
       "source_file": "src/app/api/ai/__tests__/ai-admin-guard.test.ts",
       "source_location": "L1",
-      "id": "src_app_api_ai_tests_ai_admin_guard_test_ts",
-      "community": 59,
-      "norm_label": "ai-admin-guard.test.ts"
+      "community": 60,
+      "norm_label": "ai-admin-guard.test.ts",
+      "id": "src_app_api_ai_tests_ai_admin_guard_test_ts"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/auth/[...nextauth]/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_auth_nextauth_route_ts",
-      "community": 60,
-      "norm_label": "route.ts"
+      "community": 61,
+      "norm_label": "route.ts",
+      "id": "src_app_api_auth_nextauth_route_ts"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/search/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_search_route_ts",
-      "community": 4,
-      "norm_label": "route.ts"
+      "community": 3,
+      "norm_label": "route.ts",
+      "id": "src_app_api_search_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/search/route.ts",
       "source_location": "L8",
-      "id": "search_route_get",
-      "community": 4,
-      "norm_label": "get()"
+      "community": 3,
+      "norm_label": "get()",
+      "id": "search_route_get"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/setup/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_setup_route_ts",
-      "community": 16,
-      "norm_label": "route.ts"
+      "community": 17,
+      "norm_label": "route.ts",
+      "id": "src_app_api_setup_route_ts"
     },
     {
       "label": "adminExists()",
       "file_type": "code",
       "source_file": "src/app/api/setup/route.ts",
       "source_location": "L8",
-      "id": "setup_route_adminexists",
-      "community": 16,
-      "norm_label": "adminexists()"
+      "community": 17,
+      "norm_label": "adminexists()",
+      "id": "setup_route_adminexists"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/setup/route.ts",
       "source_location": "L21",
-      "id": "setup_route_get",
-      "community": 16,
-      "norm_label": "get()"
+      "community": 17,
+      "norm_label": "get()",
+      "id": "setup_route_get"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/setup/route.ts",
       "source_location": "L29",
-      "id": "setup_route_post",
-      "community": 16,
-      "norm_label": "post()"
+      "community": 17,
+      "norm_label": "post()",
+      "id": "setup_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/collections/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_collections_route_ts",
-      "community": 27,
-      "norm_label": "route.ts"
+      "community": 28,
+      "norm_label": "route.ts",
+      "id": "src_app_api_collections_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/collections/route.ts",
       "source_location": "L6",
-      "id": "collections_route_get",
-      "community": 27,
-      "norm_label": "get()"
+      "community": 28,
+      "norm_label": "get()",
+      "id": "collections_route_get"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/chat/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_chat_route_ts",
-      "community": 4,
-      "norm_label": "route.ts"
+      "community": 3,
+      "norm_label": "route.ts",
+      "id": "src_app_api_chat_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/chat/route.ts",
       "source_location": "L33",
-      "id": "chat_route_post",
-      "community": 4,
-      "norm_label": "post()"
+      "community": 3,
+      "norm_label": "post()",
+      "id": "chat_route_post"
     },
     {
       "label": "chat-admin-guard.test.ts",
       "file_type": "code",
       "source_file": "src/app/api/chat/__tests__/chat-admin-guard.test.ts",
       "source_location": "L1",
-      "id": "src_app_api_chat_tests_chat_admin_guard_test_ts",
-      "community": 61,
-      "norm_label": "chat-admin-guard.test.ts"
+      "community": 62,
+      "norm_label": "chat-admin-guard.test.ts",
+      "id": "src_app_api_chat_tests_chat_admin_guard_test_ts"
     },
     {
       "label": "chat-citations.test.ts",
       "file_type": "code",
       "source_file": "src/app/api/chat/__tests__/chat-citations.test.ts",
       "source_location": "L1",
-      "id": "src_app_api_chat_tests_chat_citations_test_ts",
-      "community": 4,
-      "norm_label": "chat-citations.test.ts"
+      "community": 3,
+      "norm_label": "chat-citations.test.ts",
+      "id": "src_app_api_chat_tests_chat_citations_test_ts"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/health/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_health_route_ts",
-      "community": 28,
-      "norm_label": "route.ts"
+      "community": 29,
+      "norm_label": "route.ts",
+      "id": "src_app_api_health_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/health/route.ts",
       "source_location": "L5",
-      "id": "health_route_get",
-      "community": 28,
-      "norm_label": "get()"
+      "community": 29,
+      "norm_label": "get()",
+      "id": "health_route_get"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/embeddings/stats/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_embeddings_stats_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_embeddings_stats_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/admin/embeddings/stats/route.ts",
       "source_location": "L7",
-      "id": "stats_route_get",
       "community": 0,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "stats_route_get"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/embeddings/reset/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_embeddings_reset_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_embeddings_reset_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/admin/embeddings/reset/route.ts",
       "source_location": "L15",
-      "id": "reset_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "reset_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/embeddings/sync/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_embeddings_sync_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_embeddings_sync_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/admin/embeddings/sync/route.ts",
       "source_location": "L10",
-      "id": "sync_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "sync_route_post"
     },
     {
       "label": "admin-auth.test.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/__tests__/admin-auth.test.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_tests_admin_auth_test_ts",
-      "community": 62,
-      "norm_label": "admin-auth.test.ts"
+      "community": 63,
+      "norm_label": "admin-auth.test.ts",
+      "id": "src_app_api_admin_tests_admin_auth_test_ts"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_providers_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_providers_route_ts"
     },
     {
       "label": "GET()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/route.ts",
       "source_location": "L7",
-      "id": "providers_route_get",
       "community": 0,
-      "norm_label": "get()"
+      "norm_label": "get()",
+      "id": "providers_route_get"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/route.ts",
       "source_location": "L27",
-      "id": "providers_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "providers_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_providers_id_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_providers_id_route_ts"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/test/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_providers_id_test_route_ts",
-      "community": 3,
-      "norm_label": "route.ts"
+      "community": 0,
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_providers_id_test_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/test/route.ts",
       "source_location": "L7",
-      "id": "test_route_post",
-      "community": 3,
-      "norm_label": "post()"
+      "community": 0,
+      "norm_label": "post()",
+      "id": "test_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/models/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_providers_id_models_route_ts",
       "community": 0,
-      "norm_label": "route.ts"
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_providers_id_models_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/models/route.ts",
       "source_location": "L8",
-      "id": "models_route_post",
       "community": 0,
-      "norm_label": "post()"
+      "norm_label": "post()",
+      "id": "models_route_post"
     },
     {
       "label": "route.ts",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/discover/route.ts",
       "source_location": "L1",
-      "id": "src_app_api_admin_providers_id_discover_route_ts",
-      "community": 3,
-      "norm_label": "route.ts"
+      "community": 0,
+      "norm_label": "route.ts",
+      "id": "src_app_api_admin_providers_id_discover_route_ts"
     },
     {
       "label": "POST()",
       "file_type": "code",
       "source_file": "src/app/api/admin/providers/[id]/discover/route.ts",
       "source_location": "L7",
-      "id": "discover_route_post",
-      "community": 3,
-      "norm_label": "post()"
+      "community": 0,
+      "norm_label": "post()",
+      "id": "discover_route_post"
     },
     {
       "label": "layout.tsx",
       "file_type": "code",
       "source_file": "src/app/settings/layout.tsx",
       "source_location": "L1",
-      "id": "src_app_settings_layout_tsx",
       "community": 1,
-      "norm_label": "layout.tsx"
+      "norm_label": "layout.tsx",
+      "id": "src_app_settings_layout_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/settings/page.tsx",
       "source_location": "L1",
-      "id": "src_app_settings_page_tsx",
       "community": 1,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_settings_page_tsx"
     },
     {
       "label": "applyAppearanceCss()",
       "file_type": "code",
       "source_file": "src/app/settings/page.tsx",
       "source_location": "L46",
-      "id": "settings_page_applyappearancecss",
       "community": 1,
-      "norm_label": "applyappearancecss()"
+      "norm_label": "applyappearancecss()",
+      "id": "settings_page_applyappearancecss"
     },
     {
       "label": "handlePasswordChange()",
       "file_type": "code",
       "source_file": "src/app/settings/page.tsx",
       "source_location": "L132",
-      "id": "settings_page_handlepasswordchange",
       "community": 1,
-      "norm_label": "handlepasswordchange()"
+      "norm_label": "handlepasswordchange()",
+      "id": "settings_page_handlepasswordchange"
     },
     {
       "label": "updateAppearance()",
       "file_type": "code",
       "source_file": "src/app/settings/page.tsx",
       "source_location": "L194",
-      "id": "settings_page_updateappearance",
       "community": 1,
-      "norm_label": "updateappearance()"
+      "norm_label": "updateappearance()",
+      "id": "settings_page_updateappearance"
     },
     {
       "label": "saveGenModel()",
       "file_type": "code",
       "source_file": "src/app/settings/page.tsx",
       "source_location": "L208",
-      "id": "settings_page_savegenmodel",
       "community": 1,
-      "norm_label": "savegenmodel()"
+      "norm_label": "savegenmodel()",
+      "id": "settings_page_savegenmodel"
     },
     {
       "label": "saveEmbedModel()",
       "file_type": "code",
       "source_file": "src/app/settings/page.tsx",
       "source_location": "L213",
-      "id": "settings_page_saveembedmodel",
       "community": 1,
-      "norm_label": "saveembedmodel()"
+      "norm_label": "saveembedmodel()",
+      "id": "settings_page_saveembedmodel"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/login/page.tsx",
       "source_location": "L1",
-      "id": "src_app_login_page_tsx",
-      "community": 29,
-      "norm_label": "page.tsx"
+      "community": 30,
+      "norm_label": "page.tsx",
+      "id": "src_app_login_page_tsx"
     },
     {
       "label": "handleSubmit()",
       "file_type": "code",
       "source_file": "src/app/login/page.tsx",
       "source_location": "L23",
-      "id": "login_page_handlesubmit",
-      "community": 29,
-      "norm_label": "handlesubmit()"
+      "community": 30,
+      "norm_label": "handlesubmit()",
+      "id": "login_page_handlesubmit"
     },
     {
       "label": "layout.tsx",
       "file_type": "code",
       "source_file": "src/app/admin/layout.tsx",
       "source_location": "L1",
-      "id": "src_app_admin_layout_tsx",
-      "community": 63,
-      "norm_label": "layout.tsx"
+      "community": 64,
+      "norm_label": "layout.tsx",
+      "id": "src_app_admin_layout_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L1",
-      "id": "src_app_admin_ai_providers_page_tsx",
       "community": 6,
-      "norm_label": "page.tsx"
+      "norm_label": "page.tsx",
+      "id": "src_app_admin_ai_providers_page_tsx"
     },
     {
       "label": "CapBadge()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L120",
-      "id": "providers_page_capbadge",
       "community": 6,
-      "norm_label": "capbadge()"
+      "norm_label": "capbadge()",
+      "id": "providers_page_capbadge"
     },
     {
       "label": "Spinner()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L141",
-      "id": "providers_page_spinner",
       "community": 6,
-      "norm_label": "spinner()"
+      "norm_label": "spinner()",
+      "id": "providers_page_spinner"
     },
     {
       "label": "fetchEmbeddingStats()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L236",
-      "id": "providers_page_fetchembeddingstats",
       "community": 6,
-      "norm_label": "fetchembeddingstats()"
+      "norm_label": "fetchembeddingstats()",
+      "id": "providers_page_fetchembeddingstats"
     },
     {
       "label": "handleEmbeddingAction()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L251",
-      "id": "providers_page_handleembeddingaction",
       "community": 6,
-      "norm_label": "handleembeddingaction()"
+      "norm_label": "handleembeddingaction()",
+      "id": "providers_page_handleembeddingaction"
     },
     {
       "label": "openAddForm()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L309",
-      "id": "providers_page_openaddform",
       "community": 6,
-      "norm_label": "openaddform()"
+      "norm_label": "openaddform()",
+      "id": "providers_page_openaddform"
     },
     {
       "label": "openEditForm()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L316",
-      "id": "providers_page_openeditform",
       "community": 6,
-      "norm_label": "openeditform()"
+      "norm_label": "openeditform()",
+      "id": "providers_page_openeditform"
     },
     {
       "label": "closeForm()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L333",
-      "id": "providers_page_closeform",
       "community": 6,
-      "norm_label": "closeform()"
+      "norm_label": "closeform()",
+      "id": "providers_page_closeform"
     },
     {
       "label": "handleSave()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L339",
-      "id": "providers_page_handlesave",
       "community": 6,
-      "norm_label": "handlesave()"
+      "norm_label": "handlesave()",
+      "id": "providers_page_handlesave"
     },
     {
       "label": "handleDelete()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L393",
-      "id": "providers_page_handledelete",
       "community": 6,
-      "norm_label": "handledelete()"
+      "norm_label": "handledelete()",
+      "id": "providers_page_handledelete"
     },
     {
       "label": "openAddModel()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L407",
-      "id": "providers_page_openaddmodel",
       "community": 6,
-      "norm_label": "openaddmodel()"
+      "norm_label": "openaddmodel()",
+      "id": "providers_page_openaddmodel"
     },
     {
       "label": "closeAddModel()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L416",
-      "id": "providers_page_closeaddmodel",
       "community": 6,
-      "norm_label": "closeaddmodel()"
+      "norm_label": "closeaddmodel()",
+      "id": "providers_page_closeaddmodel"
     },
     {
       "label": "updateAddModelForm()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L421",
-      "id": "providers_page_updateaddmodelform",
       "community": 6,
-      "norm_label": "updateaddmodelform()"
+      "norm_label": "updateaddmodelform()",
+      "id": "providers_page_updateaddmodelform"
     },
     {
       "label": "handleAddModel()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L428",
-      "id": "providers_page_handleaddmodel",
       "community": 6,
-      "norm_label": "handleaddmodel()"
+      "norm_label": "handleaddmodel()",
+      "id": "providers_page_handleaddmodel"
     },
     {
       "label": "handleTest()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L460",
-      "id": "providers_page_handletest",
       "community": 6,
-      "norm_label": "handletest()"
+      "norm_label": "handletest()",
+      "id": "providers_page_handletest"
     },
     {
       "label": "handleDiscover()",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/page.tsx",
       "source_location": "L489",
-      "id": "providers_page_handlediscover",
       "community": 6,
-      "norm_label": "handlediscover()"
+      "norm_label": "handlediscover()",
+      "id": "providers_page_handlediscover"
     },
     {
       "label": "loading.tsx",
       "file_type": "code",
       "source_file": "src/app/admin/ai/providers/loading.tsx",
       "source_location": "L1",
-      "id": "src_app_admin_ai_providers_loading_tsx",
-      "community": 64,
-      "norm_label": "loading.tsx"
+      "community": 65,
+      "norm_label": "loading.tsx",
+      "id": "src_app_admin_ai_providers_loading_tsx"
     },
     {
       "label": "page.tsx",
       "file_type": "code",
       "source_file": "src/app/admin/ai/usage/page.tsx",
       "source_location": "L1",
-      "id": "src_app_admin_ai_usage_page_tsx",
-      "community": 65,
-      "norm_label": "page.tsx"
+      "community": 66,
+      "norm_label": "page.tsx",
+      "id": "src_app_admin_ai_usage_page_tsx"
     },
     {
       "label": "env-check.test.ts",
       "file_type": "code",
       "source_file": "src/__tests__/env-check.test.ts",
       "source_location": "L1",
-      "id": "src_tests_env_check_test_ts",
-      "community": 66,
-      "norm_label": "env-check.test.ts"
+      "community": 67,
+      "norm_label": "env-check.test.ts",
+      "id": "src_tests_env_check_test_ts"
     },
     {
       "label": "uuid.test.ts",
       "file_type": "code",
       "source_file": "src/__tests__/uuid.test.ts",
       "source_location": "L1",
-      "id": "src_tests_uuid_test_ts",
       "community": 0,
-      "norm_label": "uuid.test.ts"
+      "norm_label": "uuid.test.ts",
+      "id": "src_tests_uuid_test_ts"
     },
     {
       "label": "middleware.test.ts",
       "file_type": "code",
       "source_file": "src/__tests__/middleware.test.ts",
       "source_location": "L1",
-      "id": "src_tests_middleware_test_ts",
-      "community": 13,
-      "norm_label": "middleware.test.ts"
+      "community": 14,
+      "norm_label": "middleware.test.ts",
+      "id": "src_tests_middleware_test_ts"
     },
     {
       "label": "makeRequest()",
       "file_type": "code",
       "source_file": "src/__tests__/middleware.test.ts",
       "source_location": "L11",
-      "id": "tests_middleware_test_makerequest",
-      "community": 13,
-      "norm_label": "makerequest()"
+      "community": 14,
+      "norm_label": "makerequest()",
+      "id": "tests_middleware_test_makerequest"
     },
     {
       "label": "crypto.test.ts",
       "file_type": "code",
       "source_file": "src/__tests__/crypto.test.ts",
       "source_location": "L1",
-      "id": "src_tests_crypto_test_ts",
-      "community": 3,
-      "norm_label": "crypto.test.ts"
+      "community": 4,
+      "norm_label": "crypto.test.ts",
+      "id": "src_tests_crypto_test_ts"
     },
     {
       "label": "smoke.spec.ts",
       "file_type": "code",
       "source_file": "tests/smoke.spec.ts",
       "source_location": "L1",
-      "id": "tests_smoke_spec_ts",
-      "community": 67,
-      "norm_label": "smoke.spec.ts"
+      "community": 68,
+      "norm_label": "smoke.spec.ts",
+      "id": "tests_smoke_spec_ts"
     },
     {
       "label": "BrainStack Platform",
@@ -2889,7 +2889,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 30,
+      "community": 31,
       "norm_label": "tech stack",
       "id": "architecture_tech_stack"
     },
@@ -2916,7 +2916,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 30,
+      "community": 31,
       "norm_label": "spec constraints",
       "id": "spec_constraints"
     },
@@ -2929,7 +2929,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 68,
+      "community": 69,
       "norm_label": "spec interfaces",
       "id": "spec_interfaces"
     },
@@ -3216,7 +3216,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 18,
       "norm_label": "db extensions init",
       "id": "init_db_extensions"
     },
@@ -3271,7 +3271,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 18,
       "norm_label": "docker compose production",
       "id": "docker_compose_prod"
     },
@@ -3284,7 +3284,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 17,
+      "community": 18,
       "norm_label": "docker compose development",
       "id": "docker_compose_dev"
     },
@@ -3337,7 +3337,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 69,
+      "community": 70,
       "norm_label": "code of conduct",
       "id": "code_of_conduct"
     },
@@ -3350,7 +3350,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 70,
+      "community": 71,
       "norm_label": "pnpm workspace config",
       "id": "pnpm_workspace"
     },
@@ -3363,7 +3363,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 71,
+      "community": 72,
       "norm_label": "window icon svg",
       "id": "window_svg"
     },
@@ -3376,7 +3376,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 72,
+      "community": 73,
       "norm_label": "vercel logo svg",
       "id": "vercel_svg"
     },
@@ -3389,7 +3389,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 73,
+      "community": 74,
       "norm_label": "file icon svg",
       "id": "file_svg"
     },
@@ -3402,7 +3402,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 74,
+      "community": 75,
       "norm_label": "next.js logo svg",
       "id": "next_svg"
     },
@@ -3415,7 +3415,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 75,
+      "community": 76,
       "norm_label": "globe icon svg",
       "id": "globe_svg"
     },
@@ -3759,7 +3759,7 @@
       "captured_at": "2026-05-03",
       "author": null,
       "contributor": null,
-      "community": 76,
+      "community": 77,
       "norm_label": "caveman communication style directive",
       "id": "claude_communication_style"
     },
@@ -3775,6 +3775,78 @@
       "community": 5,
       "norm_label": "graphify knowledge graph integration",
       "id": "claude_graphify_integration"
+    },
+    {
+      "label": "seed.ts",
+      "file_type": "code",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "community": 11,
+      "norm_label": "seed.ts"
+    },
+    {
+      "label": "chat-admin-guard.test.ts",
+      "file_type": "code",
+      "source_file": "src/app/api/chat/__tests__/chat-admin-guard.test.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_app_api_chat_tests_chat_admin_guard_test_ts",
+      "community": 78,
+      "norm_label": "chat-admin-guard.test.ts"
+    },
+    {
+      "label": "route.ts",
+      "file_type": "code",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "community": 3,
+      "norm_label": "route.ts"
+    },
+    {
+      "label": "schema.ts",
+      "file_type": "code",
+      "source_file": "src/db/schema.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_db_schema_ts",
+      "community": 79,
+      "norm_label": "schema.ts"
+    },
+    {
+      "label": "pipeline.test.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/__tests__/pipeline.test.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_pipeline_test_ts",
+      "community": 80,
+      "norm_label": "pipeline.test.ts"
+    },
+    {
+      "label": "search.test.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "community": 3,
+      "norm_label": "search.test.ts"
+    },
+    {
+      "label": "pipeline.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/pipeline.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_pipeline_ts",
+      "community": 8,
+      "norm_label": "pipeline.ts"
+    },
+    {
+      "label": "search.ts",
+      "file_type": "code",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L1",
+      "id": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "community": 3,
+      "norm_label": "search.ts"
     }
   ],
   "links": [
@@ -3826,8 +3898,18 @@
       "source_location": "L1564",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "scripts_seed_slugify",
-      "target": "scripts_seed_seed"
+      "source": "scripts_seed_seed",
+      "target": "scripts_seed_slugify"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_slugify",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -3837,8 +3919,18 @@
       "source_location": "L1593",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "scripts_seed_splitintochunks",
-      "target": "scripts_seed_seed"
+      "source": "scripts_seed_seed",
+      "target": "scripts_seed_splitintochunks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_splitintochunks",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -3848,8 +3940,28 @@
       "source_location": "L1577",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "scripts_seed_stripmdx",
-      "target": "scripts_seed_seed"
+      "source": "scripts_seed_seed",
+      "target": "scripts_seed_stripmdx"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_stripmdx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/seed.ts",
+      "source_location": "L1486",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_scripts_seed_ts",
+      "target": "scripts_seed_seed",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -7753,6 +7865,27 @@
       "target": "src_lib_rag_tests_search_test_ts"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "rag_search_rrf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_rrf",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -7768,11 +7901,11 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/rag/search.ts",
-      "source_location": "L121",
+      "source_location": "L154",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "rag_search_extractrows",
-      "target": "rag_search_hybridsearch"
+      "source": "rag_search_hybridsearch",
+      "target": "rag_search_extractrows"
     },
     {
       "relation": "imports",
@@ -7814,9 +7947,30 @@
       "source_file": "src/lib/rag/__tests__/search.test.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "rag_search_extractrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_extractrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "src_lib_rag_tests_search_test_ts",
-      "target": "rag_search_getpagechunks"
+      "source": "rag_search_getpagechunks",
+      "target": "src_lib_rag_tests_search_test_ts"
     },
     {
       "relation": "imports",
@@ -7826,8 +7980,8 @@
       "source_location": "L6",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "src_app_api_chat_route_ts",
-      "target": "rag_search_getpagechunks"
+      "source": "rag_search_getpagechunks",
+      "target": "src_app_api_chat_route_ts"
     },
     {
       "relation": "calls",
@@ -7835,10 +7989,42 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/app/api/chat/route.ts",
-      "source_location": "L75",
+      "source_location": "L82",
       "weight": 1.0,
       "source": "chat_route_post",
       "target": "rag_search_getpagechunks"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "target": "rag_search_getpagechunks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "rag_search_getpagechunks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_getpagechunks",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -7890,10 +8076,31 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/app/api/chat/route.ts",
-      "source_location": "L74",
+      "source_location": "L83",
       "weight": 1.0,
-      "source": "rag_search_hybridsearch",
-      "target": "chat_route_post"
+      "source": "chat_route_post",
+      "target": "rag_search_hybridsearch"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "target": "rag_search_hybridsearch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/search.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_search_ts",
+      "target": "rag_search_hybridsearch",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -8156,6 +8363,16 @@
       "target": "rag_pipeline_runpublishpipeline"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/pipeline.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_pipeline_ts",
+      "target": "rag_pipeline_stripmarkdown",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -8180,12 +8397,32 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/pipeline.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_pipeline_ts",
+      "target": "rag_pipeline_runpublishpipeline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/lib/rag/__tests__/search.test.ts",
       "source_location": "L13",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_lib_rag_tests_search_test_ts",
       "target": "tests_search_test_sqltext"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/rag/__tests__/search.test.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_lib_rag_tests_search_test_ts",
+      "target": "tests_search_test_sqltext",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -9368,6 +9605,16 @@
       "confidence_score": 1.0,
       "source": "src_app_api_chat_route_ts",
       "target": "chat_route_post"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/app/api/chat/route.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "home_ubuntu_simondayce_brainstack_src_app_api_chat_route_ts",
+      "target": "chat_route_post",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
